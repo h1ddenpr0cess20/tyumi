@@ -381,7 +381,7 @@
 
 /* Navigation controls at middle sides */
 .gallery-slideshow-nav {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   width: 54px; /* Larger for touch devices */
@@ -397,6 +397,7 @@
   align-items: center;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1010;
 }
 
 .gallery-slideshow-nav:hover {
