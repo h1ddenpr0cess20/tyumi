@@ -116,7 +116,7 @@ window.addEventListener('error', function(event) {
 
 window.config = {
     // Default service to use
-    defaultService: 'ollama',
+    defaultService: 'openai',
     
     // Enable OpenAI function calling
     enableFunctionCalling: true,
