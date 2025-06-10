@@ -19,9 +19,11 @@ async function getWeather(args) {
   const unitSymbol = unit === 'celsius' ? '°C' : '°F';
   
   try {
-    // API Key from OpenWeatherMap - ideally this would be stored securely
-    // For production, use an environment variable or user-provided key
-    const apiKey = "411ff0a150fa8ab24a38334e1b869bdc"; // Free tier API key
+    // Retrieve API Key from storage
+    const apiKey = window.getToolApiKey ? window.getToolApiKey('openweather') : null;
+    if (!apiKey) {
+      throw new Error('OpenWeather API key not configured. Please add your OpenWeather API key in the Tools settings.');
+    }
     
     // First, get coordinates for the location using geocoding API
     // Create a tracked controller for this request
