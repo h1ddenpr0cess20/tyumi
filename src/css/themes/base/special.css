@@ -83,9 +83,7 @@
   border: 1px solid #33ff33 !important;
 }
 
-.theme-terminal #send-button:hover {
-  background-color: #336633 !important;
-}
+/* Terminal theme send button hover effect removed */
 
 .theme-terminal #settings-panel {
   border-radius: 0;

@@ -65,10 +65,7 @@
   stroke: none;
 }
 
-#send-button:hover .send-icon,
-#send-button:hover .stop-icon {
-  transform: scale(1.1);
-}
+/* Hover effect removed */
 
 #send-button .stopping-spinner {
   position: absolute;
@@ -117,15 +114,7 @@
   display: block !important;
 }
 
-#send-button:hover {
-  background-color: var(--bg-primary);
-  color: var(--accent-hover);
-}
-
-#send-button.stop-mode:hover {
-  background-color: var(--bg-primary);
-  color: #c0392b;
-}
+/* Hover effects removed */
 
 #send-button:active {
   transform: translateY(-50%) scale(0.95);
