@@ -522,9 +522,14 @@ function setupPersonalityPresetEventListeners() {
   const presetButtons = document.querySelectorAll('.preset-button');
   
   presetButtons.forEach(button => {
+    // Set hover tooltip from data-personality attribute
+    const personality = button.getAttribute('data-personality');
+    if (personality) {
+      button.title = personality;
+    }
+    
     button.addEventListener('click', () => {
-      const personality = button.getAttribute('data-personality');
-        if (personality && window.personalityInput) {
+      if (personality && window.personalityInput) {
         // Start new conversation FIRST to save current conversation with its original system prompt
         window.startNewConversation('Personality: ' + personality);
         
