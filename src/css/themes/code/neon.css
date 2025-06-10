@@ -5,7 +5,7 @@
 [class*="theme-neon-"] .code-block {
   background-color: rgba(0, 0, 0, 0.8);
   color: var(--accent-color);
-  border: 1px solid var(--accent-color);
+  border: none;
   box-shadow: 0 0 10px var(--neon-glow), inset 0 0 20px var(--neon-glow-inner);
   border-radius: 8px;
   padding: 16px;
@@ -59,8 +59,8 @@
 
 /* Copy button styling for all neon themes */
 [class*="theme-neon-"] .copy-btn {
-  background-color: var(--neon-copy-bg) !important;
-  border: 1px solid var(--accent-color) !important;
-  color: var(--accent-color) !important;
-  box-shadow: 0 0 5px var(--neon-glow);
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
 }

@@ -818,3 +818,39 @@
 .theme-south-africa .hljs-params {
   color: #ffd966 !important; /* Enhanced Gold - better readability */
 }
+
+/* Copy button styling for all country themes */
+.theme-usa .copy-btn,
+.theme-mexico .copy-btn,
+.theme-brazil .copy-btn,
+.theme-uk .copy-btn,
+.theme-canada .copy-btn,
+.theme-italy .copy-btn,
+.theme-germany .copy-btn,
+.theme-greece .copy-btn,
+.theme-australia .copy-btn,
+.theme-france .copy-btn,
+.theme-india .copy-btn,
+.theme-japan .copy-btn,
+.theme-south-africa .copy-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+}
+
+.theme-usa .copy-btn:hover,
+.theme-mexico .copy-btn:hover,
+.theme-brazil .copy-btn:hover,
+.theme-uk .copy-btn:hover,
+.theme-canada .copy-btn:hover,
+.theme-italy .copy-btn:hover,
+.theme-germany .copy-btn:hover,
+.theme-greece .copy-btn:hover,
+.theme-australia .copy-btn:hover,
+.theme-france .copy-btn:hover,
+.theme-india .copy-btn:hover,
+.theme-japan .copy-btn:hover,
+.theme-south-africa .copy-btn:hover {
+  color: var(--accent-color) !important;
+}

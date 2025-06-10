@@ -78,9 +78,9 @@
 }
 
 .theme-terminal #send-button {
-  background-color: #224422 !important;
+  background: transparent !important;
   color: #33ff33 !important;
-  border: 1px solid #33ff33 !important;
+  border: none !important;
 }
 
 /* Terminal theme send button hover effect removed */
@@ -102,22 +102,24 @@
 }
 
 .theme-terminal .copy-btn {
-  background-color: #224422 !important;
+  background: transparent !important;
   color: #33ff33 !important;
-  border: 1px solid #33ff33 !important;
+  border: none !important;
 }
 
 .theme-terminal .copy-btn:hover {
-  background-color: #336633 !important;
+  background: transparent !important;
+  color: #88ff88 !important;
   opacity: 1;
 }
 
 .theme-terminal .radio-label {
-  border: 1px solid #33cc33 !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 .theme-terminal .radio-label:hover {
-  background-color: #224422 !important;
+  background: transparent !important;
 }
 
 .theme-terminal .radio-text {
@@ -133,32 +135,33 @@
 }
 
 .theme-terminal .radio-label:has(input[type="radio"]:checked) {
-  background-color: #224422 !important;
-  border-color: #33ff33 !important;
+  background: transparent !important;
+  border: none !important;
 }
 
 .theme-terminal #settings-button,
 .theme-terminal .close-settings,
 .theme-terminal .tab-button,
 .theme-terminal .reset-button,
-.theme-terminal select,
 .theme-terminal button:not(#send-button):not(.copy-btn):not(.radio-label) {
-  background-color: #224422 !important;
+  background: transparent !important;
   color: #33ff33 !important;
-  border: 1px solid #33ff33 !important;
+  border: none !important;
 }
 
 .theme-terminal #settings-button:hover,
 .theme-terminal .close-settings:hover,
 .theme-terminal .tab-button:hover,
 .theme-terminal .reset-button:hover,
-.theme-terminal select:hover,
 .theme-terminal button:not(#send-button):not(.copy-btn):not(.radio-label):hover {
-  background-color: #336633 !important;
+  background: transparent !important;
+  color: #88ff88 !important;
 }
 
 .theme-terminal .tab-button.active {
-  background-color: #336633 !important;
+  background: transparent !important;
+  color: #88ff88 !important;
+  border: none !important;
   border-bottom: 2px solid #33ff33 !important;
 }
 

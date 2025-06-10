@@ -608,3 +608,33 @@
 .theme-minimal-dark .hljs-selector-pseudo {
   color: #aaaaaa !important;
 }
+
+/* Copy button styling for all dark themes */
+.theme-dark-gray .copy-btn,
+.theme-dark-red .copy-btn,
+.theme-dark-orange .copy-btn,
+.theme-dark-yellow .copy-btn,
+.theme-dark-green .copy-btn,
+.theme-dark-blue .copy-btn,
+.theme-dark-purple .copy-btn,
+.theme-dark-pink .copy-btn,
+.theme-super-dark .copy-btn,
+.theme-minimal-dark .copy-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+}
+
+.theme-dark-gray .copy-btn:hover,
+.theme-dark-red .copy-btn:hover,
+.theme-dark-orange .copy-btn:hover,
+.theme-dark-yellow .copy-btn:hover,
+.theme-dark-green .copy-btn:hover,
+.theme-dark-blue .copy-btn:hover,
+.theme-dark-purple .copy-btn:hover,
+.theme-dark-pink .copy-btn:hover,
+.theme-super-dark .copy-btn:hover,
+.theme-minimal-dark .copy-btn:hover {
+  color: var(--accent-color) !important;
+}

@@ -548,3 +548,31 @@
 .theme-minimal-light .hljs-selector-pseudo {
   color: #444444 !important;
 }
+
+/* Copy button styling for all light themes */
+.theme-light-gray .copy-btn,
+.theme-light-red .copy-btn,
+.theme-light-orange .copy-btn,
+.theme-light-yellow .copy-btn,
+.theme-light-green .copy-btn,
+.theme-light-blue .copy-btn,
+.theme-light-purple .copy-btn,
+.theme-light-pink .copy-btn,
+.theme-minimal-light .copy-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+}
+
+.theme-light-gray .copy-btn:hover,
+.theme-light-red .copy-btn:hover,
+.theme-light-orange .copy-btn:hover,
+.theme-light-yellow .copy-btn:hover,
+.theme-light-green .copy-btn:hover,
+.theme-light-blue .copy-btn:hover,
+.theme-light-purple .copy-btn:hover,
+.theme-light-pink .copy-btn:hover,
+.theme-minimal-light .copy-btn:hover {
+  color: var(--accent-color) !important;
+}

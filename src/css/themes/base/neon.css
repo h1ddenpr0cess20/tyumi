@@ -136,8 +136,13 @@
   text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff, 0 0 15px #00bfff;
 }
 
-.theme-neon-blue button,
-.theme-neon-blue .tab-button,
+.theme-neon-blue #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-blue input,
 .theme-neon-blue select,
 .theme-neon-blue textarea {
@@ -145,9 +150,10 @@
   border: 1px solid #00bfff;
 }
 
-.theme-neon-blue button:hover,
-.theme-neon-blue .tab-button:hover {
-  box-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff, inset 0 0 10px rgba(0, 191, 255, 0.2);
+.theme-neon-blue #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-blue .message {
@@ -167,8 +173,13 @@
   text-shadow: 0 0 5px #ff1493, 0 0 10px #ff1493, 0 0 15px #ff1493;
 }
 
-.theme-neon-pink button,
-.theme-neon-pink .tab-button,
+.theme-neon-pink #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-pink input,
 .theme-neon-pink select,
 .theme-neon-pink textarea {
@@ -176,9 +187,10 @@
   border: 1px solid #ff1493;
 }
 
-.theme-neon-pink button:hover,
-.theme-neon-pink .tab-button:hover {
-  box-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493, inset 0 0 10px rgba(255, 20, 147, 0.2);
+.theme-neon-pink #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-pink .message {
@@ -198,8 +210,13 @@
   text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
 }
 
-.theme-neon-green button,
-.theme-neon-green .tab-button,
+.theme-neon-green #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-green input,
 .theme-neon-green select,
 .theme-neon-green textarea {
@@ -207,9 +224,10 @@
   border: 1px solid #00ff00;
 }
 
-.theme-neon-green button:hover,
-.theme-neon-green .tab-button:hover {
-  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, inset 0 0 10px rgba(0, 255, 0, 0.2);
+.theme-neon-green #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-green .message {
@@ -229,8 +247,13 @@
   text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2, 0 0 15px #8a2be2;
 }
 
-.theme-neon-purple button,
-.theme-neon-purple .tab-button,
+.theme-neon-purple #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-purple input,
 .theme-neon-purple select,
 .theme-neon-purple textarea {
@@ -238,9 +261,10 @@
   border: 1px solid #8a2be2;
 }
 
-.theme-neon-purple button:hover,
-.theme-neon-purple .tab-button:hover {
-  box-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, inset 0 0 10px rgba(138, 43, 226, 0.2);
+.theme-neon-purple #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-purple .message {
@@ -260,8 +284,13 @@
   text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500;
 }
 
-.theme-neon-orange button,
-.theme-neon-orange .tab-button,
+.theme-neon-orange #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-orange input,
 .theme-neon-orange select,
 .theme-neon-orange textarea {
@@ -269,9 +298,10 @@
   border: 1px solid #ff4500;
 }
 
-.theme-neon-orange button:hover,
-.theme-neon-orange .tab-button:hover {
-  box-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500, inset 0 0 10px rgba(255, 69, 0, 0.2);
+.theme-neon-orange #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-orange .message {
@@ -291,8 +321,13 @@
   text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
 }
 
-.theme-neon-cyan button,
-.theme-neon-cyan .tab-button,
+.theme-neon-cyan #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .theme-neon-cyan input,
 .theme-neon-cyan select,
 .theme-neon-cyan textarea {
@@ -300,9 +335,10 @@
   border: 1px solid #00ffff;
 }
 
-.theme-neon-cyan button:hover,
-.theme-neon-cyan .tab-button:hover {
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, inset 0 0 10px rgba(0, 255, 255, 0.2);
+.theme-neon-cyan #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none !important;
 }
 
 .theme-neon-cyan .message {
@@ -315,16 +351,6 @@
 }
 
 /* Shared Neon Effects */
-.theme-neon-blue .copy-btn,
-.theme-neon-pink .copy-btn,
-.theme-neon-green .copy-btn,
-.theme-neon-purple .copy-btn,
-.theme-neon-orange .copy-btn,
-.theme-neon-cyan .copy-btn {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(5px);
-}
-
 .theme-neon-blue .settings-panel,
 .theme-neon-pink .settings-panel,
 .theme-neon-green .settings-panel,

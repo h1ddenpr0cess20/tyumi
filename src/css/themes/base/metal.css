@@ -80,25 +80,18 @@
   border-image: linear-gradient(to bottom, #ffd700, #d4af37, #ffd700) 1;
 }
 
-.theme-golden button {
-  background: linear-gradient(
-    to bottom,
-    #ffd700 0%,
-    #b8860b 100%
-  ) !important;
-  color: #000 !important;
-  border: 1px solid #9c7a3c !important;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+.theme-golden #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  text-shadow: none;
+  box-shadow: none;
 }
 
-.theme-golden button:hover {
-  background: linear-gradient(
-    to bottom,
-    #ffea80 0%, 
-    #ffd700 100%
-  ) !important;
-  box-shadow: 0 1px 5px rgba(255, 215, 0, 0.5);
+.theme-golden #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none;
 }
 
 .theme-golden #settings-panel,
@@ -172,25 +165,18 @@
   border-image: linear-gradient(to bottom, #e0e0e0, #a0a0a0, #e0e0e0) 1;
 }
 
-.theme-silver button {
-  background: linear-gradient(
-    to bottom,
-    #e0e0e0 0%,
-    #a0a0a0 100%
-  ) !important;
-  color: #000 !important;
-  border: 1px solid #7d8085 !important;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+.theme-silver #send-button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  text-shadow: none;
+  box-shadow: none;
 }
 
-.theme-silver button:hover {
-  background: linear-gradient(
-    to bottom,
-    #f5f5f5 0%, 
-    #c0c0c0 100%
-  ) !important;
-  box-shadow: 0 1px 5px rgba(192, 192, 192, 0.5);
+.theme-silver #send-button:hover {
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  box-shadow: none;
 }
 
 .theme-silver #settings-panel,

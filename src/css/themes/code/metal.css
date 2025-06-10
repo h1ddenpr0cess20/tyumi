@@ -121,3 +121,17 @@
 .theme-silver .hljs-meta-string {
   color: #b8bac5 !important;
 }
+
+/* Copy button styling for metal themes */
+.theme-golden .copy-btn,
+.theme-silver .copy-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+}
+
+.theme-golden .copy-btn:hover,
+.theme-silver .copy-btn:hover {
+  color: var(--accent-color) !important;
+}
