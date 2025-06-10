@@ -1,0 +1,94 @@
+/* Special theme code syntax highlighting */
+
+/* Teletext Theme Code Blocks */
+.theme-teletext pre {
+  background-color: #000000 !important; /* Pure black background */
+  border: 1px solid #0000ff !important; /* Blue border */
+}
+
+.theme-teletext pre code {
+  color: #ffffff !important; /* White text */
+}
+
+.theme-teletext .hljs-keyword,
+.theme-teletext .hljs-meta,
+.theme-teletext .hljs-selector-tag,
+.theme-teletext .hljs-title,
+.theme-teletext .hljs-title.function_,
+.theme-teletext .hljs-type {
+  color: #ffff00 !important; /* Yellow for keywords */
+}
+
+.theme-teletext .hljs-attribute, 
+.theme-teletext .hljs-built_in {
+  color: #00ffff !important; /* Cyan for attributes */
+}
+
+.theme-teletext .hljs-string,
+.theme-teletext .hljs-attr,
+.theme-teletext .hljs-addition,
+.theme-teletext .hljs-doctag,
+.theme-teletext .hljs-regexp,
+.theme-teletext .hljs-symbol {
+  color: #00ff00 !important; /* Green for strings */
+}
+
+.theme-teletext .hljs-comment,
+.theme-teletext .hljs-quote {
+  color: #ff00ff !important; /* Magenta for comments */
+  font-style: italic;
+}
+
+.theme-teletext .hljs-literal,
+.theme-teletext .hljs-number,
+.theme-teletext .hljs-bullet {
+  color: #ff0000 !important; /* Red for numbers */
+}
+
+.theme-teletext .hljs-variable,
+.theme-teletext .hljs-tag,
+.theme-teletext .hljs-name,
+.theme-teletext .hljs-template-variable,
+.theme-teletext .hljs-deletion {
+  color: #00ffff !important; /* Cyan for variables */
+}
+
+.theme-teletext .hljs-property,
+.theme-teletext .hljs-subst,
+.theme-teletext .hljs-params,
+.theme-teletext .hljs-meta-string {
+  color: #ffff00 !important; /* Yellow for properties */
+}
+
+/* Terminal Theme Code Blocks */
+.theme-terminal pre {
+  background-color: #000000 !important;
+  border: 1px solid #224422 !important;
+}
+
+.theme-terminal pre code {
+  color: #33ff33 !important;
+  font-family: "Courier New", monospace;
+}
+
+.theme-terminal .hljs-keyword { color: #88ff88 !important; }
+.theme-terminal .hljs-string { color: #ffff33 !important; }
+.theme-terminal .hljs-comment { color: #33cc33 !important; }
+.theme-terminal .hljs-function { color: #33ff33 !important; }
+.theme-terminal .hljs-number { color: #ff3333 !important; }
+
+/* Override copy button styles to match theme */
+.copy-btn {
+  background-color: var(--accent-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  opacity: 0.8 !important;
+  z-index: 10 !important;
+}
+
+.copy-btn:hover {
+  background-color: var(--accent-hover) !important;
+  opacity: 1 !important;
+}

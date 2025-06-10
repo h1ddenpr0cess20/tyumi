@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#00bcd4" stroke-width="1.5" fill="none">
+    <!-- Nonagon (9-sided polygon) with all vertices connected -->
+    
+    <!-- Outer nonagon -->
+    <path d="M 50 5 L 86.6 19.1 L 95 50 L 86.6 80.9 L 50 95 L 13.4 80.9 L 5 50 L 13.4 19.1 Z"/>
+    
+    <!-- All connecting lines between vertices (K9 complete graph) -->
+    <!-- From vertex 1 (50, 5) -->
+    <line x1="50" y1="5" x2="95" y2="50"/>
+    <line x1="50" y1="5" x2="86.6" y2="80.9"/>
+    <line x1="50" y1="5" x2="50" y2="95"/>
+    <line x1="50" y1="5" x2="13.4" y2="80.9"/>
+    <line x1="50" y1="5" x2="5" y2="50"/>
+    <line x1="50" y1="5" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 2 (86.6, 19.1) -->
+    <line x1="86.6" y1="19.1" x2="95" y2="50"/>
+    <line x1="86.6" y1="19.1" x2="86.6" y2="80.9"/>
+    <line x1="86.6" y1="19.1" x2="50" y2="95"/>
+    <line x1="86.6" y1="19.1" x2="13.4" y2="80.9"/>
+    <line x1="86.6" y1="19.1" x2="5" y2="50"/>
+    <line x1="86.6" y1="19.1" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 3 (95, 50) -->
+    <line x1="95" y1="50" x2="86.6" y2="80.9"/>
+    <line x1="95" y1="50" x2="50" y2="95"/>
+    <line x1="95" y1="50" x2="13.4" y2="80.9"/>
+    <line x1="95" y1="50" x2="5" y2="50"/>
+    <line x1="95" y1="50" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 4 (86.6, 80.9) -->
+    <line x1="86.6" y1="80.9" x2="50" y2="95"/>
+    <line x1="86.6" y1="80.9" x2="13.4" y2="80.9"/>
+    <line x1="86.6" y1="80.9" x2="5" y2="50"/>
+    <line x1="86.6" y1="80.9" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 5 (50, 95) -->
+    <line x1="50" y1="95" x2="13.4" y2="80.9"/>
+    <line x1="50" y1="95" x2="5" y2="50"/>
+    <line x1="50" y1="95" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 6 (13.4, 80.9) -->
+    <line x1="13.4" y1="80.9" x2="5" y2="50"/>
+    <line x1="13.4" y1="80.9" x2="13.4" y2="19.1"/>
+    
+    <!-- From vertex 7 (5, 50) -->
+    <line x1="5" y1="50" x2="13.4" y2="19.1"/>
+  </g>
+</svg>

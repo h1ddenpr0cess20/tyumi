@@ -1,0 +1,594 @@
+@media screen and (max-width: 768px) {
+  #settings-button,
+  #history-button,
+  #gallery-button {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  #settings-button {
+    right: 15px;
+  }
+
+  #history-button {
+    right: 60px;
+  }
+
+  #gallery-button {
+    right: 105px;
+  }
+  
+  .input-container {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--bg-primary);
+    padding: 12px 14px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #user-input {
+  
+    font-size: 1rem;
+    height: 60px;
+  }
+  
+  #send-button {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description,
+  code {
+    font-size: 1rem;
+  }
+  
+  pre code {
+    font-size: 0.9rem;
+  }
+  
+  .theme-teletext .message-content,
+  .theme-teletext p,
+  .theme-teletext div:not(#header-title):not(.settings-group h3),
+  .theme-teletext span:not(.tab-button),
+  .theme-teletext button:not(#send-button),
+  .theme-teletext input,
+  .theme-teletext select,
+  .theme-teletext option,
+  .theme-teletext code {
+    font-size: 0.95rem !important;
+  }
+  
+  .theme-terminal .message-content,
+  .theme-terminal p,
+  .theme-terminal div:not(#header-title):not(.settings-group h3),
+  .theme-terminal span:not(.tab-button),
+  .theme-terminal button:not(#send-button),
+  .theme-terminal input,
+  .theme-terminal select,
+  .theme-terminal option,
+  .theme-terminal code {
+    font-size: 0.95rem !important;
+  }
+  
+  #chat-container {
+    width: 100%;
+    height: 100vh;
+    max-height: -webkit-fill-available;
+    border-radius: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 80px;
+  }
+  
+  #nonagon-logo {
+    width: 42px;
+    height: 42px;
+    margin-top: 12px;
+  }
+  
+  #header-title {
+    font-size: 1.3rem;
+    max-width: 70%;
+    text-overflow: ellipsis;
+  }
+  
+  #model-info {
+    max-width: 70%;
+  }
+  
+  .gallery-slideshow {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  .gallery-slideshow-container {
+    width: 95%;
+    height: 60vh;
+    max-height: calc(100% - 140px);
+    margin-bottom: 5px;
+  }
+  
+  .gallery-slideshow-info {
+    width: 95%;
+    margin-top: 5px;
+    padding: 12px;
+    max-height: 25vh;
+    min-height: 100px;
+    overflow-y: auto;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+  }
+  .gallery-slideshow-nav {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .gallery-slideshow-prev {
+    left: 10px;
+  }
+  
+  .gallery-slideshow-next {
+    right: 10px;
+  }
+  
+  .slideshow-icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .gallery-slideshow-counter {
+    bottom: -5px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description {
+    font-size: 0.9rem;
+  }
+  
+  pre code,
+  .message-content pre code {
+    font-size: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  
+  .settings-group h3,
+  label,
+  .radio-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .message-content pre {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  
+  .gallery-slideshow-container {
+    height: calc(100% - 100px);
+  }
+  
+  .gallery-slideshow-info {
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .gallery-slideshow-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .gallery-slideshow-counter {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .message-content pre {
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .message-content pre code {
+    font-size: 0.7rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .input-container {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  #chat-container {
+    height: -webkit-fill-available;
+  }
+  
+  body.keyboard-open {
+    padding-bottom: 35vh;
+  }
+}
+
+@supports not (-webkit-touch-callout: none) {
+  body.keyboard-open .input-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+  }
+}
+
+.mobile-device #chat-box {
+  scroll-behavior: auto !important;
+}
+
+.mobile-device .message {
+  animation-duration: 0.15s !important;
+}
+
+.mobile-device {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 480px) {
+  #settings-button,
+  #history-button,
+  #gallery-button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    top: 15px;
+  }
+  
+  #settings-button {
+    right: 10px;
+  }
+
+  #history-button {
+    right: 50px;
+  }
+
+  #gallery-button {
+    right: 90px;
+  }
+  
+  #send-button {
+    padding: 12px;
+    min-width: 60px;
+    width: 56px;
+    height: 56px;
+  }
+  
+  #stop-button {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+  
+  .input-container {
+    padding: 10px;
+  }
+  
+  #user-input {
+    padding: 12px;
+  }
+  
+  .settings-group h3 {
+    font-size: 0.9rem;
+  }
+  
+  #header h1 {
+    font-size: 1.2rem;
+  }
+  #nonagon-logo {
+    width: 48px;
+    height: 48px;
+  }
+  
+  #header-title {
+    font-size: 1.1rem;
+  }
+  
+  #model-info {
+    max-width: 60%;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description,
+  code {
+    font-size: 0.95rem;
+  }
+  
+  pre code {
+    font-size: 0.8rem;
+  }
+  
+  .message-content pre code {
+    font-size: 0.8rem;
+    letter-spacing: normal;
+    line-height: 1.4;
+  }
+  
+  .theme-teletext .message-content,
+  .theme-teletext p,
+  .theme-teletext div:not(#header-title):not(.settings-group h3),
+  .theme-teletext span:not(.tab-button),
+  .theme-teletext button:not(#send-button),
+  .theme-teletext input,
+  .theme-teletext select,
+  .theme-teletext option,
+  .theme-teletext code {
+    font-size: 0.8rem !important;
+  }
+  
+  .theme-terminal .message-content,
+  .theme-terminal p,
+  .theme-terminal div:not(#header-title):not(.settings-group h3),
+  .theme-terminal span:not(.tab-button),
+  .theme-terminal button:not(#send-button),
+  .theme-terminal input,
+  .theme-terminal select,
+  .theme-terminal option,
+  .theme-terminal code {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description {
+    font-size: 0.9rem;
+  }
+  
+  pre code,
+  .message-content pre code {
+    font-size: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .input-container {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  #chat-container {
+    height: -webkit-fill-available;
+  }
+  
+  body.keyboard-open {
+    padding-bottom: 35vh;
+  }
+}
+
+@supports not (-webkit-touch-callout: none) {
+  body.keyboard-open .input-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+  }
+}
+
+.mobile-device #chat-box {
+  scroll-behavior: auto !important;
+}
+
+.mobile-device .message {
+  animation-duration: 0.15s !important;
+}
+
+.mobile-device {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 480px) {
+  .message-content pre {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .message-content pre {
+    padding: 8px;
+    border-radius: 5px;
+  }
+}
+
+.mobile-device .gallery-slideshow-image {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .mobile-slideshow .gallery-slideshow-nav {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mobile-slideshow .gallery-slideshow-nav:active {
+    opacity: 1;
+  }
+  
+  .mobile-slideshow .gallery-slideshow-top-controls,
+  .mobile-slideshow .gallery-slideshow-info {
+    transition: opacity 0.3s ease;
+  }
+}
+
+.mobile-device .gallery-slideshow {
+  overscroll-behavior: contain;
+}
+
+.mobile-device .slideshow-icon-btn {
+  width: 44px;
+  height: 44px;
+}
+
+.mobile-device .gallery-slideshow-info {
+  -webkit-overflow-scrolling: touch;
+  max-height: 35vh;
+  overflow-y: auto;
+  word-break: break-word;
+  hyphens: auto;
+  margin-bottom: env(safe-area-inset-bottom, 10px);
+}
+
+@media screen and (max-width: 320px) {
+  .mobile-device .gallery-slideshow-info {
+    font-size: 0.85rem;
+  }
+  
+  .mobile-device .gallery-slideshow-counter {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 800px) {
+  #settings-panel {
+    width: 100% !important; /* Override any set width with !important */
+    max-width: 100vw !important;
+    transform: translateX(100%);
+  }
+  
+  .settings-tab-columns,
+  #model-settings .tab-content,
+  #tts-settings .tab-content {
+    flex-direction: column;
+  }
+  
+  .settings-column,
+  #model-settings .settings-group,
+  #tts-settings .settings-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  #gallery-panel {
+    width: 100% !important; /* Override any set width with !important */
+    max-width: 100vw !important;
+    transform: translateX(100%);
+  }
+  
+  #gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  #history-panel {
+    width: 100% !important; /* Override any set width with !important */
+    max-width: 100vw !important;
+    transform: translateX(100%);
+  }
+  
+  .history-item {
+    width: 100%;
+    float: none;
+  }
+  
+  .history-item:nth-child(odd) {
+    margin-right: 0;
+  }
+  
+  .history-actions button {
+    padding: 8px 12px;
+    min-height: 44px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .tab-button {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+  }
+  
+  .settings-tabs {
+    padding: 0 4px 0 2px;
+  }
+  .about-content {
+    padding: 10px 0;
+  }
+  
+  .donation-section {
+    max-width: 100%;
+    padding: 15px 10px 0;
+  }
+  
+  .crypto-item {
+    gap: 4px;
+  }
+  
+  .input-copy-wrapper {
+    position: relative;
+  }
+  
+  .crypto-address {
+    font-size: 0.8em;
+    padding: 6px 35px 6px 8px;
+    height: 32px;
+  }
+  
+  .footer-info {
+    max-width: 100%;
+    padding: 15px 10px 0;
+    font-size: 0.8em;
+  }
+}

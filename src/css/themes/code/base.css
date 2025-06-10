@@ -1,0 +1,52 @@
+/* Base styles for code blocks - common across all themes */
+
+/* Base styles for all themes - these act as fallbacks */
+pre {
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  position: relative;
+  margin: 8px 0;
+}
+
+pre code {
+  white-space: pre;
+  display: block;
+  padding: 0;
+  line-height: 1.4;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+/* Ensure plaintext blocks have no special highlighting */
+code.language-plaintext,
+code.plaintext {
+  color: inherit !important;
+}
+
+code.language-plaintext .hljs-keyword,
+code.language-plaintext .hljs-name,
+code.language-plaintext .hljs-selector-tag,
+code.language-plaintext .hljs-built_in,
+code.plaintext .hljs-keyword,
+code.plaintext .hljs-name,
+code.plaintext .hljs-selector-tag,
+code.plaintext .hljs-built_in {
+  color: inherit !important;
+  font-weight: normal !important;
+}
+
+/* Common highlight.js classes for all themes */
+.hljs-keyword, .hljs-meta, .hljs-name, .hljs-selector-tag, .hljs-subst, .hljs-tag, .hljs-title, .hljs-title.function_, .hljs-attribute, .hljs-type, .hljs-built_in {
+  font-weight: bold;
+}
+
+.hljs-regexp, .hljs-link {
+  text-decoration: underline;
+}
+
+a:-webkit-any-link {
+    color: var(--accent-color);
+    cursor: pointer;
+    text-decoration: underline;
+}

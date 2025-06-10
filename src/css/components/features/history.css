@@ -1,0 +1,357 @@
+/* History panel styles */
+
+/* History panel */
+#history-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  height: 100%; 
+  background-color: var(--bg-primary);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+  overflow-y: auto;
+  transition: transform 0.25s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%); 
+}
+
+#history-panel[aria-hidden="false"] {
+  transform: translateX(0); /* Show panel by resetting transform */
+}
+
+#history-panel .settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 10px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  flex-shrink: 0;
+  margin: -20px -20px 16px -20px; /* Offset the panel padding */
+}
+
+/* History button hover state only - other styles are in controls.css */
+#history-button:hover {
+  border-color: var(--accent-color);
+}
+
+/* Active state now controlled by aria-hidden attribute */
+
+.close-history {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-history:hover {
+  border-color: var(--accent-color);
+}
+
+/* History list styling - Table Layout */
+.history-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.history-toolbar-left,
+.history-toolbar-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.selection-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.selection-mode-toggle:hover {
+  background-color: var(--bg-primary);
+}
+
+.selection-mode-toggle input[type="checkbox"] {
+  margin: 0;
+}
+
+.history-new-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.history-new-button:hover {
+  background-color: var(--accent-hover);
+}
+
+.history-load-btn,
+.history-rename-btn,
+.history-delete-btn,
+.history-select-all-btn,
+.history-clear-selection-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.history-load-btn {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.history-load-btn:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.history-rename-btn {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.history-rename-btn:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+}
+
+.history-delete-btn {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.history-delete-btn:hover:not(:disabled) {
+  background-color: rgba(231, 76, 60, 0.2);
+}
+
+.history-select-all-btn,
+.history-clear-selection-btn {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.history-select-all-btn:hover,
+.history-clear-selection-btn:hover {
+  background-color: var(--bg-secondary);
+}
+
+.history-load-btn:disabled,
+.history-rename-btn:disabled,
+.history-delete-btn:disabled,
+.history-select-all-btn:disabled,
+.history-clear-selection-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.history-table-container {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.history-table thead {
+  background-color: var(--bg-primary);
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.history-table th {
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-right: 1px solid var(--border-color);
+}
+
+.history-table th:last-child {
+  border-right: none;
+}
+
+.history-table .col-title {
+  width: 35%;
+}
+
+.history-table .col-prompt {
+  width: 20%;
+}
+
+.history-table .col-model {
+  width: 20%;
+}
+
+.history-table .col-stats {
+  width: 15%;
+}
+
+.history-table .col-date {
+  width: 10%;
+}
+
+.history-row {
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.history-row:hover {
+  background-color: var(--bg-primary);
+}
+
+.history-row.selected {
+  background-color: var(--accent-hover-light, rgba(var(--accent-color-rgb), 0.1));
+  border-left: 3px solid var(--accent-color);
+}
+
+.history-table.multi-select-mode .history-row.selected {
+  background-color: var(--accent-hover-light, rgba(var(--accent-color-rgb), 0.15));
+  border-left: 4px solid var(--accent-color);
+}
+
+.history-table.multi-select-mode .history-row:hover {
+  background-color: var(--bg-primary);
+  border-left: 2px solid var(--accent-color);
+}
+
+.history-row.current-conversation {
+  background-color: var(--accent-hover-light, rgba(var(--accent-color-rgb), 0.15));
+  font-weight: 500;
+}
+
+.history-row td {
+  padding: 12px 8px;
+  border-right: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.history-row td:last-child {
+  border-right: none;
+}
+
+.history-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.prompt-type {
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.prompt-type.personality {
+  background-color: rgba(var(--accent-color-rgb), 0.15);
+  color: var(--accent-color);
+}
+
+.prompt-type.custom {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #ff9800;
+}
+
+.prompt-type.none {
+  background-color: rgba(158, 158, 158, 0.15);
+  color: #9e9e9e;
+}
+
+.model-info {
+  line-height: 1.3;
+}
+
+.model-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+.service-name {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.stats-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.message-count,
+.image-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.date-info {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+#history-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* More history styling */
+.history-empty {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+

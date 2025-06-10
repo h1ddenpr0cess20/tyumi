@@ -1,0 +1,313 @@
+/* Input container */
+.input-container {
+  display: flex;
+  padding: 14px 16px;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  z-index: 10; /* Ensure input stays above other elements */
+}
+
+/* Input wrapper for positioning button inside */
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+/* User input */
+#user-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 16px 60px 16px 16px; /* Add right padding for button */
+  resize: none;
+  height: 56px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+#user-input:focus {
+  border-color: var(--accent-color);
+}
+
+/* Send button - positioned inside textarea */
+#send-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--accent-color);
+  border: none;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Send button icons */
+#send-button .send-icon,
+#send-button .stop-icon {
+  transition: all 0.2s ease;
+  fill: currentColor;
+  stroke: none;
+}
+
+#send-button:hover .send-icon,
+#send-button:hover .stop-icon {
+  transform: scale(1.1);
+}
+
+#send-button .stopping-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: none;
+  stroke: currentColor;
+}
+
+#send-button .stopping-spinner svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Stop mode styles */
+#send-button.stop-mode {
+  color: var(--error-bg);
+}
+
+#send-button.stop-mode .send-icon {
+  display: none;
+}
+
+#send-button.stop-mode .stop-icon {
+  display: block !important;
+}
+
+/* Stopping state styles */
+#send-button.stopping {
+  color: var(--error-bg);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#send-button.stopping .send-icon,
+#send-button.stopping .stop-icon {
+  display: none;
+}
+
+#send-button.stopping .stopping-spinner {
+  display: block !important;
+}
+
+#send-button:hover {
+  background-color: var(--bg-primary);
+  color: var(--accent-hover);
+}
+
+#send-button.stop-mode:hover {
+  background-color: var(--bg-primary);
+  color: #c0392b;
+}
+
+#send-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Settings button */
+#settings-button,
+#history-button,
+#gallery-button {
+  position: absolute;
+  top: 20px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better visibility */
+}
+
+#settings-button {
+  right: 20px;
+}
+
+#history-button {
+  right: 68px;
+}
+
+#gallery-button {
+  right: 118px;  /* Adjusted from 116px to 118px for consistent 50px spacing */
+}
+
+#settings-button:hover,
+#history-button:hover,
+#gallery-button:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+
+
+/* Stop button */
+#stop-button {
+  background-color: var(--error-bg);
+  color: var(--button-text-color);
+}
+
+#stop-button:hover {
+  background-color: #5a3a3a;
+}
+
+#stop-button:active {
+  transform: scale(0.95);
+}
+
+/* Toggle Switch for TTS */
+.toggle-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.toggle-container input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  background-color: var(--bg-secondary);
+  border-radius: 24px;
+  transition: background-color 0.2s;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.toggle-switch:after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--text-secondary);
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+input:checked + .toggle-switch {
+  background-color: var(--accent-color);
+}
+
+input:checked + .toggle-switch:after {
+  transform: translateX(24px);
+  background-color: white;
+}
+
+input:focus + .toggle-switch {
+  border-color: var(--accent-color);
+}
+
+.tts-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 8px;
+}
+.tts-play-pause, .tts-stop, .tts-refresh, .tts-download {
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.tts-play-pause {
+  background-color: var(--accent-color);
+  color: var(--accent-contrast);
+}
+.tts-play-pause:hover {
+  background-color: var(--accent-hover, #0056b3);
+  transform: translateY(-1px);
+}
+.tts-stop {
+  background-color: var(--error-bg, #e74c3c);
+  color: var(--error-contrast, white);
+}
+.tts-stop:hover {
+  background-color: var(--error-hover, #c0392b);
+  transform: translateY(-1px);
+}
+.tts-refresh {
+  background-color: var(--success-color, #27ae60);
+  color: var(--success-contrast, white);
+}
+.tts-refresh:hover {
+  background-color: var(--success-hover, #219a52);
+  transform: translateY(-1px);
+}
+.tts-download {
+  background-color: var(--info-color, #3498db);
+  color: var(--info-contrast, white);
+}
+.tts-download:hover {
+  background-color: var(--info-hover, #2980b9);
+  transform: translateY(-1px);
+}
+.tts-status {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  font-style: italic;
+  display: none;
+}
+.tts-loading-spinner {
+  display: none;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: tts-spin 1s linear infinite;
+  margin-right: 4px;
+}
+@keyframes tts-spin {
+  to { transform: rotate(360deg); }
+}
+
+
+

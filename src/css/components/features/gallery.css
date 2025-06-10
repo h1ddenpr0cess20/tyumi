@@ -1,0 +1,510 @@
+/**
+ * Gallery CSS styling
+ */
+
+/* Gallery panel styling */
+#gallery-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 700px;
+  height: 100%; /* Keeps panel height equal to chat area */
+  background-color: var(--bg-primary);
+  color: var(--text-color);
+  z-index: 200;
+  border-left: 0px solid var(--border-color);
+  overflow-y: auto;
+  transition: transform 0.25s ease;
+  padding: 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%); /* Hide by default using transform */
+}
+
+#gallery-panel[aria-hidden="false"] {
+  transform: translateX(0); /* Show panel by resetting transform */
+}
+
+#gallery-panel .settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 10px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  flex-shrink: 0;
+  margin: -20px -20px 16px -20px; /* Offset the panel padding */
+}
+
+#gallery-panel .settings-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+#gallery-panel .close-gallery {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#gallery-panel .close-gallery:hover {
+  border-color: var(--accent-color);
+}
+
+/* Gallery tools */
+.gallery-tools {
+  display: flex;
+  padding: 10px 15px;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--hover-color);
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.gallery-tools button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s;
+}
+
+.gallery-tools button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Gallery grid */
+#gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 15px;
+  overflow-y: auto;
+  flex: 1; /* Fill remaining space in the flex container */
+  scrollbar-gutter: stable;
+  padding-right: 15px; /* Consistent padding */
+}
+
+/* Gallery grid with relative positioning for the bulk delete indicator */
+#gallery-grid.deleting-images {
+  position: relative;
+}
+
+.gallery-item {
+  position: relative;
+  height: 170px;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+.gallery-item-image-container {
+  position: relative;
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s;
+}
+
+.gallery-item:hover img {
+  filter: brightness(0.85);
+}
+
+/* Gallery item selection bar */
+.gallery-selection-bar {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px;
+  z-index: 2;
+}
+
+.gallery-select-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.gallery-select-checkbox {
+  accent-color: var(--accent-color);
+  width: 16px;
+  height: 16px;
+}
+
+/* Gallery item info overlay */
+.gallery-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px;
+  z-index: 1;
+}
+
+.gallery-item-footer {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-radius: 0 0 8px 8px;
+}
+
+.gallery-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.gallery-actions button {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.gallery-actions button:hover {
+  background-color: var(--accent-hover);
+}
+
+.gallery-prompt {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.gallery-date {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.gallery-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.gallery-actions button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.gallery-actions button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.gallery-select-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.gallery-select-checkbox {
+  accent-color: var(--accent-color);
+  width: 15px;
+  height: 15px;
+}
+
+/* Truncated prompt in footer */
+.truncated-prompt {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-secondary);
+  max-width: 250px; /* Increased from 80px to 250px to show more text */
+}
+
+/* Gallery empty & loading states */
+.gallery-empty,
+.gallery-loading,
+.gallery-error {
+  grid-column: 1 / -1;
+  padding: 40px;
+  text-align: center;
+  color: var(--secondary-text-color);
+  background-color: var(--hover-color);
+  border-radius: 8px;
+  font-style: italic;
+}
+
+.gallery-loading {
+  background-color: var(--panel-bg-color);
+}
+
+.gallery-error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff5555;
+}
+
+/* Gallery slideshow */
+.gallery-slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var(--bg-primary-rgb, 26, 26, 26), 0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  touch-action: none; /* Prevents browser touch actions to enable custom handling */
+  animation: slideshow-fade-in 0.3s ease-out;
+}
+
+@keyframes slideshow-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.gallery-slideshow-container {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  height: calc(100% - 150px); /* Adjusted for better spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Position the icon buttons in the absolute upper right corner of the screen */
+.gallery-slideshow-top-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1010;
+}
+
+/* Style for the icon buttons */
+.slideshow-icon-btn {
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  border: none;
+  border-radius: 50%;
+  width: 44px; /* Slightly larger for touch targets */
+  height: 44px; /* Slightly larger for touch targets */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--button-text-color);
+  padding: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slideshow-icon-btn:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--button-text-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.slideshow-icon-btn:focus {
+  outline: 2px solid var(--button-text-color);
+  outline-offset: 2px;
+  background-color: var(--accent-hover);
+}
+
+/* Navigation controls at middle sides */
+.gallery-slideshow-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px; /* Larger for touch devices */
+  height: 54px; /* Larger for touch devices */
+  font-size: 24px;
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-slideshow-nav:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--button-text-color);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-slideshow-nav:focus {
+  outline: 2px solid var(--button-text-color);
+  outline-offset: 2px;
+  background-color: var(--accent-hover);
+}
+
+.gallery-slideshow-prev {
+  left: 20px;
+}
+
+.gallery-slideshow-next {
+  right: 20px;
+}
+
+/* Bottom info panel styling */
+.gallery-slideshow-info {
+  margin-top: 15px;
+  padding: 20px;
+  background-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  color: var(--button-text-color);
+  border: 0px solid var(--accent-hover);
+  border-radius: var(--border-radius);
+  width: 50vw;
+  size: auto;
+  max-width: 600px; /* Limit width for larger screens */  
+  overflow-y: clip; /* Allow vertical scrolling for long content */
+  max-height: 30vh; /* Limit height and enable scrolling */
+  position: relative; /* Ensure proper positioning */
+  z-index: 1010; /* Keep above other elements */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-slideshow-info h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--button-text-color);
+  border-bottom: 1px solid var(--button-text-color);
+  padding-bottom: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-slideshow-info p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.gallery-slideshow-info strong {
+  color: var(--button-text-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Bulk delete indicator styling */
+.bulk-delete-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 100;
+  text-align: center;
+}
+
+/* Counter for slideshow (x/y) */
+.gallery-slideshow-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--button-text-color);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 1011;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Gallery placeholder animations */
+.gallery-placeholder .placeholder-pulse {
+  background: linear-gradient(90deg, 
+    var(--bg-secondary) 0%, 
+    var(--hover-color, rgba(255,255,255,0.1)) 50%, 
+    var(--bg-secondary) 100%);
+  background-size: 200% 100%;
+  animation: placeholder-pulse 1.5s infinite;
+}
+
+@keyframes placeholder-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
