@@ -61,8 +61,11 @@ window.sendMessage = async function() {
     const { requestBody, headers } = window.prepareRequestData(message);
     if (window.VERBOSE_LOGGING) console.info('API request prepared:', { apiEndpoint, requestBody, headers });
 
-    // Check if function calling is enabled and toolDefinitions exists
-    const useFunctionCalling = window.config.enableFunctionCalling === true && typeof window.toolDefinitions !== 'undefined';
+    // Check if function calling is enabled and toolDefinitions exists with actual tools
+    const useFunctionCalling = window.config.enableFunctionCalling === true && 
+                               typeof window.toolDefinitions !== 'undefined' && 
+                               Array.isArray(window.toolDefinitions) && 
+                               window.toolDefinitions.length > 0;
     
     let response;
     if (useFunctionCalling) {
