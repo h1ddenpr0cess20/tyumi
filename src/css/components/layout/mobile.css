@@ -286,12 +286,11 @@
   #gallery-button {
     right: 90px;
   }
-  
-  #send-button {
+    #send-button {
     padding: 12px;
-    min-width: 60px;
-    width: 56px;
-    height: 56px;
+    min-width: 68px;
+    width: 68px;
+    height: 68px;
   }
   
   #stop-button {
