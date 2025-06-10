@@ -854,10 +854,10 @@
           <div class="setting-item">
             <label for="tool-alphavantage-key">AlphaVantage API Key</label>
             <div class="api-key-input-container">
-              <input 
-                type="password" 
-                id="tool-alphavantage-key" 
-                placeholder="Enter your AlphaVantage API key" 
+              <input
+                type="password"
+                id="tool-alphavantage-key"
+                placeholder="Enter your AlphaVantage API key"
                 aria-label="AlphaVantage API Key for Tools"
               />
               <button class="toggle-password" data-for="tool-alphavantage-key" title="Show/Hide API Key">
@@ -869,6 +869,27 @@
             </div>
             <p class="info-text">
               Required for stock price and financial data tools. <a href="https://www.alphavantage.co/support/#api-key" target="_blank">Get API Key</a>
+            </p>
+          </div>
+
+          <div class="setting-item">
+            <label for="tool-openweather-key">OpenWeather API Key</label>
+            <div class="api-key-input-container">
+              <input
+                type="password"
+                id="tool-openweather-key"
+                placeholder="Enter your OpenWeather API key"
+                aria-label="OpenWeather API Key for Tools"
+              />
+              <button class="toggle-password" data-for="tool-openweather-key" title="Show/Hide API Key">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+            <p class="info-text">
+              Required for the weather tool. <a href="https://openweathermap.org/api" target="_blank">Get API Key</a>
             </p>
           </div>
 

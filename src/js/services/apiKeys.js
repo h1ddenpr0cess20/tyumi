@@ -22,7 +22,8 @@ window.apiKeyInputs = {
 // Tool-specific API key inputs
 window.toolApiKeyInputs = {
     rapidapi: null,
-    alphavantage: null
+    alphavantage: null,
+    openweather: null
 };
 
 window.ollamaServerUrlInput = null;
@@ -42,6 +43,7 @@ window.initApiKeys = function() {
       // Get DOM references for tool-specific API keys
     window.toolApiKeyInputs.rapidapi = document.getElementById('tool-rapidapi-key');
     window.toolApiKeyInputs.alphavantage = document.getElementById('tool-alphavantage-key');
+    window.toolApiKeyInputs.openweather = document.getElementById('tool-openweather-key');
     
     window.ollamaServerUrlInput = document.getElementById('ollama-server-url');
     window.saveApiKeysButton = document.getElementById('save-api-keys');
