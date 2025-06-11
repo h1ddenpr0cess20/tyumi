@@ -26,16 +26,16 @@
     padding: 12px 14px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   }
-  
-  #user-input {
-  
+    #user-input {
+    padding: 16px 76px 16px 16px;
     font-size: 1rem;
     height: 60px;
   }
-  
-  #send-button {
+    #send-button {
     width: 60px;
     height: 60px;
+    right: 16px;
+    padding: 0;
   }
   
   .message-content,
@@ -282,15 +282,16 @@
   #history-button {
     right: 50px;
   }
-
   #gallery-button {
     right: 90px;
   }
-    #send-button {
-    padding: 12px;
-    min-width: 68px;
-    width: 68px;
-    height: 68px;
+  
+  #send-button {
+    padding: 0;
+    min-width: 48px;
+    width: 48px;
+    height: 48px;
+    right: 16px;
   }
   
   #stop-button {
@@ -302,9 +303,8 @@
   .input-container {
     padding: 10px;
   }
-  
-  #user-input {
-    padding: 12px;
+    #user-input {
+    padding: 12px 64px 12px 12px;
   }
   
   .settings-group h3 {
