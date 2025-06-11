@@ -428,6 +428,34 @@ window.getOllamaServerUrl = function() {
 };
 
 /**
+ * Ensure API keys are loaded and warn if missing
+ */
+window.ensureApiKeysLoaded = function() {
+    // Load keys if not already loaded
+    if (typeof window.loadApiKeys === 'function') {
+        window.loadApiKeys();
+    }
+
+    if (!window.config || !window.config.services) return;
+
+    const service = window.config.defaultService;
+
+    // Skip warning for services that don't require a key (e.g., Ollama)
+    if (service === 'ollama') return;
+
+    const apiKey = window.getApiKey ? window.getApiKey(service) : null;
+
+    // Track warnings to avoid repetition
+    window._shownApiKeyWarnings = window._shownApiKeyWarnings || new Set();
+
+    if (!apiKey && window.showWarning && !window._shownApiKeyWarnings.has(service)) {
+        const name = service.charAt(0).toUpperCase() + service.slice(1);
+        window.showWarning(`${name} API key is missing. Please add it in the API Keys settings.`);
+        window._shownApiKeyWarnings.add(service);
+    }
+};
+
+/**
  * Show status message in the API keys tab
  * @param {string} message - The message to show
  * @param {string} type - The type of message ('success' or 'error')

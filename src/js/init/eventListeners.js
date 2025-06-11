@@ -447,6 +447,9 @@ function setupSelectorEventListeners() {
       const selectedService = window.serviceSelector.value;
       
       window.config.defaultService = selectedService;
+      if (typeof window.ensureApiKeysLoaded === 'function') {
+        window.ensureApiKeysLoaded();
+      }
       window.updateModelSelector();
       window.updateParameterControls();
       window.updateHeaderInfo();
