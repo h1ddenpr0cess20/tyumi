@@ -99,11 +99,20 @@ window.sendMessage = async function() {
       window.resetSendButton();
       console.warn('API response was empty (possibly aborted).');
       return;
-    }
-
-    // For function calling responses, we handle them the same as regular responses
+    }    // For function calling responses, we handle them the same as regular responses
     if (useFunctionCalling) {
       if (window.VERBOSE_LOGGING) console.info('Processing function calling response');
+      
+      // Check if response is valid and has headers before processing
+      if (!response || !response.headers) {
+        console.error('Invalid response from function calling:', response);
+        window.removeLoadingIndicator(loadingId);
+        window.resetSendButton();
+        if (window.showError) {
+          window.showError('Function calling failed. Please try again.');
+        }
+        return;
+      }
       
       // Check if response is a streaming response
       const contentType = response.headers.get('content-type');
@@ -122,9 +131,17 @@ window.sendMessage = async function() {
         if (window.VERBOSE_LOGGING) console.info('Non-streaming function calling response handled.');
       }
       return;
+    }    // For standard API responses, check if streaming is supported
+    if (!response || !response.headers) {
+      console.error('Invalid response from API:', response);
+      window.removeLoadingIndicator(loadingId);
+      window.resetSendButton();
+      if (window.showError) {
+        window.showError('API request failed. Please check your settings and try again.');
+      }
+      return;
     }
-
-    // For standard API responses, check if streaming is supported
+    
     const contentType = response.headers.get('content-type');
     const isStreamingResponse = contentType && contentType.includes('text/event-stream');
     if (window.VERBOSE_LOGGING) console.info('Response content-type:', contentType, 'Streaming:', isStreamingResponse);

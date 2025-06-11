@@ -231,6 +231,10 @@ window.handleFunctionCalling = async function(initialRequestBody, headers) {
     loopCount++;
     const endpoint = window.getApiEndpoint();
     try {
+      // Clean messages before sending to API to remove any extra fields
+      const cleanedMessages = window.cleanMessagesForApi ? window.cleanMessagesForApi(messages) : messages;
+      requestBody.messages = cleanedMessages;
+      
       // Temporarily disable streaming for the tool calling loop
       const originalStream = requestBody.stream;
       requestBody.stream = false;
@@ -286,7 +290,8 @@ window.handleFunctionCalling = async function(initialRequestBody, headers) {
   
   // Final API call
   const finalRequestBody = { ...initialRequestBody };
-  finalRequestBody.messages = messages;
+  // Clean messages before final API call to remove any extra fields
+  finalRequestBody.messages = window.cleanMessagesForApi ? window.cleanMessagesForApi(messages) : messages;
   delete finalRequestBody.tools;
   delete finalRequestBody.tool_choice;
   

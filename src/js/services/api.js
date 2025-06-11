@@ -52,6 +52,52 @@ window.callApi = async function(apiEndpoint, requestBody, headers, abortControll
 }
 
 /**
+ * Cleans a messages array to only include standard OpenAI Chat Completions API fields
+ * This prevents issues with strict APIs like Mistral that reject extra fields
+ * @param {Array} messages - Array of message objects to clean
+ * @returns {Array} - Cleaned messages array
+ */
+window.cleanMessagesForApi = function(messages) {
+  return messages.map(msg => {
+    if (msg.role === 'user' || msg.role === 'assistant') {
+      let content = msg.content || '';
+      // Remove thinking tags
+      content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
+      content = content.replace(/<\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g, '');
+      
+      // Return only standard OpenAI Chat Completions API fields
+      const cleanedMsg = {
+        role: msg.role,
+        content: content
+      };
+      
+      // Preserve tool_calls if present (for function calling)
+      if (msg.tool_calls) {
+        cleanedMsg.tool_calls = msg.tool_calls;
+      }
+      
+      return cleanedMsg;
+    } else if (msg.role === 'system' || msg.role === 'developer') {
+      // System/developer messages should only have role and content
+      return {
+        role: msg.role,
+        content: msg.content || ''
+      };
+    } else if (msg.role === 'tool') {
+      // Tool messages need role, content, and tool_call_id
+      return {
+        role: msg.role,
+        content: msg.content || '',
+        tool_call_id: msg.tool_call_id
+      };
+    }
+    
+    // For any other message types, return as-is but this shouldn't happen
+    return msg;
+  });
+};
+
+/**
  * Gets the API endpoint based on the current service configuration
  * @returns {string} The API endpoint URL
  */
@@ -164,18 +210,8 @@ window.prepareRequestData = function(message) {
       .filter(msg => msg.role !== 'system' && msg.role !== 'developer')
       .slice(-(maxContext * 2));
     
-    // Remove <think>...</think> and <|begin_of_thought|>...</|end_of_thought|> from user/assistant messages
-    rawMessages = rawMessages.map(msg => {
-      if (msg.role === 'user' || msg.role === 'assistant') {
-        let content = msg.content || '';
-        // Remove <think>...</think>
-        content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
-        // Remove <\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g
-        content = content.replace(/<\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g, '');
-        return { ...msg, content };
-      }
-      return msg;
-    });
+    // Clean messages: remove thinking tags and extra fields not supported by all APIs
+    rawMessages = window.cleanMessagesForApi(rawMessages);
     
     // Process the raw messages for tool handling
     if (window.config.enableFunctionCalling) {
