@@ -45,6 +45,90 @@ window.initTabs = function() {
   });
 };
 
+/**
+ * Switch to a specific tab in the settings panel
+ * @param {string} tabId - The ID of the tab to switch to
+ */
+window.switchToTab = function(tabId) {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  // Remove active class from all buttons and contents
+  tabButtons.forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+  
+  tabContents.forEach(content => {
+    content.classList.remove('active');
+  });
+  
+  // Activate the specified tab
+  const targetButton = document.getElementById(tabId);
+  const targetContentId = targetButton ? targetButton.getAttribute('aria-controls') : null;
+  const targetContent = targetContentId ? document.getElementById(targetContentId) : null;
+  
+  if (targetButton && targetContent) {
+    targetButton.classList.add('active');
+    targetButton.setAttribute('aria-selected', 'true');
+    targetContent.classList.add('active');
+  }
+};
+
+/**
+ * Check if any API keys are missing for the current service
+ * @returns {boolean} - True if API keys are missing, false otherwise
+ */
+window.checkApiKeysMissing = function() {
+  if (!window.config || !window.config.services) return false;
+  
+  const currentService = window.config.defaultService;
+  
+  // Skip check for services that don't require a key (e.g., Ollama)
+  if (currentService === 'ollama') return false;
+  
+  // Check if an API key exists for the current service
+  const apiKey = window.getApiKey ? window.getApiKey(currentService) : null;
+  
+  return !apiKey || apiKey.trim() === '';
+};
+
+/**
+ * Automatically open the settings panel and switch to API keys tab if no keys are set
+ */
+window.openApiKeysTabIfNeeded = function() {
+  if (!window.checkApiKeysMissing()) return;
+  
+  // Check if settings elements exist
+  if (!window.settingsPanel || !window.settingsButton) {
+    console.warn('Settings panel elements not found, cannot auto-open API keys tab');
+    return;
+  }
+  
+  // Store the current values when opening settings (similar to manual opening)
+  const originalPersonalityValue = window.personalityInput ? window.personalityInput.value : '';
+  const originalCustomPromptValue = window.systemPromptCustom ? window.systemPromptCustom.value : '';
+  
+  // Open the settings panel
+  window.settingsPanel.classList.add('active');
+  window.settingsButton.setAttribute('aria-expanded', 'true');
+  window.settingsPanel.setAttribute('aria-hidden', 'false');
+  window.settingsPanel.removeAttribute('inert');
+  window.settingsButton.style.display = 'none';
+  
+  // Switch to the API keys tab
+  window.switchToTab('tab-apikeys');
+  
+  // Organize the settings layout for the wider panel
+  if (typeof window.organizeSettingsLayout === 'function') {
+    window.organizeSettingsLayout();
+  }
+  
+  if (window.VERBOSE_LOGGING) {
+    console.info('Automatically opened API keys tab due to missing API key');
+  }
+};
+
 // -----------------------------------------------------
 // UI manipulation functions
 // -----------------------------------------------------

@@ -6,7 +6,7 @@
 
 **A feature-rich, open-source AI assistant platform**
 
-[![Version](https://img.shields.io/badge/version-0.9.2-blue.svg)](https://github.com/h1ddenpr0cess20/Nonagon)
+[![Version](https://img.shields.io/badge/version-v${APP_VERSION}-blue.svg)](https://github.com/h1ddenpr0cess20/Nonagon)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)]()
 
@@ -112,6 +112,7 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 - Enable "Tool Calling" in settings
 - Ask questions that require web search, image generation, or other tools
 - The AI will automatically use appropriate tools when needed
+- Be sure to obtain API keys before enabling the tools
 
 #### Personality Customization
 - Choose from preset personalities (Creative, Technical, Friendly, etc.)
@@ -152,18 +153,6 @@ src/
 
 ## 🔧 Configuration
 
-### Environment Variables
-Set these in `src/config/config.js`:
-
-```javascript
-// Debug settings
-window.DEBUG = false;
-window.VERBOSE_LOGGING = false;
-
-// Version
-window.APP_VERSION = '0.9.2';
-```
-
 ### Adding New AI Models
 Update the model configurations in `src/config/config.js` and `src/js/init/modelSettings.js`.
 
@@ -195,17 +184,6 @@ Add theme files to:
 - **Local Storage**: All conversations stored in your browser
 - **API Key Security**: Keys stored locally, transmitted only to respective AI providers
 - **No Tracking**: No analytics or user tracking
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## 📄 License
 

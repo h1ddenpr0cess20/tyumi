@@ -102,9 +102,16 @@ function initialize() {
       if (window.VERBOSE_LOGGING) console.info('Highlight.js preloaded.');
     }).catch(err => console.error('Failed to preload highlight.js', err));    // Initialize tool calling toggle state
     initializeToolCalling();
-    
-    // Initialize location service
+      // Initialize location service
     initializeLocationService();
+    
+    // Check if API keys are missing and auto-open the API keys tab if needed
+    if (typeof window.openApiKeysTabIfNeeded === 'function') {
+      // Add a small delay to ensure all UI components are fully rendered
+      setTimeout(() => {
+        window.openApiKeysTabIfNeeded();
+      }, 200);
+    }
     
     if (window.VERBOSE_LOGGING) console.info('Chatbot application initialization complete.');
     
