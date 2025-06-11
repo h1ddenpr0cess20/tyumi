@@ -127,7 +127,7 @@ window.config = {
         openai: {
             baseUrl: 'https://api.openai.com/v1',
             apiKey: '',
-            models: ['gpt-4o', 'gpt-4o-mini', "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano", 'o3-mini', 'o4-mini'],
+            models: ['gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'gpt-4.1-mini', 'gpt-4.1-nano', 'o3-mini', 'o4-mini', 'o3-pro', 'o3'],
             defaultModel: 'gpt-4.1-mini',
             organization: null,  // OpenAI organization ID (if applicable)
         },
@@ -144,7 +144,7 @@ window.config = {
         google: {
             baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
             apiKey: '',
-            models: ['gemini-1.5-flash', 'gemini-2.0-flash-exp', 'gemini-2.5-pro-exp-03-25', "gemini-2.5-flash-preview-04-17"],
+            models: ['gemini-1.5-flash', 'gemini-2.0-flash-exp', 'gemini-2.5-pro-exp-03-25', 'gemini-2.5-flash-preview-04-17'],
             defaultModel: 'gemini-2.5-flash-preview-04-17',
         },
         
@@ -152,8 +152,8 @@ window.config = {
         anthropic: {
             baseUrl: 'https://api.anthropic.com/v1',
             apiKey: '',
-            models: ['claude-3-5-sonnet-latest', 'claude-3-7-sonnet-latest', "claude-sonnet-4-0"],
-            defaultModel: 'claude-3-7-sonnet-latest',
+            models: ['claude-3-5-sonnet-latest', 'claude-3-7-sonnet-latest', 'claude-sonnet-4-0', 'claude-opus-4-0', 'claude-3-opus-latest', 'claude-3-5-haiku-latest'],
+            defaultModel: 'claude-sonnet-4-0',
         },
         
         // Mistral AI API
@@ -161,7 +161,7 @@ window.config = {
             baseUrl: 'https://api.mistral.ai/v1',
             apiKey: '',
             models: ['mistral-large-latest', 'mistral-small-latest', 'mistral-medium-latest', 'codestral-latest'],
-            defaultModel: 'mistral-large-latest',
+            defaultModel: 'mistral-small-latest',
         },
         
         // Ollama - Local AI models with OpenAI-compatible API
