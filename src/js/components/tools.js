@@ -51,14 +51,13 @@ window.initToolsSettings = function() {
  */
 function getAllToolDefinitions() {
   const tools = [];
-  
-  // Process all tools from toolDefinitions
+    // Process all tools from toolDefinitions
   window.toolDefinitions.forEach(definition => {
     if (definition.function && definition.function.name) {
       tools.push({
         name: definition.function.name,
         description: definition.function.description,
-        active: true
+        active: false
       });
     }
   });
@@ -162,8 +161,7 @@ function initToolStatesFromStorage() {
       // Apply stored states to tool definitions - regardless of master toggle
       // This ensures definitions are correctly set on page load
       updateToolDefinitions();
-    } else {
-      // Initialize with all current tools enabled by default
+    } else {      // Initialize with all current tools disabled by default
       const tools = getAllToolDefinitions();
       window.enabledTools = {};
       
@@ -219,10 +217,9 @@ function updateToolDefinitions() {
     window.originalToolDefinitions.forEach(definition => {
       if (definition.function && definition.function.name) {
         const toolName = definition.function.name;
-        
-        // Include tool if master toggle is on AND this specific tool is enabled
-        // (default to enabled if not explicitly disabled)
-        if (masterEnabled && window.enabledTools[toolName] !== false) {
+          // Include tool if master toggle is on AND this specific tool is enabled
+        // (default to disabled if not explicitly enabled)
+        if (masterEnabled && window.enabledTools[toolName] === true) {
           // Deep clone the definition to avoid reference issues
           const clonedDef = JSON.parse(JSON.stringify(definition));
           window.toolDefinitions.push(clonedDef);

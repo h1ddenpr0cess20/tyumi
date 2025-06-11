@@ -119,7 +119,7 @@ window.config = {
     defaultService: 'openai',
     
     // Enable OpenAI function calling
-    enableFunctionCalling: true,
+    enableFunctionCalling: false,
     
     // Configure services (add more as needed)
     services: {
