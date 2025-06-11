@@ -19,7 +19,7 @@ Nonagon is a powerful, client-side AI chatbot web application that seamlessly in
 ## 🌟 Key Features
     
 ### 🤖 Multi-Provider AI Support
-- **OpenAI** (GPT-4, GPT-4o, ChatGPT, etc.)
+- **OpenAI** (GPT-4.1, GPT-4o, o3, o4, etc)
 - **Anthropic** (Claude models)
 - **Google** (Gemini models)
 - **Mistral AI**

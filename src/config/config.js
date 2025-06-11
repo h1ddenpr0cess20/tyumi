@@ -4,15 +4,15 @@
  */
 
 // Enable debug mode (set to false in production)
-window.DEBUG = false;
+window.DEBUG = true;
 // Enable verbose logging (set to false to reduce log noise)
-window.VERBOSE_LOGGING = false;
+window.VERBOSE_LOGGING = true;
 
 // Store any API keys (these should be set by the user in the UI and stored in localStorage)
 // DO NOT hardcode actual API keys here
 
 // Application version
-window.APP_VERSION = '0.9.2';
+window.APP_VERSION = '0.9.3';
 
 // GitHub repository URL
 window.GITHUB_URL = 'https://github.com/h1ddenpr0cess20/Nonagon';
@@ -127,7 +127,7 @@ window.config = {
         openai: {
             baseUrl: 'https://api.openai.com/v1',
             apiKey: '',
-            models: ['gpt-4o', 'gpt-4o-mini', "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano"],
+            models: ['gpt-4o', 'gpt-4o-mini', "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano", 'o3-mini', 'o4-mini'],
             defaultModel: 'gpt-4.1-mini',
             organization: null,  // OpenAI organization ID (if applicable)
         },
@@ -282,6 +282,23 @@ window.config = {
     // Helper to get available models for the current service
     getAvailableModels: function() {
         return this.getActiveService().models;
+    },
+    
+    // Helper to determine if a model should use 'developer' role instead of 'system' role
+    shouldUseDeveloperRole: function(modelName = null) {
+        const model = modelName || this.getDefaultModel();
+        
+        // For OpenAI models starting with 'o' (o3-mini, o4-mini, etc.), use 'developer' role
+        if (this.defaultService === 'openai' && model && model.toLowerCase().startsWith('o')) {
+            return true;
+        }
+        
+        return false;
+    },
+    
+    // Helper to get the appropriate system role for the current model
+    getSystemRole: function(modelName = null) {
+        return this.shouldUseDeveloperRole(modelName) ? 'developer' : 'system';
     }
 };
 

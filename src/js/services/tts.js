@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dynamically load the audioStorage.js script if not already loaded
   if (typeof window.initAudioDb === 'undefined') {
     const script = document.createElement('script');
-    script.src = './js/utils/audioStorage.js';
+    script.src = '/src/js/utils/audioStorage.js';
     script.onload = () => {
       console.info('Audio storage module loaded');
     };

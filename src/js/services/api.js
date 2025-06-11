@@ -126,14 +126,25 @@ window.prepareRequestData = function(message) {
 
   // Handle system prompt in conversation history
   if (systemPrompt) {
-    const existingSystemIdx = this.conversationHistory.findIndex(msg => msg.role === 'system');
+    // Determine the appropriate role based on the model
+    const systemRole = window.config.getSystemRole ? window.config.getSystemRole(model) : 'system';
+    
+    // Find existing system or developer message
+    const existingSystemIdx = this.conversationHistory.findIndex(msg => 
+      msg.role === 'system' || msg.role === 'developer');
+    
     if (existingSystemIdx >= 0) {
+      // Update existing message with new role and content
+      this.conversationHistory[existingSystemIdx].role = systemRole;
       this.conversationHistory[existingSystemIdx].content = systemPrompt;
     } else {
-      this.conversationHistory.unshift({ role: 'system', content: systemPrompt });
+      // Add new message with appropriate role
+      this.conversationHistory.unshift({ role: systemRole, content: systemPrompt });
     }
   } else {
-    const existingSystemIdx = this.conversationHistory.findIndex(msg => msg.role === 'system');
+    // Remove any existing system or developer message
+    const existingSystemIdx = this.conversationHistory.findIndex(msg => 
+      msg.role === 'system' || msg.role === 'developer');
     if (existingSystemIdx >= 0) {
       this.conversationHistory.splice(existingSystemIdx, 1);
     }
@@ -144,12 +155,13 @@ window.prepareRequestData = function(message) {
   if (this.conversationHistory.length > 0) {
     // IMPORTANT: First extract the system message from the FULL conversation history
     // This ensures we always keep it, even when trimming long conversations
-    const systemMessage = this.conversationHistory.find(msg => msg.role === 'system');
+    const systemMessage = this.conversationHistory.find(msg => 
+      msg.role === 'system' || msg.role === 'developer');
     
     // Get the most recent messages according to maxContext
-    // Filter out the system message as we're handling it separately
+    // Filter out the system/developer message as we're handling it separately
     let rawMessages = this.conversationHistory
-      .filter(msg => msg.role !== 'system')
+      .filter(msg => msg.role !== 'system' && msg.role !== 'developer')
       .slice(-(maxContext * 2));
     
     // Remove <think>...</think> and <|begin_of_thought|>...</|end_of_thought|> from user/assistant messages
@@ -179,9 +191,9 @@ window.prepareRequestData = function(message) {
         [systemMessage, ...regularMessages] : 
         regularMessages;
       
-      console.info(`History trimming: Original=${rawMessages.length}, After filtering=${contextMessages.length}, System message ${systemMessage ? 'preserved' : 'not found'}`);
+      console.info(`History trimming: Original=${rawMessages.length}, After filtering=${contextMessages.length}, System/Developer message ${systemMessage ? 'preserved' : 'not found'}`);
     } else {
-      // For non-function calling, just add the system message back in
+      // For non-function calling, just add the system/developer message back in
       contextMessages = systemMessage ? [systemMessage, ...rawMessages] : rawMessages;
     }
   }
@@ -211,9 +223,15 @@ window.prepareRequestData = function(message) {
   let requestBody = {
     model,
     messages: apiMessages,
-    temperature,
     stream: true
   };
+  
+  // Only add temperature and other parameters for models that support them
+  const shouldUseRestrictedParams = window.config.shouldUseDeveloperRole && window.config.shouldUseDeveloperRole(model);
+  
+  if (!shouldUseRestrictedParams) {
+    requestBody.temperature = temperature;
+  }
   
   // Add tools if function calling is enabled and tools are available
   if (window.config.enableFunctionCalling && window.toolDefinitions && window.toolDefinitions.length > 0) {
@@ -227,11 +245,11 @@ window.prepareRequestData = function(message) {
   }
 
   // Add optional parameters based on service/model support
-  if (currentService !== 'google' && currentService !== 'anthropic') {
-    // OpenAI and compatible services support top_p
+  if (currentService !== 'google' && currentService !== 'anthropic' && !shouldUseRestrictedParams) {
+    // OpenAI and compatible services support top_p (but not o-series models)
     requestBody.top_p = topP;
     
-    // Only add frequency/presence penalties for fully OpenAI-compatible services
+    // Only add frequency/presence penalties for fully OpenAI-compatible services (but not o-series models)
     if (currentService === 'openai' || currentService === 'azure') {
       requestBody.frequency_penalty = frequencyPenalty;
       requestBody.presence_penalty = presencePenalty;
