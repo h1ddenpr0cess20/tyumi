@@ -59,6 +59,20 @@ window.sendMessage = async function() {
     // Get API endpoint and prepare request data
     const apiEndpoint = window.getApiEndpoint();
     const { requestBody, headers } = window.prepareRequestData(message);
+
+    // Ensure an API key is configured before proceeding (except for Ollama)
+    const currentService = window.config.defaultService;
+    const apiKey = window.config.getApiKey ? window.config.getApiKey() : null;
+    if (!apiKey && currentService !== 'ollama') {
+      // Remove the loading indicator and warn the user
+      window.removeLoadingIndicator(loadingId);
+      if (window.showWarning) {
+        const name = currentService.charAt(0).toUpperCase() + currentService.slice(1);
+        window.showWarning(`${name} API key is missing. Please add it in the API Keys settings.`);
+      }
+      return;
+    }
+
     if (window.VERBOSE_LOGGING) console.info('API request prepared:', { apiEndpoint, requestBody, headers });
 
     // Check if function calling is enabled and toolDefinitions exists with actual tools
