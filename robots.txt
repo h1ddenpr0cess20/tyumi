@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block access to sensitive files and directories
+Disallow: /src/
+Disallow: /cert.pem
+Disallow: /key.pem
+Disallow: /*.js$
+Disallow: /*.css$
+
+# Allow access to static assets
+Allow: /favicon.ico
+Allow: /logo.svg
+Allow: /src/css/themes/fonts/files/
