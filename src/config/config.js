@@ -4,9 +4,9 @@
  */
 
 // Enable debug mode (set to false in production)
-window.DEBUG = true;
+window.DEBUG = false;
 // Enable verbose logging (set to false to reduce log noise)
-window.VERBOSE_LOGGING = true;
+window.VERBOSE_LOGGING = false;
 
 // Store any API keys (these should be set by the user in the UI and stored in localStorage)
 // DO NOT hardcode actual API keys here
