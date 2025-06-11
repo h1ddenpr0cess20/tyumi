@@ -439,6 +439,10 @@ window.ensureApiKeysLoaded = function() {
     if (!window.config || !window.config.services) return;
 
     const service = window.config.defaultService;
+
+    // Skip warning for services that don't require a key (e.g., Ollama)
+    if (service === 'ollama') return;
+
     const apiKey = window.getApiKey ? window.getApiKey(service) : null;
 
     // Track warnings to avoid repetition
