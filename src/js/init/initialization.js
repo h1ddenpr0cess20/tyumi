@@ -75,14 +75,18 @@ function initialize() {
     // Initialize mobile keyboard handling
     window.initializeMobileKeyboardHandling();
     if (window.VERBOSE_LOGGING) console.info('Mobile keyboard handling initialized.');
-    
-    // Call these functions to initialize the UI
+      // Call these functions to initialize the UI
     window.updateParameterControls();
     
     // Ensure API keys are loaded before updating model selector
     if (typeof window.ensureApiKeysLoaded === 'function') {
       window.ensureApiKeysLoaded();
       if (window.VERBOSE_LOGGING) console.info('API keys loaded from localStorage.');
+    }
+    
+    // Explicitly initialize personality input
+    if (typeof window.initializePersonalityInput === 'function') {
+      window.initializePersonalityInput();
     }
     
     window.updateModelSelector();
@@ -130,7 +134,9 @@ function initializeApiReferences() {
       personalityInput: window.personalityInput,
       customPromptRadio: window.customPromptRadio,
       systemPromptCustom: window.systemPromptCustom, 
-      noPromptRadio: window.noPromptRadio,      modelSelector: window.modelSelector,      temperatureSlider: window.temperatureSlider,
+      noPromptRadio: window.noPromptRadio,      
+      modelSelector: window.modelSelector,      
+      temperatureSlider: window.temperatureSlider,
       topPSlider: window.topPSlider,
       frequencyPenaltySlider: window.frequencyPenaltySlider,
       presencePenaltySlider: window.presencePenaltySlider,

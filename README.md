@@ -6,7 +6,7 @@
 
 **A feature-rich, open-source AI assistant platform**
 
-[![Version](https://img.shields.io/badge/version-v0.9.3-blue.svg)](https://github.com/h1ddenpr0cess20/Nonagon)
+[![Version](https://img.shields.io/badge/version-v0.9.4-blue.svg)](https://github.com/h1ddenpr0cess20/Nonagon)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)]()
 

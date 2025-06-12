@@ -140,12 +140,20 @@ window.prepareRequestData = function(message) {
   let systemPrompt = "";
   const locationInfo = typeof window.getLocationForPrompt === 'function' ? window.getLocationForPrompt() : '';
   
-  if (this.personalityPromptRadio.checked && this.personalityInput.value.trim() !== "") {
-    // Only use personality if it has been explicitly set
-    if (this.personalityInput.hasAttribute('data-explicitly-set') && 
+  if (this.personalityPromptRadio.checked) {
+    // If personality is explicitly set, use it
+    if (this.personalityInput.value.trim() !== "" && 
+        this.personalityInput.hasAttribute('data-explicitly-set') && 
         this.personalityInput.getAttribute('data-explicitly-set') === 'true') {
       systemPrompt = window.PERSONALITY_PROMPT_TEMPLATE
         .replace('{personality}', this.personalityInput.value.trim())
+        .replace('{datetime}', currentDateTime)
+        .replace('{location}', locationInfo);
+    } 
+    // Otherwise, use the default personality
+    else if (window.DEFAULT_PERSONALITY) {
+      systemPrompt = window.PERSONALITY_PROMPT_TEMPLATE
+        .replace('{personality}', window.DEFAULT_PERSONALITY)
         .replace('{datetime}', currentDateTime)
         .replace('{location}', locationInfo);
     }

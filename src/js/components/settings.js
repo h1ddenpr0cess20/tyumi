@@ -84,7 +84,16 @@ window.updateHeaderInfo = function() {
     
     // Always display something in the model info area even if empty
     if (!promptInfo) {
-      promptInfo = "System: Default";
+      // Use the default personality explicitly and make sure it's set in the input
+      if (window.DEFAULT_PERSONALITY) {
+        // Set the personality in the UI if it's empty
+        if (window.personalityInput && (!window.personalityInput.value.trim() || 
+            !window.personalityInput.hasAttribute('data-explicitly-set'))) {
+          window.personalityInput.value = window.DEFAULT_PERSONALITY;
+          window.personalityInput.setAttribute('data-explicitly-set', 'true');
+        }
+        promptInfo = `Personality: ${window.DEFAULT_PERSONALITY}`;
+      }
     }
     
     modelInfo.textContent = promptInfo;
@@ -235,6 +244,19 @@ window.populateServiceSelector = function() {
     option.textContent = displayName;
     window.serviceSelector.appendChild(option);
   });
+};
+
+/**
+ * Explicitly initialize the personality input with the default personality
+ */
+window.initializePersonalityInput = function() {
+  if (window.personalityInput && window.DEFAULT_PERSONALITY) {
+    window.personalityInput.value = window.DEFAULT_PERSONALITY;
+    window.personalityInput.setAttribute('data-explicitly-set', 'true');
+    console.info('Default personality explicitly set in personality input box');
+  } else {
+    console.warn('Could not initialize personality input: element or default personality not available');
+  }
 };
 
 /**
