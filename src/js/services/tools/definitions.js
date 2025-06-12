@@ -484,7 +484,272 @@ window.toolDefinitions = [
       },
       strict: false
     }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_recipes",
+      description: "Search for recipes using keywords or ingredients",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "The search query for recipes (e.g., 'pasta', 'chicken curry', 'chocolate cake')"
+          },
+          from: {
+            type: "number",
+            description: "Starting index for pagination. Default is 0."
+          },
+          size: {
+            type: "number",
+            description: "Number of recipes to return. Default is 10, maximum is 40."
+          }        },
+        required: ["query"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },  {
+    type: "function",
+    function: {
+      name: "search_tweets",
+      description: "Search for tweets by keyword, hashtag, or phrase. Returns recent tweets matching the search criteria.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "The search query for tweets (e.g., 'AI technology', '#OpenAI', 'from:elonmusk')"
+          },
+          limit: {
+            type: "number",
+            description: "Number of tweets to return. Default is 20, maximum is 100."
+          },
+          section: {
+            type: "string",
+            enum: ["top", "latest", "people", "photos", "videos"],
+            description: "Type of search results. Default is 'top'."
+          },
+          min_retweets: {
+            type: "number",
+            description: "Minimum number of retweets required. Default is 0."
+          },
+          min_likes: {
+            type: "number",
+            description: "Minimum number of likes required. Default is 0."
+          }
+        },
+        required: ["query"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_user_profile",
+      description: "Get detailed profile information for a Twitter/X user by username.",
+      parameters: {
+        type: "object",
+        properties: {
+          username: {
+            type: "string",
+            description: "The username (without @) of the Twitter/X user to get profile information for"
+          }
+        },
+        required: ["username"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },  {
+    type: "function",
+    function: {
+      name: "get_user_tweets",
+      description: "Get recent tweets from a specific Twitter/X user.",
+      parameters: {
+        type: "object",
+        properties: {
+          username: {
+            type: "string",
+            description: "The username (without @) of the Twitter/X user to get tweets from"
+          },
+          limit: {
+            type: "number",
+            description: "Number of tweets to return. Default is 20, maximum is 100."
+          },
+          user_id: {
+            type: "string",
+            description: "Optional: The user ID of the Twitter/X user (can be used instead of or alongside username)"
+          },
+          include_replies: {
+            type: "boolean",
+            description: "Whether to include reply tweets. Default is false."
+          },
+          include_pinned: {
+            type: "boolean",
+            description: "Whether to include pinned tweets. Default is false."
+          }
+        },
+        required: ["username"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },{
+    type: "function",
+    function: {
+      name: "get_trending_topics",
+      description: "Get current trending topics and hashtags on Twitter/X for a specific location using Where On Earth ID (WOEID).",
+      parameters: {
+        type: "object",
+        properties: {
+          woeid: {
+            type: "number",
+            description: "Where On Earth ID for the location. Common values: 1 (Worldwide), 23424977 (US), 23424975 (UK), 23424856 (Japan). Default is 1 (Worldwide)."
+          }
+        },
+        required: [],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_tweet_details",
+      description: "Get detailed information about a specific tweet including replies, likes, retweets, and other metrics.",
+      parameters: {
+        type: "object",
+        properties: {
+          tweet_id: {
+            type: "string",
+            description: "The ID of the tweet to get detailed information for"
+          }
+        },
+        required: ["tweet_id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_users",
+      description: "Search for Twitter/X users by username or display name.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "The search query for users (username or display name)"
+          },
+          limit: {
+            type: "number",
+            description: "Number of users to return. Default is 20, maximum is 50."
+          }
+        },        required: ["query"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_imdb",
+      description: "Search for movies, TV shows, actors, and other entertainment content using the IMDB database.",
+      parameters: {
+        type: "object",
+        properties: {
+          searchTerm: {
+            type: "string",
+            description: "The search term for movies, TV shows, actors, etc. (e.g., 'Tom Cruise', 'Inception', 'Breaking Bad')"
+          },
+          type: {
+            type: "string",
+            enum: ["NAME", "VIDEO_GAME", "PODCAST_SERIES", "TV_EPISODE", "TV_MOVIE"],
+            description: "Type of content to search for. Default is 'NAME' which searches all types."
+          },
+          first: {
+            type: "number",
+            description: "Number of results to return. Default is 20, maximum is 50."
+          },
+          country: {
+            type: "string",
+            description: "Country code for localized results (e.g., 'US', 'UK'). Default is 'US'."
+          },
+          language: {
+            type: "string",
+            description: "Language code for results (e.g., 'en-US', 'es-ES'). Default is 'en-US'."
+          }
+        },
+        required: ["searchTerm"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },  {
+    type: "function",
+    function: {
+      name: "get_title_details",
+      description: "Get detailed information about a specific movie or TV show using IMDB title ID",
+      parameters: {
+        type: "object",
+        properties: {
+          titleId: {
+            type: "string",
+            description: "IMDB title ID (must start with 'tt', e.g., 'tt0120338')"
+          },
+          country: {
+            type: "string",
+            description: "Country code (optional, default: 'US')"
+          },
+          language: {
+            type: "string",
+            description: "Language code (optional, default: 'en-US')"
+          }
+        },
+        required: ["titleId"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_actor_details",
+      description: "Get detailed information about a specific actor or person using IMDB person ID",
+      parameters: {
+        type: "object",
+        properties: {
+          personId: {
+            type: "string",
+            description: "IMDB person ID (must start with 'nm', e.g., 'nm0000138')"
+          },
+          first: {
+            type: "number",
+            description: "Number of items per response for paging purpose (default: 20, max: 50)"
+          },
+          country: {
+            type: "string",
+            description: "Country code (optional, default: 'US')"
+          },
+          language: {
+            type: "string",
+            description: "Language code (optional, default: 'en-US')"
+          }
+        },
+        required: ["personId"],
+        additionalProperties: false
+      },
+      strict: false
+    }
   }
 ];
 
-// The getToolsDescription function has been moved to tools.js for dynamic tool management

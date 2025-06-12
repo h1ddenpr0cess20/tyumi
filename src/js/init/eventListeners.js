@@ -859,6 +859,9 @@ function setupChatHistoryEventListeners() {  // Chat history panel toggle
  * Setup debug event listeners
  */
 function setupDebugEventListeners() {
+  // Setup triple-click debug toggle on About tab
+  setupAboutTabDebugToggle();
+  
   // Debug images button - only show in developer mode
   if (window.debugImagesButton) {
     // Only show the debug button if in developer mode
@@ -897,6 +900,158 @@ function setupDebugEventListeners() {
       });
     }
   }
+}
+
+/**
+ * Setup triple-click debug toggle on About tab
+ */
+function setupAboutTabDebugToggle() {
+  const aboutTab = document.getElementById('tab-about');
+  if (!aboutTab) return;
+  
+  let clickCount = 0;
+  let clickTimer = null;
+  const clickTimeout = 1000;
+  aboutTab.addEventListener('click', (event) => {
+    clickCount++;
+    
+    // Clear existing timer
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+    }
+    
+    // Set new timer
+    clickTimer = setTimeout(() => {
+      // Check if we got 3 clicks
+      if (clickCount === 3) {
+        // Toggle debug mode
+        toggleDebugMode();
+      }
+      
+      // Reset click count
+      clickCount = 0;
+    }, clickTimeout);
+
+    // If this is the third click, prevent default tab switching temporarily
+    if (clickCount === 3) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true); // Use capture phase to intercept before normal tab handling
+}
+
+/**
+ * Toggle debug mode (both DEBUG and VERBOSE_LOGGING variables)
+ */
+function toggleDebugMode() {
+  // Toggle both debug variables
+  window.DEBUG = !window.DEBUG;
+  window.VERBOSE_LOGGING = !window.VERBOSE_LOGGING;
+  
+  // Update console logging behavior
+  updateConsoleLogging();
+  
+  // Show notification
+  const status = window.DEBUG ? 'enabled' : 'disabled';
+  console.info(`Debug mode ${status}:`, {
+    DEBUG: window.DEBUG,
+    VERBOSE_LOGGING: window.VERBOSE_LOGGING
+  });
+  
+  // Optional: Show a brief visual indicator
+  showDebugToggleNotification(status);
+}
+
+/**
+ * Update console logging behavior based on DEBUG and VERBOSE_LOGGING settings
+ */
+function updateConsoleLogging() {
+  if (window.DEBUG) {
+    // Add timestamps and enhance logging
+    console.log = function(...args) {
+      if (window.VERBOSE_LOGGING) {
+        const timestamp = new Date().toISOString();
+        window.originalConsole.log(`[${timestamp}] [LOG]`, ...args);
+      }
+    };
+    
+    console.error = function(...args) {
+      const timestamp = new Date().toISOString();
+      window.originalConsole.error(`[${timestamp}] [ERROR]`, ...args);
+    };
+    
+    console.warn = function(...args) {
+      const timestamp = new Date().toISOString();
+      window.originalConsole.warn(`[${timestamp}] [WARN]`, ...args);
+    };
+    
+    console.info = function(...args) {
+      if (window.VERBOSE_LOGGING) {
+        const timestamp = new Date().toISOString();
+        window.originalConsole.info(`[${timestamp}] [INFO]`, ...args);
+      }
+    };
+    
+    if (window.VERBOSE_LOGGING) {
+      console.log('Debug mode enabled via triple-click');
+    }
+  } else {
+    // Restore original console methods or disable logging
+    if (window.originalConsole) {
+      console.log = window.originalConsole.log;
+      console.error = window.originalConsole.error;
+      console.warn = window.originalConsole.warn;
+      console.info = window.originalConsole.info;
+    }
+    
+    // In production mode, suppress logging unless explicitly enabled
+    if (!localStorage.getItem('enableLogging')) {
+      console.log = function() {};
+      console.info = function() {};
+    }
+  }
+}
+
+/**
+ * Show a brief visual notification that debug mode was toggled
+ */
+function showDebugToggleNotification(status) {
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = 'debug-toggle-notification';
+  notification.textContent = `Debug Mode ${status.charAt(0).toUpperCase() + status.slice(1)}`;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-color);
+    color: var(--button-text-color);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  `;
+  
+  // Add to document
+  document.body.appendChild(notification);
+  
+  // Animate in
+  requestAnimationFrame(() => {
+    notification.style.opacity = '1';
+  });
+  
+  // Remove after 2 seconds
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 2000);
 }
 
 // Make function available globally

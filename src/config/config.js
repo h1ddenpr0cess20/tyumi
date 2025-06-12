@@ -60,37 +60,37 @@ window.DEFAULT_SETTINGS = {
 };
 
 // Set up console logging wrapper for better debugging
+// Store original console methods globally so they can be accessed by debug toggle
+window.originalConsole = {
+  log: console.log,
+  error: console.error,
+  warn: console.warn,
+  info: console.info
+};
+
 if (window.DEBUG) {
-  // Store original console methods
-  const originalConsole = {
-    log: console.log,
-    error: console.error,
-    warn: console.warn,
-    info: console.info
-  };
-  
   // Add timestamps and enhance logging
   console.log = function(...args) {
     if (window.VERBOSE_LOGGING) {
       const timestamp = new Date().toISOString();
-      originalConsole.log(`[${timestamp}] [LOG]`, ...args);
+      window.originalConsole.log(`[${timestamp}] [LOG]`, ...args);
     }
   };
   
   console.error = function(...args) {
     const timestamp = new Date().toISOString();
-    originalConsole.error(`[${timestamp}] [ERROR]`, ...args);
+    window.originalConsole.error(`[${timestamp}] [ERROR]`, ...args);
   };
   
   console.warn = function(...args) {
     const timestamp = new Date().toISOString();
-    originalConsole.warn(`[${timestamp}] [WARN]`, ...args);
+    window.originalConsole.warn(`[${timestamp}] [WARN]`, ...args);
   };
   
   console.info = function(...args) {
     if (window.VERBOSE_LOGGING) {
       const timestamp = new Date().toISOString();
-      originalConsole.info(`[${timestamp}] [INFO]`, ...args);
+      window.originalConsole.info(`[${timestamp}] [INFO]`, ...args);
     }
   };
   

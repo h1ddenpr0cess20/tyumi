@@ -507,7 +507,7 @@ async function googleSearch(args) {
       if (!googleApiKey) {
       return {
         query: query,
-        notice: 'Google API key not configured. Please enable the Custom Search API in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please enable the Custom Search API in your Google Cloud Console at https://console.cloud.google.com/apis/library/customsearch.googleapis.com and add your Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -611,7 +611,7 @@ async function youtubeSearch(args) {
     if (!googleApiKey) {
       return {
         query: query,
-        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add your Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -704,7 +704,7 @@ async function youtubeVideoDetails(args) {
       if (!googleApiKey) {
       return {
         videoId: videoId,
-        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add your Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
