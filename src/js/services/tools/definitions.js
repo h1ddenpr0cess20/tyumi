@@ -669,11 +669,10 @@ window.toolDefinitions = [
           searchTerm: {
             type: "string",
             description: "The search term for movies, TV shows, actors, etc. (e.g., 'Tom Cruise', 'Inception', 'Breaking Bad')"
-          },
-          type: {
+          },          type: {
             type: "string",
-            enum: ["NAME", "VIDEO_GAME", "PODCAST_SERIES", "TV_EPISODE", "TV_MOVIE"],
-            description: "Type of content to search for. Default is 'NAME' which searches all types."
+            enum: ["VIDEO_GAME", "PODCAST_SERIES", "TV_EPISODE", "TV", "MOVIE", "NAME"],
+            description: "Type of content to search for. Optional parameter."
           },
           first: {
             type: "number",

@@ -12,22 +12,25 @@ window.toolImplementations = window.toolImplementations || {};
  */
 async function searchIMDB(args) {
   const searchTerm = args.searchTerm;
-  const type = args.type || "NAME"; // NAME, VIDEO_GAME, PODCAST_SERIES, TV_EPISODE, TV_MOVIE, NAME
+  const type = args.type; // One of: VIDEO_GAME|PODCAST_SERIES|TV_EPISODE|TV|MOVIE|NAME
   const first = Math.min(args.first || 20, 50); // Limit to 50 results max
   const country = args.country || "US";
   const language = args.language || "en-US";
   
   if (window.VERBOSE_LOGGING) console.info(`Searching IMDB for: "${searchTerm}", type: ${type}, first: ${first}`);
-  
-  try {
+    try {
     const baseUrl = "https://imdb8.p.rapidapi.com/v2/search";
     const params = new URLSearchParams({
       searchTerm: searchTerm,
-      type: type,
       first: first,
       country: country,
       language: language
     });
+    
+    // Only add type parameter if it's provided
+    if (type) {
+      params.append('type', type);
+    }
     
     // Create a tracked controller for this request
     const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
