@@ -18,11 +18,14 @@ async function getWeather(args) {
   const unitSystem = unit === 'celsius' ? 'metric' : 'imperial';
   const unitSymbol = unit === 'celsius' ? '°C' : '°F';
   
-  try {
-    // Retrieve API Key from storage
+  try {    // Retrieve API Key from storage
     const apiKey = window.getToolApiKey ? window.getToolApiKey('openweather') : null;
     if (!apiKey) {
-      throw new Error('OpenWeather API key not configured. Please add your OpenWeather API key in the Tools settings.');
+      return {
+        location: args.location,
+        notice: 'OpenWeather API key not configured. Please get a free API key from https://openweathermap.org/api and add it in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     // First, get coordinates for the location using geocoding API

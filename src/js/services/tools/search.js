@@ -39,12 +39,15 @@ async function searchNews(args) {
       params.append("source", source);
     }    // Create a tracked controller for this request
     const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
-    
-    // Get RapidAPI key from tool API keys
+      // Get RapidAPI key from tool API keys
     const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
     
     if (!rapidApiKey) {
-      throw new Error('RapidAPI key not configured. Please add your RapidAPI key in the Tools settings.');
+      return {
+        query: query,
+        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     try {
@@ -121,8 +124,7 @@ async function getHeadlines(args) {
   
   if (window.VERBOSE_LOGGING) console.info(`Fetching ${limit} headlines for country: ${country}, language: ${lang}`);
   
-  try {
-    const url = "https://real-time-news-data.p.rapidapi.com/top-headlines";
+  try {    const url = "https://real-time-news-data.p.rapidapi.com/top-headlines";
     const params = new URLSearchParams({
       limit: limit,
       country: country,
@@ -136,7 +138,10 @@ async function getHeadlines(args) {
     const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
     
     if (!rapidApiKey) {
-      throw new Error('RapidAPI key not configured. Please add your RapidAPI key in the Tools settings.');
+      return {
+        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     try {
@@ -208,10 +213,17 @@ async function openaiSearch(args) {
   const timezone = args.timezone || "America/New_York";
   
   if (window.VERBOSE_LOGGING) console.info(`Performing OpenAI search for: "${query}"`);
-  
-  try {
+    try {
     // Get OpenAI API key from config
     const apiKey = window.config.services.openai.apiKey;
+    
+    if (!apiKey) {
+      return {
+        query: query,
+        notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
     
     const url = "https://api.openai.com/v1/chat/completions";
     const headers = {
@@ -311,8 +323,7 @@ async function getLocalHeadlines(args) {
   
   if (window.VERBOSE_LOGGING) console.info(`Fetching ${limit} local headlines for query: ${query}, country: ${country}, language: ${lang}`);
   
-  try {
-    const url = "https://real-time-news-data.p.rapidapi.com/local-headlines";
+  try {    const url = "https://real-time-news-data.p.rapidapi.com/local-headlines";
     const params = new URLSearchParams({
       query: query,
       limit: limit,
@@ -326,7 +337,11 @@ async function getLocalHeadlines(args) {
     const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
     
     if (!rapidApiKey) {
-      throw new Error('RapidAPI key not configured. Please add your RapidAPI key in the Tools settings.');
+      return {
+        query: query,
+        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     try {
@@ -400,8 +415,7 @@ async function getFullStoryCoverage(args) {
 
   if (window.VERBOSE_LOGGING) console.info(`Fetching full story coverage for story ID: "${story_id}", sort: ${sort}`);
 
-  try {
-    const baseUrl = "https://real-time-news-data.p.rapidapi.com/full-story-coverage";
+  try {    const baseUrl = "https://real-time-news-data.p.rapidapi.com/full-story-coverage";
     const params = new URLSearchParams({
       story_id: story_id,
       sort: sort
@@ -411,7 +425,11 @@ async function getFullStoryCoverage(args) {
     const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
     
     if (!rapidApiKey) {
-      throw new Error('RapidAPI key not configured. Please add your RapidAPI key in the Tools settings.');
+      return {
+        story_id: story_id,
+        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
 
     try {
@@ -486,9 +504,12 @@ async function googleSearch(args) {
   if (window.VERBOSE_LOGGING) console.info(`Google search for: "${query}", num: ${num}, start: ${start}`);  try {
     // Get Google API key from main API keys or tool API keys
     const googleApiKey = window.getApiKey ? window.getApiKey('google') : null;
-    
-    if (!googleApiKey) {
-      throw new Error('Google API key not configured. Please add your Google API key in the API Keys settings.');
+      if (!googleApiKey) {
+      return {
+        query: query,
+        notice: 'Google API key not configured. Please enable the Custom Search API in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     const baseUrl = "https://www.googleapis.com/customsearch/v1";
@@ -582,14 +603,17 @@ async function youtubeSearch(args) {
   const publishedBefore = args.publishedBefore || ""; // RFC 3339 format
   const regionCode = args.regionCode || ""; // ISO 3166-1 alpha-2 country code
   const relevanceLanguage = args.relevanceLanguage || ""; // ISO 639-1 language code
-
   if (window.VERBOSE_LOGGING) console.info(`YouTube search for: "${query}", maxResults: ${maxResults}, order: ${order}`);
   try {
     // Get Google API key from main API keys
     const googleApiKey = window.getApiKey ? window.getApiKey('google') : null;
     
     if (!googleApiKey) {
-      throw new Error('Google API key not configured. Please add your Google API key in the API Keys settings.');
+      return {
+        query: query,
+        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     const baseUrl = "https://www.googleapis.com/youtube/v3/search";
@@ -674,13 +698,15 @@ async function youtubeVideoDetails(args) {
   const videoId = args.videoId;
   const parts = args.parts || "snippet,statistics,contentDetails"; // What details to retrieve
 
-  if (window.VERBOSE_LOGGING) console.info(`Getting YouTube video details for ID: ${videoId}`);
-  try {
+  if (window.VERBOSE_LOGGING) console.info(`Getting YouTube video details for ID: ${videoId}`);  try {
     // Get Google API key from main API keys
     const googleApiKey = window.getApiKey ? window.getApiKey('google') : null;
-    
-    if (!googleApiKey) {
-      throw new Error('Google API key not configured. Please add your Google API key in the API Keys settings.');
+      if (!googleApiKey) {
+      return {
+        videoId: videoId,
+        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library and add your Google API key in the API Keys settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     const baseUrl = "https://www.googleapis.com/youtube/v3/videos";

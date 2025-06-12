@@ -50,6 +50,14 @@ async function blobToBase64(blob) {
  */
 async function grokImage(args) {
   const apiKey = window.config.services.xai.apiKey;
+  
+  if (!apiKey) {
+    return {
+      notice: 'X.AI (xAI) API key not configured. Please add your X.AI API key in the API Keys settings.',
+      error: null
+    };
+  }
+  
   const url = "https://api.x.ai/v1/images/generations";
   const headers = { "Authorization": `Bearer ${apiKey}` };
   const payload = { 
@@ -103,6 +111,14 @@ async function grokImage(args) {
  */
 async function geminiImage(args) {
   const apiKey = window.config.services.google.apiKey;
+  
+  if (!apiKey) {
+    return {
+      notice: 'Google API key not configured. Please add your Google API key in the API Keys settings.',
+      error: null
+    };
+  }
+  
   const model = "gemini-2.0-flash-preview-image-generation";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   const payload = {
@@ -139,6 +155,14 @@ async function geminiImage(args) {
  */
 async function openaiImage(args) {
   const apiKey = window.config.services.openai.apiKey;
+  
+  if (!apiKey) {
+    return {
+      notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+      error: null
+    };
+  }
+  
   const url = "https://api.openai.com/v1/images/generations";
   const headers = {
     "Content-Type": "application/json",
@@ -183,6 +207,14 @@ window.toolImplementations.openai_image = openaiImage;
  */
 async function openaiImageEdit(args) {
   const apiKey = window.config.services.openai.apiKey;
+  
+  if (!apiKey) {
+    return {
+      notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+      error: null
+    };
+  }
+  
   const url = "https://api.openai.com/v1/images/edits";
   const headers = {
     "Authorization": `Bearer ${apiKey}`

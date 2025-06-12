@@ -39,12 +39,15 @@ async function getStockPrice(args) {
     const symbol = args.symbol.toUpperCase();
     const dataType = args.dataType || 'quote';
     if (window.VERBOSE_LOGGING) console.info(`Fetching stock price for ${symbol} (${dataType})`);
-    
-    // Get AlphaVantage API key from tool API keys
+      // Get AlphaVantage API key from tool API keys
     const apiKey = window.getToolApiKey ? window.getToolApiKey('alphavantage') : null;
     
     if (!apiKey) {
-      throw new Error('AlphaVantage API key not configured. Please add your AlphaVantage API key in the Tools settings.');
+      return {
+        symbol: symbol,
+        notice: 'AlphaVantage API key not configured. Please get a free API key from https://www.alphavantage.co/support/#api-key and add it in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
     }
     
     let endpoint;

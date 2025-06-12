@@ -296,7 +296,13 @@ window.updateMessageContent = function(messageElement, contentObj) {
     const reasoningToggle = document.createElement('button');
     reasoningToggle.className = 'reasoning-toggle';
     reasoningToggle.innerHTML = '<span class="toggle-icon">▶</span> <span class="toggle-label">Show reasoning</span>';
-    reasoningToggle.onclick = function() {
+    reasoningToggle.onclick = function(event) {
+      // Prevent event bubbling that might affect other elements
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      
       reasoningContainer.classList.toggle('collapsed');
       const isCollapsed = reasoningContainer.classList.contains('collapsed');
       reasoningToggle.querySelector('.toggle-icon').textContent = isCollapsed ? '▶' : '▼';
