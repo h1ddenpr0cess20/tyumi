@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
   <title>Nonagon</title>
   <meta name="description" content="A feature-rich AI assistant platform that integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral AI, x.ai, and local Ollama models." />
+
+  <!-- Additional Meta Tags -->
+  <meta name="author" content="Dustin Whyte">
+  <meta name="keywords" content="AI assistant, Nonagon, OpenAI, Anthropic, Claude, Google, Gemini, Mistral AI, x.ai, Grok, Ollama, local AI models, chatbot, artificial intelligence">
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="application-name" content="Nonagon">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nonagon.app/">
+  <meta property="og:title" content="Nonagon - Feature-Rich AI Assistant Platform">
+  <meta property="og:description" content="A feature-rich AI assistant platform integrating with OpenAI, Anthropic, Google, Mistral, x.ai and local Ollama models.">
+  <meta property="og:image" content="https://nonagon.app/logo.svg">
+  <meta property="og:site_name" content="Nonagon">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://nonagon.app/">
+  <meta name="twitter:title" content="Nonagon - Feature-Rich AI Assistant Platform">
+  <meta name="twitter:description" content="A feature-rich AI assistant platform integrating with OpenAI, Anthropic, Google, Mistral, x.ai and local Ollama models.">
+  <meta name="twitter:image" content="https://nonagon.app/logo.svg">
+
+  <!-- Mobile Web App -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Nonagon">
+  
   <link rel="icon" type="image/x-icon" href="src/favicon.ico">
 
   <!-- Link to modular CSS -->
@@ -31,7 +60,8 @@
   <script src="src/js/components/theme.js"></script>
   <script src="src/js/components/interaction.js"></script>
   <script src="src/js/components/gallery.js"></script>
-  <script src="src/js/components/tools.js"></script>  <!-- Load service functions -->  <!-- Tool definitions and implementations must be loaded before tools.js -->
+  <script src="src/js/components/tools.js"></script>  
+  <!-- Load service functions -->  
   <script src="src/js/services/tools/definitions.js"></script>
   <script src="src/js/services/tools/finance.js"></script>
   <script src="src/js/services/tools/images.js"></script>
