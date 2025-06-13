@@ -15,8 +15,7 @@ window.VERBOSE_LOGGING = false;
 window.APP_VERSION = '0.9.4';
 
 // GitHub repository URL
-window.GITHUB_URL = 'https://github.com/h1ddenpr0cess20/Nonagon';
-
+window.GITHUB_URL = 'https://github.com/h1ddenpr0cess20/Tyumi';
 
 // Cryptocurrency donation addresses
 window.CRYPTO_DONATIONS = [
@@ -43,8 +42,8 @@ window.CRYPTO_DONATIONS = [
 ];
 
 // Default system prompts
-window.DEFAULT_SYSTEM_PROMPT = 'You are a helpful AI assistant. Provide clear, accurate, and concise information. Respond in a friendly, professional, and engaging manner. Adapt your tone to the user’s needs and always prioritize usefulness and clarity.';
-window.DEFAULT_PERSONALITY = 'a helpful and knowledgeable assistant named Nonagon';
+window.DEFAULT_SYSTEM_PROMPT = "You are a helpful AI assistant. Provide clear, accurate, and concise information. Respond in a friendly, professional, and engaging manner. Adapt your tone to the user’s needs and always prioritize usefulness and clarity.";
+window.DEFAULT_PERSONALITY = "a helpful and knowledgeable assistant named Tyumi";
 
 // Prompt templates
 window.PERSONALITY_PROMPT_TEMPLATE = 'Assume the personality of {personality}. Roleplay and never break character. Keep your responses relatively short and to the point unless the prompt implies a longer response (such as articles, poems, stories, etc.  use your best judgment). [current date and location, for reference when needed: {datetime} | {location}]';

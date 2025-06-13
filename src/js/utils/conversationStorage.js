@@ -4,7 +4,7 @@
  */
 
 // IndexedDB database configuration
-const CONVO_DB_NAME = 'nonagon-conversations';
+const CONVO_DB_NAME = 'tyumi-conversations';
 const CONVO_DB_VERSION = 1;
 const CONVO_STORE_NAME = 'conversations';
 

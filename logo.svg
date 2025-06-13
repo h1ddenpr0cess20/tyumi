@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g stroke="#007acc" stroke-width="1">
-    <!-- Outer nonagon (9 vertices) -->
+    <!-- Geometric nonagon design for Tyumi logo -->
     <path d="M34.61 7.71 L65.39 7.71 L88.97 27.5 L94.32 57.81 L78.93 84.47 L50 95 L21.07 84.47 L5.68 57.81 L11.03 27.5 Z"/>
     
     <!-- Lines connecting all vertices (K9 complete graph - 36 lines) -->

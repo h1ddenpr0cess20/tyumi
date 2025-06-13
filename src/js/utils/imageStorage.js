@@ -4,7 +4,7 @@
  */
 
 // IndexedDB database configuration
-const IMAGE_DB_NAME = 'nonagon-images';
+const IMAGE_DB_NAME = 'tyumi-images';
 const IMAGE_DB_VERSION = 1;
 const IMAGE_STORE_NAME = 'images';
 

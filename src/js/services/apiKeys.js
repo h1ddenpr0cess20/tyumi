@@ -7,8 +7,8 @@
 // -----------------------------------------------------
 
 // Storage keys for local storage
-const API_KEYS_STORAGE_PREFIX = 'nonagon_api_key_';
-const OLLAMA_SERVER_URL_KEY = 'nonagon_ollama_server_url';
+const API_KEYS_STORAGE_PREFIX = 'tyumi_api_key_';
+const OLLAMA_SERVER_URL_KEY = 'tyumi_ollama_server_url';
 
 // DOM element references
 window.apiKeyInputs = {
@@ -272,11 +272,10 @@ window.saveOllamaServerUrl = function() {
  * Save tool-specific API keys to localStorage
  */
 window.saveToolsApiKeys = function() {
-    try {
-        // Save each tool API key to localStorage
+    try {        // Save each tool API key to localStorage
         for (const [service, input] of Object.entries(window.toolApiKeyInputs)) {
             if (input && input.value) {
-                localStorage.setItem(`nonagon_tool_api_key_${service}`, input.value);
+                localStorage.setItem(`tyumi_tool_api_key_${service}`, input.value);
             }
         }
         
@@ -335,11 +334,10 @@ window.loadApiKeys = function() {
                 }
                 window.ollamaServerUrlInput.value = configUrl;
             }        }
-        
-        // Load tool-specific API keys
+          // Load tool-specific API keys
         for (const [service, input] of Object.entries(window.toolApiKeyInputs)) {
             if (input) {
-                const storedKey = localStorage.getItem(`nonagon_tool_api_key_${service}`);
+                const storedKey = localStorage.getItem(`tyumi_tool_api_key_${service}`);
                 if (storedKey) {
                     input.value = storedKey;
                 }
@@ -383,10 +381,9 @@ window.getApiKey = function(service) {
  * @param {string} service - The service to get the key for (e.g., 'rapidapi', 'alphavantage')
  * @returns {string|null} - The API key or null if not found
  */
-window.getToolApiKey = function(service) {
-    try {
+window.getToolApiKey = function(service) {    try {
         // Try localStorage first
-        const storedKey = localStorage.getItem(`nonagon_tool_api_key_${service}`);
+        const storedKey = localStorage.getItem(`tyumi_tool_api_key_${service}`);
         if (storedKey) {
             return storedKey;
         }

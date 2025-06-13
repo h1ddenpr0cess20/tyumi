@@ -4,7 +4,7 @@
  */
 
 // IndexedDB database configuration
-const AUDIO_DB_NAME = 'nonagon-audio';
+const AUDIO_DB_NAME = 'tyumi-audio';
 const AUDIO_DB_VERSION = 1;
 const AUDIO_STORE_NAME = 'tts-audio';
 const MAX_STORED_AUDIO = 15;

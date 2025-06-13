@@ -1,12 +1,12 @@
-# Nonagon
+# Tyumi
 
 <div align="center">
 
-![Nonagon Logo](logo.svg)
+![Tyumi Logo](logo.svg)
 
 **A feature-rich, open-source AI assistant platform**
 
-[![Version](https://img.shields.io/badge/version-v0.9.4-blue.svg)](https://github.com/h1ddenpr0cess20/Nonagon)
+[![Version](https://img.shields.io/badge/version-v0.9.4-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)]()
 
@@ -14,7 +14,7 @@
 
 ## Overview
 
-Nonagon is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral AI, x.ai, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
+Tyumi is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral AI, x.ai, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
 
 ## 🌟 Key Features
     
@@ -67,8 +67,8 @@ Nonagon is a powerful, client-side AI chatbot web application that seamlessly in
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/h1ddenpr0cess20/Nonagon.git
-   cd Nonagon
+   git clone https://github.com/h1ddenpr0cess20/Tyumi.git
+   cd Tyumi
    ```
 
 2. **Open in browser:**
@@ -130,7 +130,7 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 
 ## 🏗️ Architecture
 
-Nonagon follows a modular architecture with clear separation of concerns:
+Tyumi follows a modular architecture with clear separation of concerns:
 
 ```
 src/
@@ -180,7 +180,7 @@ Add theme files to:
 
 ## 🔒 Security & Privacy
 
-- **Client-Side Only**: No data sent to Nonagon servers
+- **Client-Side Only**: No data sent to Tyumi servers
 - **Local Storage**: All conversations stored in your browser
 - **API Key Security**: Keys stored locally, transmitted only to respective AI providers
 - **No Tracking**: No analytics or user tracking
@@ -209,7 +209,7 @@ If you find this project helpful, consider supporting its development:
 ## 📞 Contact
 
 - **GitHub**: [@h1ddenpr0cess20](https://github.com/h1ddenpr0cess20)
-- **Project Repository**: [https://github.com/h1ddenpr0cess20/Nonagon](https://github.com/h1ddenpr0cess20/Nonagon)
+- **Project Repository**: [https://github.com/h1ddenpr0cess20/Tyumi](https://github.com/h1ddenpr0cess20/Tyumi)
 
 ---
 
