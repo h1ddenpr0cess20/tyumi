@@ -1,0 +1,534 @@
+<!-- Settings Panel -->
+<div id="settings-panel" aria-hidden="true" aria-labelledby="settings-panel-header">
+  <div class="settings-header">
+    <div>
+      <h2 id="settings-panel-header">Chat Settings</h2>
+      <div class="header-spacer"></div>
+    </div>
+    <button class="close-settings" aria-label="Close Settings" title="Close Settings">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="settings-tabs" role="tablist">
+    <button id="tab-personality" class="tab-button active" role="tab" aria-selected="true" aria-controls="content-personality">Personality</button>
+    <button id="tab-model" class="tab-button" role="tab" aria-selected="false" aria-controls="content-model">Model</button>
+    <button id="tab-tools" class="tab-button" role="tab" aria-selected="false" aria-controls="content-tools">Tools</button>
+    <button id="tab-tts" class="tab-button" role="tab" aria-selected="false" aria-controls="content-tts">TTS</button>
+    <button id="tab-theme" class="tab-button" role="tab" aria-selected="false" aria-controls="content-theme">Theme</button>
+    <button id="tab-apikeys" class="tab-button" role="tab" aria-selected="false" aria-controls="content-apikeys">API Keys</button>
+    <button id="tab-location" class="tab-button" role="tab" aria-selected="false" aria-controls="content-location">Location</button>
+    <button id="tab-about" class="tab-button" role="tab" aria-selected="false" aria-controls="content-about">About</button>
+  </div>
+  
+  <div class="tab-content-container">
+    <!-- Personality Tab Content -->
+    <div id="content-personality" class="tab-content active" role="tabpanel" aria-labelledby="tab-personality">
+      <div class="settings-group">
+        <h3>Personality Settings</h3>
+        <div class="setting-item">
+          <label>Prompt Type</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="prompt-type" id="personality-prompt" value="personality" checked>
+              <span class="radio-text">Personality</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="prompt-type" id="custom-prompt" value="custom">
+              <span class="radio-text">Custom Prompt</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="prompt-type" id="no-prompt" value="none">
+              <span class="radio-text">No System Prompt</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-item" id="personality-container">
+          <div class="personality-header">
+            <label for="personality-input">Personality Name</label>
+          </div>
+          <input type="text" id="personality-input" placeholder="e.g., a sarcastic jerk, a helpful teacher, a pirate captain" aria-label="Personality Name" />
+          <div class="action-buttons">
+            <button id="reset-personality" title="Reset to default personality">Reset to Default</button>
+            <button id="set-personality" title="Set Personality and Clear Chat History">Set Personality</button>
+          </div>
+          <p class="info-text">Enter a personality description. The system prompt will be: "Assume the personality of [your text]. Roleplay and never break character."</p>
+          
+          <div class="personality-presets">
+            <h4>✨ Looking for inspiration? Try one of these!</h4>
+            <div class="preset-buttons">
+              <button class="preset-button" data-personality="a witty and sarcastic tech expert">Tech Whiz</button>
+              <button class="preset-button" data-personality="a wise and patient teacher who explains complex topics simply">Wise Teacher</button>
+              <button class="preset-button" data-personality="a creative storyteller with a vivid imagination">Storyteller</button>
+              <button class="preset-button" data-personality="a friendly and energetic fitness coach">Fitness Coach</button>
+              <button class="preset-button" data-personality="a curious scientist who loves explaining discoveries">Scientist</button>
+              <button class="preset-button" data-personality="a supportive and empathetic counselor">Counselor</button>
+              <button class="preset-button" data-personality="a playful and adventurous space explorer">Space Explorer</button>
+              <button class="preset-button" data-personality="a meticulous and detail-oriented code reviewer">Code Reviewer</button>
+              <button class="preset-button" data-personality="a philosophical thinker who asks deep questions">Philosopher</button>
+              <button class="preset-button" data-personality="a passionate artist who sees beauty in everything">Creative Artist</button>
+              <button class="preset-button" data-personality="a charming and enthusiastic chef who loves sharing recipes">Master Chef</button>
+              <button class="preset-button" data-personality="a quick-witted comedian with perfect timing">Stand-up Comic</button>
+              <button class="preset-button" data-personality="a strategic business analyst who thinks in frameworks">Business Guru</button>
+              <button class="preset-button" data-personality="a sarcastic jerk who loves to provoke thought">Sarcastic Jerk</button>
+              <button class="preset-button" data-personality="a political cartoonist who uses humor to comment on current events">Political Cartoonist</button>
+              <button class="preset-button" data-personality="an imaginative game master who creates epic adventures">Game Master</button>
+              <button class="preset-button" data-personality="a worldly travel guide with endless stories">Travel Expert</button>
+              <button class="preset-button" data-personality="an inspiring motivational speaker who believes in your potential">Motivator</button>
+              <button class="preset-button" data-personality="a brilliant historian who brings the past to life">Historian</button>
+              <button class="preset-button" data-personality="a journalist who writes in-depth articles about current events">Journalist</button>
+              <button class="preset-button" data-personality="😂">😂</button>
+              <button class="preset-button" data-personality="😎">😎</button>
+              <button class="preset-button" data-personality="🤔">🤔</button>
+              <button class="preset-button" data-personality="🐍">🐍</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="setting-item" id="custom-prompt-container" style="display: none;">
+          <label for="system-prompt-custom">Custom System Prompt</label>
+          <textarea id="system-prompt-custom" placeholder="Enter a custom system prompt here..." aria-label="Custom System Prompt"></textarea>
+          <div class="action-buttons">
+            <button id="set-custom-prompt" title="Set Custom Prompt and Clear Chat History">Set Custom Prompt</button>
+          </div>
+          <p class="info-text">Define a completely custom system prompt.</p>
+        </div>
+
+        <div class="setting-item" id="no-prompt-container" style="display: none;">
+          <div class="action-buttons">
+            <button id="set-no-prompt" title="Use No System Prompt and Clear Chat History">Set No System Prompt</button>
+          </div>
+          <p class="info-text">When set, no system prompt will be sent to the AI model.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Tab Content -->
+    <div id="content-theme" class="tab-content" role="tabpanel" aria-labelledby="tab-theme">
+      <div class="settings-group">
+        <h3>Color Scheme</h3>
+        <div class="setting-item">
+          <label for="theme-selector">Select Theme</label>
+          <select id="theme-selector" aria-label="Theme Selector">
+            <!-- Themes will be populated dynamically by JavaScript -->
+          </select>
+          <p class="info-text">Choose your preferred color scheme for the AI Assistant.</p>
+        </div>
+        <div class="setting-item theme-preview">
+          <div>
+            <label>Theme Preview</label>
+            <p class="info-text">A preview of your selected theme colors.</p>
+          </div>
+          <div id="theme-preview-box">
+            <div class="color-dot"></div>
+            <div class="color-dot"></div>
+            <div class="color-dot"></div>
+            <div class="color-dot"></div>
+            <div class="color-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TTS Tab Content -->
+    <div id="content-tts" class="tab-content" role="tabpanel" aria-labelledby="tab-tts">
+      <div class="settings-group">
+        <h3>Text-to-Speech Settings</h3>
+        <div class="setting-item">
+          <label for="tts-toggle">Enable Text-to-Speech</label>
+          <div class="toggle-container">
+            <input type="checkbox" id="tts-toggle" aria-label="Enable TTS">
+            <label for="tts-toggle" class="toggle-switch"></label>
+          </div>
+          <p class="info-text">Enable or disable text-to-speech for AI responses</p>
+        </div>
+        
+        <div class="setting-item">
+          <label for="tts-autoplay-toggle">Autoplay Messages</label>
+          <div class="toggle-container">
+            <input type="checkbox" id="tts-autoplay-toggle" checked aria-label="Enable TTS Autoplay">
+            <label for="tts-autoplay-toggle" class="toggle-switch"></label>
+          </div>
+          <p class="info-text">Automatically play TTS for new messages and play them in sequence</p>
+        </div>
+        
+        <div class="setting-item">
+          <label for="tts-voice-selector">TTS Voice</label>
+          <select id="tts-voice-selector" aria-label="TTS Voice">
+            <!-- Voice options will be populated dynamically -->
+          </select>
+          <p class="info-text">Select which voice to use for speech generation</p>
+        </div>
+        
+        <div class="setting-item">
+          <label for="tts-instructions">Voice Instructions (Optional)</label>
+          <textarea id="tts-instructions" placeholder="Enter instructions for speech style (e.g., 'Speak in a cheerful tone')" aria-label="TTS Instructions"></textarea>
+          <p class="info-text">Custom instructions for how the AI should speak. If left empty and using personality, will use the personality for instructions.</p>
+        </div>
+        
+        <div class="setting-item">
+          <div class="action-buttons">
+            <button id="test-tts" title="Test TTS Settings">Test Voice</button>
+            <button id="stop-tts" title="Stop Voice Playback">Stop Voice</button>
+            <button id="clear-tts-cache" title="Clean up stored audio files">Clear Audio Cache</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Settings Tab Content -->
+    <div id="content-model" class="tab-content" role="tabpanel" aria-labelledby="tab-model">
+      <div class="settings-group">
+        <h3>AI Model Configuration</h3>
+        <div class="setting-item">
+          <label for="service-selector">AI Service Provider</label>
+          <select id="service-selector" aria-label="AI Service Provider">
+            <!-- Service options will be populated dynamically from config.js -->
+          </select>
+        </div>
+        <div class="setting-item">
+          <label for="model-selector">AI Model</label>
+          <div class="model-selector-container">
+            <select id="model-selector" aria-label="AI Model"></select>
+            <button id="refresh-ollama-models" class="small-button" title="Refresh Ollama Models">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text ollama-refresh-info" style="display: none;">Click the refresh button to update the list of Ollama models installed on your server.</p>
+        </div>
+        <div class="setting-item">
+          <label for="temperature-slider">Temperature</label>
+          <div class="range-container">
+            <input type="range" id="temperature-slider" min="0" max="1" step="0.1" aria-label="Temperature" />
+            <span class="range-value" id="temperature-value"></span>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label for="top-p-slider">Top P (Nucleus Sampling)</label>
+          <div class="range-container">
+            <input type="range" id="top-p-slider" min="0" max="1" step="0.05" aria-label="Top P (Nucleus Sampling)" />
+            <span class="range-value" id="top-p-value"></span>
+          </div>
+          <p class="info-text">Controls randomness: Lower values make output more focused, higher values more diverse</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="frequency-penalty-slider">Frequency Penalty</label>
+          <div class="range-container">
+            <input type="range" id="frequency-penalty-slider" min="-2.0" max="2.0" step="0.1" aria-label="Frequency Penalty" />
+            <span class="range-value" id="frequency-penalty-value"></span>
+          </div>
+          <p class="info-text">Decreases likelihood of repeating the same phrases (-2.0 to 2.0)</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="presence-penalty-slider">Presence Penalty</label>
+          <div class="range-container">
+            <input type="range" id="presence-penalty-slider" min="-2.0" max="2.0" step="0.1" aria-label="Presence Penalty" />
+            <span class="range-value" id="presence-penalty-value"></span>
+          </div>
+          <p class="info-text">Increases likelihood of introducing new topics (-2.0 to 2.0)</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="max-context">Max Context Messages</label>
+          <input type="number" id="max-context" min="1" max="20" step="1" aria-label="Maximum Context Messages" />
+          <p class="info-text">Maximum number of previous messages to include in context</p>
+        </div>
+
+        <div class="setting-item">
+          <button id="reset-model-settings" class="reset-button" title="Reset all model settings to default values">Reset Model Settings</button>
+        </div>
+
+        <div class="setting-item">
+          <label>Memory Management</label>
+          <button id="clear-memory" title="Clear Chat History">Clear Chat History</button>
+          <button id="export-chat" title="Export Chat">Export Chat</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Keys Tab Content -->
+    <div id="content-apikeys" class="tab-content" role="tabpanel" aria-labelledby="tab-apikeys">
+      <div class="settings-group">
+        <h3>API Keys Configuration</h3>
+        <p class="info-text">Store your API keys securely in your browser. Keys are saved in your browser's local storage and are never sent to our servers.</p>
+        
+        <div class="setting-item">
+          <label for="openai-api-key">OpenAI API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="openai-api-key" placeholder="Enter your OpenAI API key" aria-label="OpenAI API Key" />
+            <button class="toggle-password" data-for="openai-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for OpenAI models. <a href="https://platform.openai.com/api-keys" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="xai-api-key">x.ai API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="xai-api-key" placeholder="Enter your x.ai API key" aria-label="x.ai API Key" />
+            <button class="toggle-password" data-for="xai-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Grok models. <a href="https://console.x.ai/" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="anthropic-api-key">Anthropic API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="anthropic-api-key" placeholder="Enter your Anthropic API key" aria-label="Anthropic API Key" />
+            <button class="toggle-password" data-for="anthropic-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Claude models. <a href="https://console.anthropic.com/settings/keys" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="google-api-key">Google AI API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="google-api-key" placeholder="Enter your Google AI API key" aria-label="Google AI API Key" />
+            <button class="toggle-password" data-for="google-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Gemini models. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="mistral-api-key">Mistral AI API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="mistral-api-key" placeholder="Enter your Mistral AI API key" aria-label="Mistral AI API Key" />
+            <button class="toggle-password" data-for="mistral-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Mistral models. <a href="https://console.mistral.ai/api-keys" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item api-keys-action-buttons">
+          <button id="save-api-keys" class="primary-button" title="Save API Keys">Save API Keys</button>
+        </div>
+
+        <div class="setting-item ollama-server-url">
+          <h3>Ollama Configuration</h3>
+          <label for="ollama-server-url">Ollama Server URL</label>
+          <div class="api-key-input-container">
+            <input type="text" id="ollama-server-url" placeholder="http://localhost:11434" aria-label="Ollama Server URL" />
+          </div>
+          <p class="info-text">The URL of your Ollama server. Default is http://localhost:11434 for local instances.</p>
+          <div class="ollama-action-buttons">
+            <button id="save-ollama-url" class="primary-button" title="Save Ollama Server URL">Save Ollama URL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tools Tab Content -->
+    <div id="content-tools" class="tab-content" role="tabpanel" aria-labelledby="tab-tools">
+      <div class="settings-group">
+        <h3>Tools Configuration</h3>
+        
+        <div class="setting-item">
+          <label for="tool-calling-toggle">Enable Tool Calling</label>
+          <div class="toggle-container">
+            <input type="checkbox" id="tool-calling-toggle" aria-label="Enable Tool Calling">
+            <label for="tool-calling-toggle" class="toggle-switch"></label>
+          </div>
+          <p class="info-text">Enable or disable OpenAI function/tool calling. Disabling this will make the assistant behave like a standard chatbot.</p>
+        </div>
+        
+        <div class="setting-item">
+          <h4>Individual Tool Settings</h4>
+          <p class="info-text">Toggle individual tools on/off. Changes take effect immediately.</p>
+          <div class="tools-bulk-actions">
+            <button id="enable-all-tools" class="tool-action-button">Enable All</button>
+            <button id="disable-all-tools" class="tool-action-button">Disable All</button>
+          </div>
+          <div id="individual-tools-container">
+            <!-- Tool toggles will be added here dynamically -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <h3>Tool API Keys</h3>
+        <p class="info-text">Configure additional API keys required by specific tools. OpenAI, x.ai, and Google API keys are managed in the main API Keys tab.</p>
+        
+        <div class="setting-item">
+          <label for="tool-rapidapi-key">RapidAPI Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="tool-rapidapi-key" placeholder="Enter your RapidAPI key" aria-label="RapidAPI Key for Tools" />
+            <button class="toggle-password" data-for="tool-rapidapi-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for news search and headlines tools. <a href="https://rapidapi.com/hub" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="tool-alphavantage-key">AlphaVantage API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="tool-alphavantage-key" placeholder="Enter your AlphaVantage API key" aria-label="AlphaVantage API Key for Tools" />
+            <button class="toggle-password" data-for="tool-alphavantage-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for stock price and financial data tools. <a href="https://www.alphavantage.co/support/#api-key" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
+          <label for="tool-openweather-key">OpenWeather API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="tool-openweather-key" placeholder="Enter your OpenWeather API key" aria-label="OpenWeather API Key for Tools" />
+            <button class="toggle-password" data-for="tool-openweather-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for the weather tool. <a href="https://openweathermap.org/api" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item tools-api-keys-actions">
+          <button id="save-tools-api-keys" class="primary-button" title="Save Tool API Keys">Save Tool API Keys</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Location Tab Content -->
+    <div id="content-location" class="tab-content" role="tabpanel" aria-labelledby="tab-location">
+      <div class="settings-group">
+        <h3>Location Services</h3>
+        <p class="info-text">Location awareness allows the AI to understand your geographical context, including your timezone and general location. This information is processed locally and only shared with the AI during conversations to provide more relevant responses.</p>
+        
+        <div class="setting-item">
+          <label for="location-toggle">Enable Location Awareness</label>
+          <div class="toggle-container">
+            <input type="checkbox" id="location-toggle" class="toggle-input" />
+            <label for="location-toggle" class="toggle-switch" aria-label="Toggle Location Awareness"></label>
+          </div>
+          <p class="info-text">Allow the AI to know your approximate location. This adds context about your location and timezone to conversations.</p>
+        </div>
+        
+        <div class="setting-item">
+          <label>Location Status</label>
+          <div id="location-status" class="location-status disabled">Location services disabled</div>
+          <p class="info-text">Your location information is processed locally and only shared with the AI during conversations.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- About Tab Content -->
+    <div id="content-about" class="tab-content" role="tabpanel" aria-labelledby="tab-about">
+      <div class="settings-group">
+        <h3>About Tyumi</h3>
+        <div class="about-content">
+          <p>Version <span id="app-version"></span></p>
+          <p>Tyumi is a feature-rich, open-source AI assistant platform that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral AI, x.ai, and local Ollama models. It offers advanced features like personality customization, tool calling (web search, image generation, etc.), text-to-speech, theme customization, and secure local storage of conversations and API keys.</p>
+          <p>All of your conversations and generated images are stored locally in your browser. You can easily manage your chat history and view your images in the image gallery. Make sure to download the images you want to keep, as they are not stored on any server and will be lost if you clear your browser data.</p>
+          <p>For more information, visit the <a href="https://github.com/h1ddenpr0cess20/Tyumi" target="_blank" rel="noopener">GitHub Repository</a>.</p>
+          
+          <div class="donation-section">
+            <h4>Support This Project</h4>
+            <p>If you find this project helpful, consider supporting its development:</p>
+            <div id="crypto-addresses-container" class="crypto-addresses">
+              <!-- Cryptocurrency addresses will be dynamically populated here -->
+            </div>
+          </div>
+          
+          <div class="footer-info">
+            <p>&copy; 2025 Dustin Whyte<br><span class="license-info">Released under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a></span></p>
+            <p class="license-description">This project is free software: you can redistribute it and/or modify it under the terms of the MIT License.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- History Panel -->
+<div id="history-panel" aria-hidden="true" aria-labelledby="history-panel-header">
+  <div class="settings-header">
+    <div>
+      <h2 id="history-panel-header">Chat History</h2>
+      <div class="header-spacer"></div>
+    </div>
+    <button class="close-history" aria-label="Close History" title="Close History">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div id="history-list"></div>
+</div>
+
+<!-- Gallery Panel -->
+<div id="gallery-panel" aria-hidden="true" aria-labelledby="gallery-panel-header">
+  <div class="settings-header">
+    <div>
+      <h2 id="gallery-panel-header">Image Gallery</h2>
+      <div class="header-info">Images: <span id="gallery-count">0</span></div>
+    </div>
+    <button class="close-gallery" aria-label="Close Gallery" title="Close Gallery">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="gallery-tools">
+    <button id="refresh-gallery" title="Refresh Gallery">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 4v6h-6"></path>
+        <path d="M1 20v-6h6"></path>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+        <path d="M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </svg>
+      Refresh
+    </button>
+    <button id="bulk-delete-images" title="Delete Selected Images">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+      Delete Selected
+    </button>
+  </div>
+  
+  <div id="gallery-grid"></div>
+</div>

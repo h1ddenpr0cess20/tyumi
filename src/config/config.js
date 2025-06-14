@@ -12,7 +12,7 @@ window.VERBOSE_LOGGING = false;
 // DO NOT hardcode actual API keys here
 
 // Application version
-window.APP_VERSION = '0.9.4';
+window.APP_VERSION = '0.9.5';
 
 // GitHub repository URL
 window.GITHUB_URL = 'https://github.com/h1ddenpr0cess20/Tyumi';

@@ -187,8 +187,5 @@ function initializeTextareaHeight() {
   }
 }
 
-// Set up the initialization when DOM is loaded
-document.addEventListener('DOMContentLoaded', initialize);
-
-// Make main function available globally for debugging
+// Make main function available globally for debugging and for menuLoader to call
 window.initialize = initialize;
