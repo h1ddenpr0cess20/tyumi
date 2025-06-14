@@ -17,4 +17,4 @@ Allow: /logo.svg
 Allow: /src/css/themes/fonts/files/
 
 # Sitemap location
-Sitemap: https://tyumi.app/sitemap.xml
+Sitemap: /sitemap.xml

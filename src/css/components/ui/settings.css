@@ -70,16 +70,30 @@
   position: relative;
   flex-wrap: nowrap;
   width: 100%;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Explicitly prevent vertical scrolling */
+  overflow-x: auto; 
+  overflow-y: hidden;
   background-color: var(--bg-primary);
-  flex-shrink: 0;
-  scrollbar-width: thin; /* Slimmer scrollbar for Firefox */
-  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: thin; 
+  scrollbar-color: var(--accent-color) var(--bg-secondary);
+  
+  
+} 
+
+.settings-tabs::-webkit-scrollbar {
+  height: 8px;
+  background: var(--bg-secondary);
+  
+}
+.settings-tabs::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+.settings-tabs::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
 
 .tab-button {
-  padding: 10px 8px; /* Slightly reduced horizontal padding */
+  padding: 10px 8px;
   background: none;
   border: none;
   color: var(--text-secondary);
@@ -125,7 +139,7 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 2px; /* Prevent content from touching scrollbar */
+  padding-right: 2px;
   display: flex;
   flex-direction: column;
 }
