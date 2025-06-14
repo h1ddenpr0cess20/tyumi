@@ -2,13 +2,19 @@ User-agent: *
 Allow: /
 
 # Block access to sensitive files and directories
-Disallow: /src/
+Disallow: /src/js/
+Disallow: /src/css/
+Disallow: /src/config/
 Disallow: /cert.pem
 Disallow: /key.pem
-Disallow: /*.js$
-Disallow: /*.css$
+
+# Allow access to important HTML pages
+Allow: /src/html/
 
 # Allow access to static assets
 Allow: /favicon.ico
 Allow: /logo.svg
 Allow: /src/css/themes/fonts/files/
+
+# Sitemap location
+Sitemap: https://tyumi.app/sitemap.xml

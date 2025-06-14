@@ -300,7 +300,7 @@ window.prepareRequestData = function(message) {
     }
   }
 
-  // Add search_parameters for x.ai Grok models
+  // Add search_parameters for xAI Grok models
   if (currentService === 'xai' && model && model.toLowerCase().includes('grok')) {
     requestBody.search_parameters = {
       mode: "auto"      

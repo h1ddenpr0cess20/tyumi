@@ -131,7 +131,7 @@ window.config = {
             organization: null,  // OpenAI organization ID (if applicable)
         },
         
-        // x.ai API (Grok)
+        // xAI API (Grok)
         xai: {
             baseUrl: 'https://api.x.ai/v1',
             apiKey: '',
@@ -155,7 +155,7 @@ window.config = {
             defaultModel: 'claude-sonnet-4-0',
         },
         
-        // Mistral AI API
+        // Mistral API
         mistral: {
             baseUrl: 'https://api.mistral.ai/v1',
             apiKey: '',

@@ -14,7 +14,7 @@
 
 ## Overview
 
-Tyumi is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral AI, x.ai, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
+Tyumi is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
 
 ## 🌟 Key Features
     
@@ -22,8 +22,8 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 - **OpenAI** (GPT-4.1, GPT-4o, o3, o4, etc)
 - **Anthropic** (Claude models)
 - **Google** (Gemini models)
-- **Mistral AI**
-- **x.ai** (Grok models)
+- **Mistral**
+- **xAI** (Grok models)
 - **Local Ollama** models
 
 ### 🛠️ Advanced Tool Calling

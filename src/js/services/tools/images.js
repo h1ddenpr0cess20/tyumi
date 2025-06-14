@@ -53,7 +53,7 @@ async function grokImage(args) {
   
   if (!apiKey) {
     return {
-      notice: 'X.AI (xAI) API key not configured. Please add your X.AI API key in the API Keys settings.',
+      notice: 'xAI (xAI) API key not configured. Please add your xAI API key in the API Keys settings.',
       error: null
     };
   }

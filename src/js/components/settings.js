@@ -223,13 +223,13 @@ window.populateServiceSelector = function() {
         displayName = 'OpenAI';
         break;
       case 'xai':
-        displayName = 'x.ai (Grok)';
+        displayName = 'xAI (Grok)';
         break;
       case 'google':
         displayName = 'Google AI';
         break;
       case 'mistral':
-        displayName = 'Mistral AI';
+        displayName = 'Mistral';
         break;
       case 'ollama':
         displayName = 'Ollama (Local)';
