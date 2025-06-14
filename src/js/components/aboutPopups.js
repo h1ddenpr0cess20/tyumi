@@ -7,10 +7,9 @@ async function loadContentIntoContainer(url, containerId) {
     
     // Create a temporary DOM to extract just the main content
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    
-    // Extract content from the main sections (privacy-content or contact-content)
-    const mainContent = tempDiv.querySelector('.privacy-content') || tempDiv.querySelector('.contact-content');
+    tempDiv.innerHTML = html;    // Extract content from the main sections (privacy-content, terms-content, help-content or contact-content)
+    const mainContent = tempDiv.querySelector('.privacy-content') || tempDiv.querySelector('.terms-content') || 
+                       tempDiv.querySelector('.help-content') || tempDiv.querySelector('.contact-content');
     if (mainContent) {
       document.getElementById(containerId).innerHTML = mainContent.innerHTML;
     } else {
@@ -85,3 +84,75 @@ function hideContactPopup() {
     }, 250); // Match CSS transition duration
   }
 }
+
+async function showTermsPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const termsPopup = document.getElementById('terms-popup');
+  
+  if (aboutContent && termsPopup) {
+    aboutContent.style.display = 'none';
+    termsPopup.style.display = 'flex';
+    
+    // Load terms of service content
+    await loadContentIntoContainer('src/html/terms-of-service.html', 'terms-content-container');
+    
+    // Trigger reflow and add active class for animation
+    termsPopup.offsetHeight;
+    termsPopup.classList.add('active');
+  }
+}
+
+function hideTermsPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const termsPopup = document.getElementById('terms-popup');
+  
+  if (aboutContent && termsPopup) {
+    termsPopup.classList.remove('active');
+    setTimeout(() => {
+      termsPopup.style.display = 'none';
+      aboutContent.style.display = 'block';
+    }, 250); // Match CSS transition duration
+  }
+}
+
+async function showHelpPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const helpPopup = document.getElementById('help-popup');
+  
+  if (aboutContent && helpPopup) {
+    aboutContent.style.display = 'none';
+    helpPopup.style.display = 'flex';
+    
+    // Load help guide content
+    await loadContentIntoContainer('src/html/help-guide.html', 'help-content-container');
+    
+    // Trigger reflow and add active class for animation
+    helpPopup.offsetHeight;
+    helpPopup.classList.add('active');
+  }
+}
+
+function hideHelpPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const helpPopup = document.getElementById('help-popup');
+  
+  if (aboutContent && helpPopup) {
+    helpPopup.classList.remove('active');
+    setTimeout(() => {
+      helpPopup.style.display = 'none';
+      aboutContent.style.display = 'block';
+    }, 250); // Match CSS transition duration
+  }
+}
+
+// Expose popup functions to global window scope
+window.showPrivacyPopup = showPrivacyPopup;
+window.hidePrivacyPopup = hidePrivacyPopup;
+window.showContactPopup = showContactPopup;
+window.hideContactPopup = hideContactPopup;
+window.showTermsPopup = showTermsPopup;
+window.hideTermsPopup = hideTermsPopup;
+window.showHelpPopup = showHelpPopup;
+window.hideHelpPopup = hideHelpPopup;
+window.showHelpPopup = showHelpPopup;
+window.hideHelpPopup = hideHelpPopup;

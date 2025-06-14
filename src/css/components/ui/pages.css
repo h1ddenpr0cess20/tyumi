@@ -57,13 +57,17 @@
 }
 
 #privacy-content-container,
-#contact-content-container {
+#contact-content-container,
+#terms-content-container,
+#help-content-container {
   color: var(--text-primary);
   line-height: 1.6;
 }
 
 #privacy-content-container h2,
-#contact-content-container h2 {
+#contact-content-container h2,
+#terms-content-container h2,
+#help-content-container h2 {
   color: var(--text-primary);
   margin: 2rem 0 1rem 0;
   font-size: 1.5rem;
@@ -73,7 +77,9 @@
 }
 
 #privacy-content-container h3,
-#contact-content-container h3 {
+#contact-content-container h3,
+#terms-content-container h3,
+#help-content-container h3 {
   color: var(--text-primary);
   margin: 1.5rem 0 0.5rem 0;
   font-size: 1.2rem;
@@ -84,19 +90,26 @@
 }
 
 #privacy-content-container p,
-#contact-content-container p {
+#contact-content-container p,
+#terms-content-container p,
+#help-content-container p {
   margin-bottom: 1rem;
   color: var(--text-secondary);
 }
 
 #privacy-content-container ul,
-#contact-content-container ul {
+#contact-content-container ul,
+#terms-content-container ul,
+#help-content-container ul,
+#help-content-container ol {
   margin: 1rem 0;
   padding-left: 1.5rem;
 }
 
 #privacy-content-container li,
-#contact-content-container li {
+#contact-content-container li,
+#terms-content-container li,
+#help-content-container li {
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
 }
@@ -132,4 +145,55 @@
   opacity: 1;
   transform: translateX(0);
   pointer-events: all;
+}
+
+/* Help Guide specific styles */
+.api-key-guides {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.api-key-guide {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.api-key-guide:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.api-key-guide h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+.api-key-guide ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.api-key-guide li {
+  margin-bottom: 0.5rem;
+}
+
+.api-key-guide p {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+#help-content-container h4 {
+  color: var(--text-primary);
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.1rem;
 }

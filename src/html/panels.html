@@ -469,9 +469,12 @@
             </div>
           </div>
             <div class="footer-info">
-            <p>&copy; 2025 Dustin Whyte<br><span class="license-info">Released under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a></span></p>            <p class="license-description">This project is free software: you can redistribute it and/or modify it under the terms of the MIT License.</p>
-            <div class="footer-links">
+            <p>&copy; 2025 Dustin Whyte<br><span class="license-info">Released under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a></span></p>            <p class="license-description">This project is free software: you can redistribute it and/or modify it under the terms of the MIT License.</p>            <div class="footer-links">
+              <a href="#" onclick="showHelpPopup(); return false;">Help Guide</a>
+              <span class="footer-separator">•</span>
               <a href="#" onclick="showPrivacyPopup(); return false;">Privacy Policy</a>
+              <span class="footer-separator">•</span>
+              <a href="#" onclick="showTermsPopup(); return false;">Terms of Service</a>
               <span class="footer-separator">•</span>
               <a href="#" onclick="showContactPopup(); return false;">Contact</a>
             </div>
@@ -508,6 +511,40 @@
           </div>
           <div class="popup-content">
             <div id="contact-content-container"></div>
+          </div>
+        </div>
+
+        <!-- Terms of Service Popup -->
+        <div id="terms-popup" class="about-popup" style="display: none;">
+          <div class="popup-header">
+            <button class="popup-back-btn" onclick="hideTermsPopup()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </button>
+            <h2>Terms of Service</h2>
+          </div>
+          <div class="popup-content">
+            <div id="terms-content-container"></div>
+          </div>
+        </div>
+
+        <!-- Help Guide Popup -->
+        <div id="help-popup" class="about-popup" style="display: none;">
+          <div class="popup-header">
+            <button class="popup-back-btn" onclick="hideHelpPopup()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </button>
+            <h2>Help Guide</h2>
+          </div>
+          <div class="popup-content">
+            <div id="help-content-container"></div>
           </div>
         </div>
       </div>

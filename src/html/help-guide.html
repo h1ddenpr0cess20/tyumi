@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />  
+  <title>Help Guide - Tyumi</title>
+  <meta name="description" content="Help Guide for Tyumi AI Assistant Platform" />
+  
+  <!-- Additional Meta Tags -->
+  <meta name="author" content="Dustin Whyte">
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  
+  <!-- Link to modular CSS -->
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <div class="help-container">
+    <header class="help-header">
+      <a href="../../index.html" class="back-link" title="Back to Tyumi">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        Back to Tyumi
+      </a>
+      <h1>Help Guide</h1>
+    </header>
+
+    <main class="help-content">
+      <section class="help-section">
+        <h2>Getting Started with Tyumi</h2>
+        <p>Tyumi is a feature-rich AI assistant platform that gives you access to multiple AI models from different providers through a unified interface, all while keeping your data private and stored locally on your device.</p>
+        
+        <h2>Setting Up API Keys</h2>
+        <p>To get the most out of Tyumi, you'll need to provide API keys from the AI providers you want to use. These keys allow Tyumi to communicate with the AI services on your behalf.</p>
+
+        <h3>Why You Need API Keys</h3>
+        <p>API keys are like digital passwords that give you access to AI services. Each provider requires their own key, and you'll only need keys for the services you intend to use. Your keys are stored securely in your browser's local storage and are never sent to any server other than the respective AI provider's servers.</p>
+
+        <h3>How to Get API Keys</h3>
+        <div class="api-key-guides">
+          <div class="api-key-guide">
+            <h4>OpenAI API Key</h4>
+            <ol>
+              <li>Visit the <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI API Keys page</a></li>
+              <li>Create an account or sign in if you don't already have one</li>
+              <li>Click on "Create new secret key"</li>
+              <li>Give your key a name (e.g., "Tyumi")</li>
+              <li>Copy the API key and paste it into Tyumi's settings</li>
+            </ol>
+            <p><strong>Note:</strong> OpenAI offers free credit for new accounts, but after that, you'll need to add a payment method. Check their website for the latest pricing details.</p>
+          </div>
+
+          <div class="api-key-guide">
+            <h4>Anthropic (Claude) API Key</h4>
+            <ol>
+              <li>Visit the <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a></li>
+              <li>Create an account or sign in</li>
+              <li>Navigate to the API Keys section</li>
+              <li>Click "Create Key"</li>
+              <li>Copy the API key and paste it into Tyumi's settings</li>
+            </ol>
+            <p><strong>Note:</strong> Anthropic provides free trial credits for new users. Claude models are priced based on input and output tokens, with prices varying by model capability. Check their website for current pricing details.</p>
+          </div>
+
+          <div class="api-key-guide">
+            <h4>Google (Gemini) API Key</h4>
+            <ol>
+              <li>Visit the <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Google AI Studio</a></li>
+              <li>Sign in with your Google account</li>
+              <li>Create a new project if you don't have one</li>
+              <li>Go to "API Keys" and create a new API key</li>
+              <li>Copy the API key and paste it into Tyumi's settings</li>
+            </ol>
+            <p><strong>Note:</strong> Google offers free usage quotas for Gemini models, with paid usage starting after exceeding free limits. Visit their website for the most current pricing structure.</p>
+          </div>
+
+          <div class="api-key-guide">
+            <h4>Mistral API Key</h4>
+            <ol>
+              <li>Visit the <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">Mistral AI Console</a></li>
+              <li>Create an account or sign in</li>
+              <li>Go to the API Keys section</li>
+              <li>Create a new API key</li>
+              <li>Copy the API key and paste it into Tyumi's settings</li>
+            </ol>
+            <p><strong>Note:</strong> Mistral offers competitive pricing for their models with different tiers based on model capabilities. Check their website for current rates.</p>
+          </div>
+
+          <div class="api-key-guide">
+            <h4>xAI (Grok) API Key</h4>
+            <ol>
+              <li>Visit the <a href="https://console.x.ai/" target="_blank" rel="noopener">xAI Console</a></li>
+              <li>Create an account or sign in</li>
+              <li>Navigate to the API Keys section</li>
+              <li>Generate a new API key</li>
+              <li>Copy the API key and paste it into Tyumi's settings</li>
+            </ol>
+            <p><strong>Note:</strong> Access to xAI's Grok models may require different levels of subscription. Check their latest pricing details on their website.</p>
+          </div>
+          
+          <div class="api-key-guide">
+            <h4>Ollama (Local Models)</h4>
+            <ol>
+              <li><a href="https://ollama.com/download" target="_blank" rel="noopener">Download and install Ollama</a> on your computer</li>
+              <li>Run Ollama locally on your machine</li>
+              <li>In Tyumi settings, enter your Ollama server URL (typically "http://localhost:11434" if running on the same device)</li>
+              <li>Click "Save Ollama URL" and then "Refresh Models" to see available models</li>
+            </ol>
+            <p><strong>Note:</strong> Ollama runs models locally on your device. No API key is needed, and no data is sent to external servers. However, you'll need a computer with sufficient RAM and processing power for running these models.</p>
+          </div>
+        </div>
+
+        <h3>Managing Your API Keys in Tyumi</h3>
+        <ol>
+          <li>Click the Settings icon in the top right corner</li>
+          <li>Navigate to the "API Keys" section</li>
+          <li>Enter your API keys in the appropriate fields</li>
+          <li>Click "Save API Keys" to store them securely in your browser</li>
+        </ol>
+        <p><strong>Security Note:</strong> Your API keys are stored only in your browser's local storage and are only sent to their respective services when making API calls. Tyumi does not store your keys on any servers.</p>
+
+        <h2>Choosing and Using AI Models</h2>
+        <p>Tyumi gives you access to a variety of AI models from different providers. Each model has its own strengths and capabilities.</p>        
+            <h3>Available AI Providers</h3>
+        <ul>
+          <li><strong>OpenAI:</strong> Provides a range of GPT models with various capabilities and price points</li>
+          <li><strong>Anthropic:</strong> Offers Claude models with different performance characteristics</li>
+          <li><strong>Google:</strong> Features Gemini models with varying capabilities</li>
+          <li><strong>Mistral:</strong> Provides various model sizes to suit different needs</li>
+          <li><strong>xAI:</strong> Offers Grok models</li>
+          <li><strong>Ollama:</strong> Enables running open-source models locally on your device</li>
+        </ul>
+
+        <h3>Model Settings</h3>
+        <p>You can customize how models respond by adjusting these parameters:</p>
+        <ul>
+          <li><strong>Temperature:</strong> Controls randomness in responses. Higher values (closer to 1) make responses more creative but potentially less accurate; lower values (closer to 0) make responses more deterministic and focused.</li>
+          <li><strong>Top P:</strong> Controls diversity by limiting token selection to the most likely options whose cumulative probability exceeds the top_p value.</li>
+          <li><strong>Frequency Penalty:</strong> Reduces repetition by penalizing tokens that have already appeared frequently.</li>
+          <li><strong>Presence Penalty:</strong> Encourages new topics by penalizing tokens that have appeared at all, regardless of frequency.</li>
+          <li><strong>Max Context:</strong> Controls how many previous messages to include in the conversation context.</li>
+        </ul>
+
+        <h2>Using Advanced Features</h2>
+
+        <h3>Tools and Extensions</h3>
+        <p>Tyumi supports various tools that extend the AI's capabilities:</p>
+        <ul>
+          <li><strong>Web Search:</strong> Let the AI search for current information online</li>
+          <li><strong>Image Generation:</strong> Create images based on text descriptions</li>
+          <li><strong>News Search:</strong> Find recent news articles on various topics</li>
+          <li><strong>Weather Information:</strong> Get current weather data for locations</li>
+          <li><strong>Financial Data:</strong> Access stock and financial information</li>
+          <li><strong>Definitions:</strong> Look up word definitions</li>
+          <li><strong>Entertainment:</strong> Access information about movies, music, etc.</li>
+          <li><strong>Social Media:</strong> Search for social media content</li>
+          <li><strong>Utilities:</strong> Use various helpful tools like calculators, converters, etc.</li>
+        </ul>
+        <p><strong>Note:</strong> Some tools require specific API keys which you can configure in the Tools API Keys settings section.</p>
+
+        <h3>Text-to-Speech</h3>
+        <p>Tyumi can read responses aloud using text-to-speech technology. Click the speaker icon next to a message to hear it spoken.</p>
+
+        <h3>Theme Customization</h3>
+        <p>Personalize your experience by choosing from various themes in the settings panel, including Dark, Light, Metal, Neon, and more.</p>
+
+        <h2>Data Privacy and Storage</h2>
+        <p>Tyumi is designed with privacy in mind:</p>
+        <ul>
+          <li>All your conversations and settings are stored locally in your browser</li>
+          <li>No data is sent to any servers except the AI provider you choose to use</li>
+          <li>You can export your conversation history or clear it at any time</li>
+          <li>When using local Ollama models, no data leaves your device at all</li>
+        </ul>
+
+        <h2>Troubleshooting</h2>
+        <h3>Common Issues</h3>
+        <ul>
+          <li><strong>API Key Errors:</strong> Double-check that your API key is entered correctly and hasn't expired</li>
+          <li><strong>Model Not Available:</strong> Ensure you have the appropriate API key for the model you're trying to use</li>
+          <li><strong>Ollama Not Connecting:</strong> Verify that Ollama is running locally and that the server URL is correct</li>
+          <li><strong>Missing Tool Results:</strong> Check that you've provided any necessary API keys for specific tools</li>
+        </ul>
+
+        <h2>Getting Help</h2>
+        <p>If you need further assistance:</p>
+        <ul>
+          <li>Visit the <a href="https://github.com/h1ddenpr0cess20/Tyumi" target="_blank" rel="noopener">GitHub Repository</a> for documentation and updates</li>
+          <li>Report issues on the <a href="https://github.com/h1ddenpr0cess20/Tyumi/issues" target="_blank" rel="noopener">Issues page</a></li>
+          <li>Join discussions with other users on the <a href="https://github.com/h1ddenpr0cess20/Tyumi/discussions" target="_blank" rel="noopener">Discussions forum</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="help-footer">
+      <p>&copy; 2025 Dustin Whyte | <a href="../../index.html">Back to Tyumi</a></p>
+    </footer>
+  </div>
+</body>
+</html>
