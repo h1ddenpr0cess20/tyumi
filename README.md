@@ -4,7 +4,7 @@
 
 ![Tyumi Logo](logo.svg)
 
-**A feature-rich, open-source AI assistant platform**
+**An open source AI assistant platform**
 
 [![Version](https://img.shields.io/badge/version-v0.9.5-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
