@@ -303,7 +303,268 @@ async function getActorDetails(args) {
   }
 }
 
+/**
+ * Search for Steam games
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function steamSearchGames(args) {
+  const term = args.term;
+  const page = args.page || 1;
+  
+  if (window.VERBOSE_LOGGING) console.info(`Searching Steam for: "${term}", page: ${page}`);
+  
+  try {
+    const baseUrl = `https://steam2.p.rapidapi.com/search/${encodeURIComponent(term)}/page/${page}`;
+    
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+    
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+    
+    if (!rapidApiKey) {
+      return {
+        term: term,
+        page: page,
+        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+    
+    try {
+      const response = await fetch(baseUrl, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "steam2.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+      
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      return {
+        term: term,
+        page: page,
+        results: data || [],
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+      
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error searching Steam games:', error);
+    return {
+      term: term,
+      page: page,
+      error: error.message || 'Unknown error searching Steam games',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Get detailed information about a Steam app/game
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function steamGetAppDetails(args) {
+  const appId = args.appId;
+  
+  if (window.VERBOSE_LOGGING) console.info(`Getting Steam app details for ID: ${appId}`);
+  
+  try {
+    if (!appId) {
+      return {
+        appId: appId,
+        error: 'App ID must be provided',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    const baseUrl = `https://steam2.p.rapidapi.com/appDetail/${appId}`;
+    
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+    
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+    
+    if (!rapidApiKey) {
+      return {
+        appId: appId,
+        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    try {
+      const response = await fetch(baseUrl, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "steam2.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+      
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      return {
+        appId: appId,
+        data: data,
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+      
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error getting Steam app details:', error);
+    return {
+      appId: appId,
+      error: error.message || 'Unknown error getting Steam app details',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Get reviews for a Steam app/game
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function steamGetAppReviews(args) {
+  const appId = args.appId;
+  const limit = Math.min(args.limit || 40, 200); // Limit to 200 reviews max
+  const cursor = args.cursor || ""; // For pagination
+  
+  if (window.VERBOSE_LOGGING) console.info(`Getting Steam app reviews for ID: ${appId}, limit: ${limit}`);
+  
+  try {
+    if (!appId) {
+      return {
+        appId: appId,
+        error: 'App ID must be provided',
+        timestamp: new Date().toISOString()
+      };
+    }    let baseUrl = `https://steam2.p.rapidapi.com/appReviews/${appId}/limit/${limit}/*`;
+    
+    // Add cursor parameter if provided for pagination
+    if (cursor) {
+      baseUrl += `?cursor=${encodeURIComponent(cursor)}`;
+    }
+    
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+    
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+    
+    if (!rapidApiKey) {
+      return {
+        appId: appId,
+        limit: limit,
+        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    try {
+      const response = await fetch(baseUrl, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "steam2.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+      
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      return {
+        appId: appId,
+        limit: limit,
+        cursor: cursor,
+        reviews: data,
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+      
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+      
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error getting Steam app reviews:', error);
+    return {
+      appId: appId,
+      limit: limit,
+      cursor: cursor,
+      error: error.message || 'Unknown error getting Steam app reviews',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
 // Register the tool implementations
 window.toolImplementations.search_imdb = searchIMDB;
 window.toolImplementations.get_title_details = getTitleDetails;
 window.toolImplementations.get_actor_details = getActorDetails;
+window.toolImplementations.steam_search_games = steamSearchGames;
+window.toolImplementations.steam_get_app_details = steamGetAppDetails;
+window.toolImplementations.steam_get_app_reviews = steamGetAppReviews;

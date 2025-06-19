@@ -125,31 +125,30 @@ window.toolDefinitions = [
       },
       strict: false
     }
-  },
-  {
-    type: "function",
-    function: {
-      name: "stock_prices",
-      description: "Fetches real-time and historical stock price data for a specified ticker symbol.",
-      parameters: {
-        type: "object",
-        properties: {
-          symbol: {
-            type: "string",
-            description: "The stock ticker symbol (e.g., AAPL, MSFT, GOOGL)"
-          },
-          dataType: {
-            type: "string",
-            enum: ["quote", "daily", "weekly", "monthly"],
-            description: "The type of data to retrieve (quote for real-time, or historical time series)"
-          }
-        },
-        required: ["symbol"],
-        additionalProperties: false
-      },
-      strict: false
-    }
-  },
+  },  // {
+  //   type: "function",
+  //   function: {
+  //     name: "stock_prices",
+  //     description: "Fetches real-time and historical stock price data for a specified ticker symbol.",
+  //     parameters: {
+  //       type: "object",
+  //       properties: {
+  //         symbol: {
+  //           type: "string",
+  //           description: "The stock ticker symbol (e.g., AAPL, MSFT, GOOGL)"
+  //         },
+  //         dataType: {
+  //           type: "string",
+  //           enum: ["quote", "daily", "weekly", "monthly"],
+  //           description: "The type of data to retrieve (quote for real-time, or historical time series)"
+  //         }
+  //       },
+  //       required: ["symbol"],
+  //       additionalProperties: false
+  //     },
+  //     strict: false
+  //   }
+  // },
   {
     type: "function",
     function: {
@@ -745,6 +744,136 @@ window.toolDefinitions = [
           }
         },
         required: ["personId"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "steam_search_games",
+      description: "Search for Steam games by term with pagination support",
+      parameters: {
+        type: "object",
+        properties: {
+          term: {
+            type: "string",
+            description: "The search term to find Steam games (e.g., 'Counter Strike', 'Half-Life', 'RPG')"
+          },
+          page: {
+            type: "number",
+            description: "Page number for pagination (default: 1)"
+          }
+        },
+        required: ["term"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "steam_get_app_details",
+      description: "Get detailed information about a specific Steam app/game using Steam App ID",
+      parameters: {
+        type: "object",
+        properties: {
+          appId: {
+            type: "string",
+            description: "Steam App ID (e.g., '730' for Counter-Strike 2, '570' for Dota 2)"
+          }
+        },
+        required: ["appId"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "steam_get_app_reviews",
+      description: "Get user reviews for a specific Steam app/game with pagination support",
+      parameters: {
+        type: "object",
+        properties: {
+          appId: {
+            type: "string",
+            description: "Steam App ID to get reviews for (e.g., '730' for Counter-Strike 2)"
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of reviews to return (default: 40, max: 200)"
+          },
+          cursor: {
+            type: "string",
+            description: "Cursor for pagination - use value returned from previous response for next batch"
+          }
+        },
+        required: ["appId"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "twelve_data_price",
+      description: "Get real-time stock and cryptocurrency prices using twelve-data API",
+      parameters: {
+        type: "object",
+        properties: {
+          symbol: {
+            type: "string",
+            description: "The stock ticker symbol or cryptocurrency symbol (e.g., AAPL, MSFT, AMZN, BTC/USD, ETH/EUR)"
+          },
+          format: {
+            type: "string",
+            enum: ["json", "csv"],
+            description: "Response format. Default is json."
+          },
+          outputsize: {
+            type: "number",
+            description: "Number of data points to return. Default is 30."
+          }
+        },
+        required: ["symbol"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "twelve_data_quote",
+      description: "Get stock quote or cryptocurrency quote with time series data using twelve-data API",
+      parameters: {
+        type: "object",
+        properties: {
+          symbol: {
+            type: "string",
+            description: "The stock ticker or cryptocurrency symbol (e.g., AAPL, MSFT, AMZN, BTC/USD, ETH/EUR)"
+          },
+          interval: {
+            type: "string",
+            enum: ["1min", "5min", "15min", "30min", "45min", "1h", "2h", "4h", "1day", "1week", "1month"],
+            description: "Time interval for the data"
+          },
+          format: {
+            type: "string",
+            enum: ["json", "csv"],
+            description: "Response format. Default is json."
+          },
+          outputsize: {
+            type: "number",
+            description: "Number of data points to return. Default is 30."
+          }
+        },
+        required: ["symbol", "interval"],
         additionalProperties: false
       },
       strict: false

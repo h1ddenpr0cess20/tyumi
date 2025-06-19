@@ -22,7 +22,7 @@ window.apiKeyInputs = {
 // Tool-specific API key inputs
 window.toolApiKeyInputs = {
     rapidapi: null,
-    alphavantage: null,
+    // alphavantage: null, // Disabled
     openweather: null
 };
 
@@ -39,10 +39,9 @@ window.initApiKeys = function() {
     window.apiKeyInputs.openai = document.getElementById('openai-api-key');
     window.apiKeyInputs.xai = document.getElementById('xai-api-key');    window.apiKeyInputs.anthropic = document.getElementById('anthropic-api-key');
     window.apiKeyInputs.google = document.getElementById('google-api-key');
-    window.apiKeyInputs.mistral = document.getElementById('mistral-api-key');
-      // Get DOM references for tool-specific API keys
+    window.apiKeyInputs.mistral = document.getElementById('mistral-api-key');      // Get DOM references for tool-specific API keys
     window.toolApiKeyInputs.rapidapi = document.getElementById('tool-rapidapi-key');
-    window.toolApiKeyInputs.alphavantage = document.getElementById('tool-alphavantage-key');
+    // window.toolApiKeyInputs.alphavantage = document.getElementById('tool-alphavantage-key'); // Disabled
     window.toolApiKeyInputs.openweather = document.getElementById('tool-openweather-key');
     
     window.ollamaServerUrlInput = document.getElementById('ollama-server-url');

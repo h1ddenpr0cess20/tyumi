@@ -88,7 +88,7 @@ async function searchRecipes(args) {
   } catch (error) {
     console.error('Error searching for recipes:', error);
     return {
-      query: args.query || args.q || 'pasta',
+      query: args.query || args.q || '',
       from: args.from || 0,
       size: args.size || 10,
       recipes: [],

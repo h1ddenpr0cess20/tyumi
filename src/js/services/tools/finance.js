@@ -148,6 +148,103 @@ async function getCryptoPrices(args) {
   }
 }
 
+/**
+ * Get stock price using twelve-data API
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function getTwelveDataPrice(args) {
+  try {
+    const symbol = args.symbol.toUpperCase();
+    const format = args.format || 'json';
+    const outputsize = args.outputsize || 30;
+    
+    const apiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+    
+    if (!apiKey) {
+      return {
+        symbol: symbol,
+        notice: 'RapidAPI key not configured.',
+        timestamp: new Date().toISOString()
+      };
+    }
+    
+    const url = `https://twelve-data1.p.rapidapi.com/price?format=${format}&outputsize=${outputsize}&symbol=${symbol}`;
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
+      }
+    });
+    
+    const data = await response.json();
+    
+    return {
+      symbol: symbol,
+      data: data,
+      timestamp: new Date().toISOString()
+    };
+  } catch (error) {
+    return {
+      symbol: args.symbol,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Get stock quote using twelve-data API
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function getTwelveDataQuote(args) {
+  try {
+    const symbol = args.symbol.toUpperCase();
+    const interval = args.interval;
+    const format = args.format || 'json';
+    const outputsize = args.outputsize || 30;
+    
+    const apiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+    
+    if (!apiKey) {
+      return {
+        symbol: symbol,
+        notice: 'RapidAPI key not configured.',
+        timestamp: new Date().toISOString()
+      };
+    }
+    
+    const url = `https://twelve-data1.p.rapidapi.com/quote?symbol=${symbol}&interval=${interval}&format=${format}&outputsize=${outputsize}`;
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
+      }
+    });
+    
+    const data = await response.json();
+    
+    return {
+      symbol: symbol,
+      data: data,
+      timestamp: new Date().toISOString()
+    };
+  } catch (error) {
+    return {
+      symbol: args.symbol,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
 // Register the tool implementations
-window.toolImplementations.stock_prices = getStockPrice;
+// window.toolImplementations.stock_prices = getStockPrice; // Disabled AlphaVantage
 window.toolImplementations.crypto_prices = getCryptoPrices;
+window.toolImplementations.twelve_data_price = getTwelveDataPrice;
+window.toolImplementations.twelve_data_quote = getTwelveDataQuote;

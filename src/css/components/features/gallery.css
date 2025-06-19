@@ -339,6 +339,17 @@
   align-items: center;
 }
 
+/* Slideshow image styling to ensure proper fitting */
+.gallery-slideshow-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* Position the icon buttons in the absolute upper right corner of the screen */
 .gallery-slideshow-top-controls {
   position: fixed;
