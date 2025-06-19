@@ -3,60 +3,106 @@
   margin-bottom: 20px;
 }
 
+/* Tool category styling */
+.tool-category {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px; /* Add spacing between categories */
+}
+
+.tool-category-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.tool-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+/* Smaller tool toggle items */
 .tool-toggle-item {
-  margin-bottom: 0; /* Remove margin since we're using grid gap */
-  padding: 12px 15px;
+  margin-bottom: 0;
+  padding: 8px 12px; /* Reduced padding */
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 6px; /* Slightly smaller border radius */
   background-color: var(--bg-secondary);
   transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  min-height: auto; /* Remove any minimum height */
 }
 
 .tool-toggle-item:hover {
-  border-color: var(--accent-color-light);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Smaller shadow */
 }
 
 .tool-toggle-item label {
   font-weight: 600;
   color: var(--text-primary);
+  cursor: pointer;
+  font-size: 0.9rem; /* Slightly smaller font */
+  margin-bottom: 0; /* Remove any margin */
 }
 
-.tool-toggle-item .info-text {
-  margin-top: 8px;
-  font-size: 0.9em;
-  color: var(--text-secondary);
+/* Adjust the question mark indicator for smaller boxes */
+.tool-toggle-item[data-tooltip]::after {
+  content: '?';
+  position: absolute;
+  top: 6px; /* Adjusted for smaller padding */
+  right: 6px; /* Adjusted for smaller padding */
+  width: 14px; /* Slightly smaller */
+  height: 14px; /* Slightly smaller */
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+  border-radius: 50%;
+  font-size: 9px; /* Smaller font */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.tool-toggle-item[data-tooltip]:hover::after {
+  opacity: 1;
 }
 
 #individual-tools-container {
   margin-top: 15px;
-  max-height: 500px;
+  max-height: 600px;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Reduced gap between categories */
 }
 
 #individual-tools-container::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
 }
 
 #individual-tools-container::-webkit-scrollbar-track {
   background: var(--bg-secondary);
+  border-radius: 4px;
 }
 
 #individual-tools-container::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-  border-radius: 6px;
+  background-color: var(--accent-color);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
-.tools-category-header {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-weight: 600;
-  color: var(--text-primary);
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--border-color);
+#individual-tools-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-hover);
 }
 
 /* Disabled tool styling */
@@ -92,15 +138,23 @@
 
 /* Responsive styles for tool toggles */
 @media screen and (max-width: 768px) {
-  #individual-tools-container {
+  .tool-category-grid {
     grid-template-columns: 1fr; /* Single column on mobile */
-    gap: 12px;
+    gap: 6px;
+  }
+  
+  .tool-toggle-item {
+    padding: 6px 10px; /* Even smaller on mobile */
+  }
+  
+  .tool-toggle-item label {
+    font-size: 0.85rem;
   }
 }
 
 /* For very narrow settings panels, also use single column */
 @media screen and (max-width: 600px) {
-  #individual-tools-container {
+  .tool-category-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -146,4 +200,29 @@
   background-color: rgba(231, 76, 60, 0.1);
   border: 1px solid rgba(231, 76, 60, 0.5);
   color: #e74c3c;
+}
+
+/* Adjust the question mark indicator for smaller boxes */
+.tool-toggle-item[data-tooltip]::after {
+  content: '?';
+  position: absolute;
+  top: 6px; /* Adjusted for smaller padding */
+  right: 6px; /* Adjusted for smaller padding */
+  width: 14px; /* Slightly smaller */
+  height: 14px; /* Slightly smaller */
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+  border-radius: 50%;
+  font-size: 9px; /* Smaller font */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.tool-toggle-item[data-tooltip]:hover::after {
+  opacity: 1;
 }

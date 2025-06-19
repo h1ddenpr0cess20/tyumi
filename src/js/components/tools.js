@@ -27,12 +27,86 @@ window.initToolsSettings = function() {
   // Get all available tools
   const tools = getAllToolDefinitions();
 
-  // Create toggles for each tool
-  tools.forEach(tool => {
-    // Create tool toggle element
-    const toolElement = createToolToggle(tool);
-    container.appendChild(toolElement);
-  });
+  // Define tool categories
+  const categories = {
+    'Search & News': [
+      'search_news', 'headlines', 'local_headlines', 'google_search', 
+      'openai_search', 'full_story_coverage'
+    ],
+    'Social Media': [
+      'search_tweets', 'get_user_profile', 'get_user_tweets', 
+      'get_trending_topics', 'get_tweet_details', 'search_users'
+    ],
+    'Entertainment': [
+      'search_imdb', 'get_title_details', 'get_actor_details', 
+      'steam_search_games', 'steam_get_app_details', 'steam_get_app_reviews',
+      'youtube_search', 'youtube_video_details'
+    ],
+    'Images': [
+      'openai_image', 'grok_image', 'gemini_image', 'openai_image_edit'
+    ],
+    'Finance': [
+      'crypto_prices', 'twelve_data_price', 'twelve_data_quote'
+    ],
+    'More': [
+      'search_recipes', 'weather'
+    ]
+  };
+
+  // Create categorized tool groups
+  for (const [categoryName, toolNames] of Object.entries(categories)) {
+    const categoryTools = tools.filter(tool => toolNames.includes(tool.name));
+    
+    if (categoryTools.length === 0) continue;
+
+    // Create category container
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'tool-category';
+
+    // Create category header
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'tool-category-header';
+    headerDiv.textContent = categoryName;
+
+    // Create grid for tools in this category
+    const gridDiv = document.createElement('div');
+    gridDiv.className = 'tool-category-grid';
+
+    // Add tools to the grid
+    categoryTools.forEach(tool => {
+      const toolElement = createToolToggle(tool);
+      gridDiv.appendChild(toolElement);
+    });
+
+    categoryDiv.appendChild(headerDiv);
+    categoryDiv.appendChild(gridDiv);
+    container.appendChild(categoryDiv);
+  }
+
+  // Add any uncategorized tools
+  const categorizedToolNames = Object.values(categories).flat();
+  const uncategorizedTools = tools.filter(tool => !categorizedToolNames.includes(tool.name));
+  
+  if (uncategorizedTools.length > 0) {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'tool-category';
+
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'tool-category-header';
+    headerDiv.textContent = 'Other Tools';
+
+    const gridDiv = document.createElement('div');
+    gridDiv.className = 'tool-category-grid';
+
+    uncategorizedTools.forEach(tool => {
+      const toolElement = createToolToggle(tool);
+      gridDiv.appendChild(toolElement);
+    });
+
+    categoryDiv.appendChild(headerDiv);
+    categoryDiv.appendChild(gridDiv);
+    container.appendChild(categoryDiv);
+  }
 
   // Initialize tool state from localStorage
   initToolStatesFromStorage();
@@ -92,6 +166,11 @@ function createToolToggle(tool) {
   toolElement.className = 'setting-item tool-toggle-item';
   toolElement.dataset.toolName = tool.name;
   
+  // Add tooltip with tool description
+  if (tool.description) {
+    toolElement.setAttribute('data-tooltip', tool.description);
+  }
+  
   const label = document.createElement('label');
   label.htmlFor = `tool-toggle-${tool.name}`;
   label.textContent = tool.name;
@@ -114,16 +193,13 @@ function createToolToggle(tool) {
   toggleLabel.htmlFor = `tool-toggle-${tool.name}`;
   toggleLabel.className = 'toggle-switch';
   
-  const description = document.createElement('p');
-  description.className = 'info-text';
-  description.textContent = tool.description || 'No description available';
-  
   toggleContainer.appendChild(input);
   toggleContainer.appendChild(toggleLabel);
   
   toolElement.appendChild(label);
   toolElement.appendChild(toggleContainer);
-  toolElement.appendChild(description);
+  
+  // No longer adding description paragraph - using tooltip instead
   
   return toolElement;
 }
@@ -303,10 +379,28 @@ window.updateMasterToolCallingStatus = function(enabled) {
   // Update tool toggles state based on master toggle
   const container = document.getElementById('individual-tools-container');
   if (container) {
+    // Hide/show the entire container based on master toggle
+    container.style.display = enabled ? 'flex' : 'none';
+    
     const toggles = container.querySelectorAll('input[type="checkbox"]');
     toggles.forEach(toggle => {
       toggle.disabled = !enabled;
     });
+  }
+  
+  // Also hide/show the bulk action buttons
+  const bulkActions = document.querySelector('.tools-bulk-actions');
+  if (bulkActions) {
+    bulkActions.style.display = enabled ? 'flex' : 'none';
+  }
+  
+  // Hide/show the "Individual Tool Settings" section header and description
+  const individualToolsSection = document.querySelector('#content-tools .settings-group .setting-item h4');
+  if (individualToolsSection && individualToolsSection.textContent === 'Individual Tool Settings') {
+    const settingItem = individualToolsSection.closest('.setting-item');
+    if (settingItem) {
+      settingItem.style.display = enabled ? 'block' : 'none';
+    }
   }
   
   // Also update the tool definitions to ensure they're in sync
