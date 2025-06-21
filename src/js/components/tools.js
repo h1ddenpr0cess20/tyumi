@@ -107,9 +107,11 @@ window.initToolsSettings = function() {
     categoryDiv.appendChild(gridDiv);
     container.appendChild(categoryDiv);
   }
-
   // Initialize tool state from localStorage
   initToolStatesFromStorage();
+  
+  // Set up bulk action buttons
+  setupBulkActionButtons();
   
   // Make sure to update tool definitions based on master toggle state
   // This is critical for initial page load
@@ -415,16 +417,29 @@ function setupBulkActionButtons() {
   const enableAllButton = document.getElementById('enable-all-tools');
   const disableAllButton = document.getElementById('disable-all-tools');
   
+  if (window.DEBUG) {
+    console.log('Setting up bulk action buttons:', {
+      enableAllButton: !!enableAllButton,
+      disableAllButton: !!disableAllButton
+    });
+  }
+  
   if (enableAllButton) {
     enableAllButton.addEventListener('click', () => {
+      if (window.DEBUG) console.log('Enable all tools clicked');
       setAllTools(true);
     });
+  } else {
+    console.warn('Enable all tools button not found');
   }
   
   if (disableAllButton) {
     disableAllButton.addEventListener('click', () => {
+      if (window.DEBUG) console.log('Disable all tools clicked');
       setAllTools(false);
     });
+  } else {
+    console.warn('Disable all tools button not found');
   }
 }
 
@@ -433,31 +448,32 @@ function setupBulkActionButtons() {
  * @param {boolean} enabled - Whether to enable or disable all tools
  */
 function setAllTools(enabled) {
+  if (window.DEBUG) {
+    console.log(`Setting all tools to ${enabled ? 'enabled' : 'disabled'}`);
+  }
+  
   // Only do this if the master toggle is enabled
   if (!window.config.enableFunctionCalling) {
+    console.warn('Cannot set all tools: master tool calling is disabled');
     return;
   }
   
   const tools = getAllToolDefinitions();
+  if (window.DEBUG) {
+    console.log(`Found ${tools.length} tools to update`);
+  }
   
-  // Update all toggles
+  // Update all toggles and trigger their change events
   tools.forEach(tool => {
     const toggle = document.getElementById(`tool-toggle-${tool.name}`);
     if (toggle && !toggle.disabled) {
       toggle.checked = enabled;
-      window.enabledTools[tool.name] = enabled;
+      // Trigger the toggle function to ensure everything is updated properly
+      window.toggleTool(tool.name, enabled);
     }
   });
   
-  // Save to localStorage
-  localStorage.setItem('enabledTools', JSON.stringify(window.enabledTools));
-  
-  // Update tool definitions
-  updateToolDefinitions();
+  if (window.DEBUG) {
+    console.log('All tools update complete');
+  }
 }
-
-// Call setupBulkActionButtons when tools settings are initialized
-document.addEventListener('DOMContentLoaded', () => {
-  // Wait for DOM to ensure buttons exist
-  setupBulkActionButtons();
-});
