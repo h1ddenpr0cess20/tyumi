@@ -866,14 +866,164 @@ window.toolDefinitions = [
           format: {
             type: "string",
             enum: ["json", "csv"],
-            description: "Response format. Default is json."
-          },
+            description: "Response format. Default is json."          },
           outputsize: {
             type: "number",
             description: "Number of data points to return. Default is 30."
           }
         },
         required: ["symbol", "interval"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "local_business_search",
+      description: "Search for local businesses by query, location, and various filters. Returns business information including names, addresses, ratings, and contact details.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "Search query for businesses (e.g., 'Hotels in San Francisco', 'Pizza near me', 'Plumbers in New York')"
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of businesses to return. Default is 20."
+          },
+          lat: {
+            type: "number",
+            description: "Latitude coordinate for location-based search"
+          },
+          lng: {
+            type: "number", 
+            description: "Longitude coordinate for location-based search"
+          },
+          zoom: {
+            type: "number",
+            description: "Zoom level for the search area. Default is 13."
+          },
+          language: {
+            type: "string",
+            description: "Language code for results (e.g., 'en', 'es'). Default is 'en'."
+          },
+          region: {
+            type: "string", 
+            description: "Region code (e.g., 'us', 'gb'). Default is 'us'."
+          },
+          extract_emails_and_contacts: {
+            type: "boolean",
+            description: "Whether to extract contact information. Default is false."
+          },
+          subtypes: {
+            type: "string",
+            description: "Comma-separated business categories to filter by (e.g., 'Plumber,Carpenter,Electrician')"
+          },
+          verified: {
+            type: "boolean",
+            description: "Whether to return only verified businesses. Default is false."
+          },
+          business_status: {
+            type: "string",
+            enum: ["OPEN", "CLOSED_TEMPORARILY", "CLOSED"],
+            description: "Filter businesses by operational status"
+          },
+          fields: {
+            type: "string",
+            description: "Comma-separated list of specific fields to include in response (e.g., 'business_id,type,phone_number,full_address')"
+          }
+        },
+        required: ["query"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_business_details",
+      description: "Get detailed information about a specific business using its business ID. Returns comprehensive business data including contact info, hours, reviews summary, and more.",
+      parameters: {
+        type: "object",
+        properties: {
+          business_id: {
+            type: "string",
+            description: "Unique business identifier (obtained from local_business_search results)"
+          },
+          extract_emails_and_contacts: {
+            type: "boolean",
+            description: "Whether to extract contact information and social profiles"
+          },
+          extract_share_link: {
+            type: "boolean",
+            description: "Whether to extract the business's shareable Google Maps link"
+          },
+          fields: {
+            type: "string",
+            description: "Comma-separated list of specific fields to include in response"
+          },
+          region: {
+            type: "string",
+            description: "Region code for the query (e.g., 'us', 'gb')"
+          },
+          language: {
+            type: "string",
+            description: "Language code for results (e.g., 'en', 'es')"
+          }
+        },
+        required: ["business_id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_business_reviews",
+      description: "Get customer reviews for a specific business using its business ID. Supports filtering, sorting, and pagination of reviews.",
+      parameters: {
+        type: "object",
+        properties: {
+          business_id: {
+            type: "string",
+            description: "Unique business identifier (obtained from local_business_search results)"
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of reviews to return (typically 1-1000)"
+          },
+          offset: {
+            type: "number",
+            description: "Number of reviews to skip for pagination"
+          },
+          translate_reviews: {
+            type: "boolean",
+            description: "Whether to translate reviews to the specified language"
+          },
+          query: {
+            type: "string",
+            description: "Return only reviews containing specific text/keywords"
+          },
+          sort_by: {
+            type: "string",
+            enum: ["most_relevant", "newest", "highest_ranking", "lowest_ranking"],
+            description: "How to sort the reviews. Default is 'most_relevant'."
+          },
+          fields: {
+            type: "string",
+            description: "Comma-separated list of specific review fields to include"
+          },
+          region: {
+            type: "string",
+            description: "Region code for the query (e.g., 'us', 'gb')"
+          }
+        },
+        required: ["business_id"],
         additionalProperties: false
       },
       strict: false

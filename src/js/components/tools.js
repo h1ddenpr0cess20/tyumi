@@ -25,13 +25,16 @@ window.initToolsSettings = function() {
   container.innerHTML = '';
 
   // Get all available tools
-  const tools = getAllToolDefinitions();
-
-  // Define tool categories
+  const tools = getAllToolDefinitions();  // Define tool categories
   const categories = {
-    'Search & News': [
-      'search_news', 'headlines', 'local_headlines', 'google_search', 
-      'openai_search', 'full_story_coverage'
+    'Search': [
+      'google_search', 'openai_search'
+    ],
+    'News': [
+      'search_news', 'headlines', 'local_headlines', 'full_story_coverage'
+    ],
+    'Business': [
+      'local_business_search', 'get_business_details', 'get_business_reviews'
     ],
     'Social Media': [
       'search_tweets', 'get_user_profile', 'get_user_tweets', 

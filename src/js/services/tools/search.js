@@ -765,6 +765,331 @@ async function youtubeVideoDetails(args) {
   }
 }
 
+/**
+ * Search for local businesses
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function localBusinessSearch(args) {
+  const query = args.query;
+  const limit = args.limit || 20;
+  const lat = args.lat;
+  const lng = args.lng;
+  const zoom = args.zoom || 13;
+  const language = args.language || "en";
+  const region = args.region || "us";
+  const extractEmailsAndContacts = args.extract_emails_and_contacts || false;
+  const subtypes = args.subtypes || ""; // Business categories (comma-separated)
+  const verified = args.verified || false; // Only verified businesses
+  const businessStatus = args.business_status || ""; // OPEN, CLOSED_TEMPORARILY, CLOSED
+  const fields = args.fields || ""; // Specific fields to include in response
+
+  if (window.VERBOSE_LOGGING) console.info(`Searching local businesses for: "${query}", limit: ${limit}, lat: ${lat}, lng: ${lng}`);
+
+  try {
+    // Build the URL with query parameters
+    const baseUrl = "https://local-business-data.p.rapidapi.com/search";
+    const params = new URLSearchParams({
+      query: query,
+      limit: limit
+    });
+
+    // Add optional location parameters
+    if (lat !== undefined) params.append("lat", lat);
+    if (lng !== undefined) params.append("lng", lng);
+    
+    params.append("zoom", zoom);
+    params.append("language", language);
+    params.append("region", region);
+    params.append("extract_emails_and_contacts", extractEmailsAndContacts);
+
+    // Add optional parameters
+    if (subtypes) params.append("subtypes", subtypes);
+    if (verified) params.append("verified", verified);
+    if (businessStatus) params.append("business_status", businessStatus);
+    if (fields) params.append("fields", fields);
+
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+
+    if (!rapidApiKey) {
+      return {
+        query: query,
+        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}?${params.toString()}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "local-business-data.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      return {
+        query: query,
+        businesses: data.data || [],
+        count: (data.data || []).length,
+        timestamp: new Date().toISOString(),        params: {
+          limit,
+          lat,
+          lng,
+          zoom,
+          language,
+          region,
+          extract_emails_and_contacts: extractEmailsAndContacts,
+          subtypes,
+          verified,
+          business_status: businessStatus,
+          fields
+        }
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error searching local businesses:', error);
+    return {
+      query: query,
+      error: error.message || 'Unknown error searching local businesses',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Get business details by business ID
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function getBusinessDetails(args) {
+  const businessId = args.business_id;
+  const extractEmailsAndContacts = args.extract_emails_and_contacts;
+  const extractShareLink = args.extract_share_link;
+  const fields = args.fields;
+  const region = args.region;
+  const language = args.language;
+
+  if (window.VERBOSE_LOGGING) console.info(`Getting business details for ID: ${businessId}`);
+
+  try {
+    // Build the URL with query parameters
+    const baseUrl = "https://local-business-data.p.rapidapi.com/business-details";
+    const params = new URLSearchParams({
+      business_id: businessId
+    });
+
+    // Add optional parameters only if provided
+    if (extractEmailsAndContacts !== undefined) params.append("extract_emails_and_contacts", extractEmailsAndContacts);
+    if (extractShareLink !== undefined) params.append("extract_share_link", extractShareLink);
+    if (fields) params.append("fields", fields);
+    if (region) params.append("region", region);
+    if (language) params.append("language", language);
+
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+
+    if (!rapidApiKey) {
+      return {
+        business_id: businessId,
+        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}?${params.toString()}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "local-business-data.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      return {
+        business_id: businessId,
+        business: data.data || {},
+        timestamp: new Date().toISOString(),
+        params: {
+          extract_emails_and_contacts: extractEmailsAndContacts,
+          extract_share_link: extractShareLink,
+          fields,
+          region,
+          language
+        }
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error getting business details:', error);
+    return {
+      business_id: businessId,
+      error: error.message || 'Unknown error getting business details',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Get business reviews by business ID
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result
+ */
+async function getBusinessReviews(args) {
+  const businessId = args.business_id;
+  const limit = args.limit;
+  const offset = args.offset;
+  const translateReviews = args.translate_reviews;
+  const query = args.query;
+  const sortBy = args.sort_by;
+  const fields = args.fields;
+  const region = args.region;
+
+  if (window.VERBOSE_LOGGING) console.info(`Getting business reviews for ID: ${businessId}`);
+
+  try {
+    // Build the URL with query parameters
+    const baseUrl = "https://local-business-data.p.rapidapi.com/business-reviews";
+    const params = new URLSearchParams({
+      business_id: businessId
+    });
+
+    // Add optional parameters only if provided
+    if (limit !== undefined) params.append("limit", limit);
+    if (offset !== undefined) params.append("offset", offset);
+    if (translateReviews !== undefined) params.append("translate_reviews", translateReviews);
+    if (query) params.append("query", query);
+    if (sortBy) params.append("sort_by", sortBy);
+    if (fields) params.append("fields", fields);
+    if (region) params.append("region", region);
+
+    // Create a tracked controller for this request
+    const controller = window.createNetworkController ? window.createNetworkController() : new AbortController();
+
+    // Get RapidAPI key from tool API keys
+    const rapidApiKey = window.getToolApiKey ? window.getToolApiKey('rapidapi') : null;
+
+    if (!rapidApiKey) {
+      return {
+        business_id: businessId,
+        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}?${params.toString()}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "local-business-data.p.rapidapi.com"
+        },
+        signal: controller.signal
+      });
+
+      // Remove from tracking
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      return {
+        business_id: businessId,
+        reviews: data.data || [],
+        count: (data.data || []).length,
+        timestamp: new Date().toISOString(),
+        params: {
+          limit,
+          offset,
+          translate_reviews: translateReviews,
+          query,
+          sort_by: sortBy,
+          fields,
+          region
+        }
+      };
+    } catch (error) {
+      // Remove from tracking in case of error
+      if (window.removeNetworkController) {
+        window.removeNetworkController(controller);
+      }
+
+      // If aborted, don't retry
+      if (error.name === 'AbortError' || window.shouldStopGeneration) {
+        throw new Error('Request canceled');
+      }
+
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error getting business reviews:', error);
+    return {
+      business_id: businessId,
+      error: error.message || 'Unknown error getting business reviews',
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
 // Register the tool implementations
 window.toolImplementations.search_news = searchNews;
 window.toolImplementations.headlines = getHeadlines;
@@ -774,3 +1099,6 @@ window.toolImplementations.full_story_coverage = getFullStoryCoverage;
 window.toolImplementations.google_search = googleSearch;
 window.toolImplementations.youtube_search = youtubeSearch;
 window.toolImplementations.youtube_video_details = youtubeVideoDetails;
+window.toolImplementations.local_business_search = localBusinessSearch;
+window.toolImplementations.get_business_details = getBusinessDetails;
+window.toolImplementations.get_business_reviews = getBusinessReviews;
