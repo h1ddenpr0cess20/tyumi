@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />  
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline';">
   <title>Tyumi</title>
   <meta name="description" content="An open source AI assistant platform that integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, and local Ollama models." />
 
@@ -40,6 +41,9 @@
 
   <!-- Marked for markdown parsing -->
   <script src="src/js/lib/marked.min.js"></script>
+
+  <!-- DOMPurify for sanitizing HTML -->
+  <script src="src/js/lib/purify.min.js"></script>
 
   <!-- Configuration file (ensure this is loaded first) -->
   <script src="src/config/config.js"></script>

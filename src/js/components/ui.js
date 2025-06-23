@@ -198,7 +198,8 @@ window.appendMessage = function(sender, content, type, skipHistory = false) {
   window.chatBox.appendChild(messageElement);
 
   setTimeout(() => {
-    contentElement.innerHTML = marked.parse(content);
+    const sanitized = DOMPurify.sanitize(marked.parse(content));
+    contentElement.innerHTML = sanitized;
     
     // Safely call the highlightAndAddCopyButtons function if it exists
     if (typeof window.highlightAndAddCopyButtons === 'function') {

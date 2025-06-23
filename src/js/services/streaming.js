@@ -341,7 +341,7 @@ window.processMainContentMarkdown = function(mainText) {
     }
     
     // First parse the markdown content
-    let parsedContent = marked.parse(html);
+    let parsedContent = DOMPurify.sanitize(marked.parse(html));
     
     // Then wrap image placeholders with span elements so they can be hidden with CSS
     // This ensures the markdown parser doesn't interfere with our spans

@@ -127,7 +127,7 @@ window.appendMessage = function(sender, message, role, skipHistory = false) {
         .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
         .replace(/\n/g, '<br>');
     }
-    contentWrapper.innerHTML = parsedContent;
+    contentWrapper.innerHTML = DOMPurify.sanitize(parsedContent);
   } 
   // Otherwise, it might be a complex object with content and reasoning
   else if (typeof message === 'object' && message !== null) {
@@ -283,7 +283,7 @@ window.updateMessageContent = function(messageElement, contentObj) {
   // Create a container for the main content
   const mainContent = document.createElement('div');
   mainContent.className = 'main-content';
-  mainContent.innerHTML = parsedContent;
+  mainContent.innerHTML = DOMPurify.sanitize(parsedContent);
   contentWrapper.appendChild(mainContent);
   
   // If there's reasoning, create the reasoning section
@@ -314,9 +314,9 @@ window.updateMessageContent = function(messageElement, contentObj) {
     const reasoningContent = document.createElement('div');
     reasoningContent.className = 'reasoning-content';
     if (window.markdownit) {
-      reasoningContent.innerHTML = window.markdownit().render(reasoning);
+      reasoningContent.innerHTML = DOMPurify.sanitize(window.markdownit().render(reasoning));
     } else {
-      reasoningContent.innerHTML = reasoning.replace(/\n/g, '<br>');
+      reasoningContent.innerHTML = DOMPurify.sanitize(reasoning.replace(/\n/g, '<br>'));
     }
     reasoningContainer.appendChild(reasoningContent);
     contentWrapper.appendChild(reasoningContainer);
