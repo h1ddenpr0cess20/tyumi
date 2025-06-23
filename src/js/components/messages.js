@@ -121,13 +121,12 @@ window.appendMessage = function(sender, message, role, skipHistory = false) {
     let parsedContent = message;
     if (window.markdownit) {
       parsedContent = window.markdownit().render(message);
-    } else {
-      // Basic handling for code blocks if markdown parser is not available
+    } else {      // Basic handling for code blocks if markdown parser is not available
       parsedContent = message
         .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
         .replace(/\n/g, '<br>');
     }
-    contentWrapper.innerHTML = parsedContent;
+    contentWrapper.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(parsedContent) : DOMPurify.sanitize(parsedContent);
   } 
   // Otherwise, it might be a complex object with content and reasoning
   else if (typeof message === 'object' && message !== null) {
@@ -283,7 +282,7 @@ window.updateMessageContent = function(messageElement, contentObj) {
   // Create a container for the main content
   const mainContent = document.createElement('div');
   mainContent.className = 'main-content';
-  mainContent.innerHTML = parsedContent;
+  mainContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(parsedContent) : DOMPurify.sanitize(parsedContent);
   contentWrapper.appendChild(mainContent);
   
   // If there's reasoning, create the reasoning section
@@ -309,14 +308,13 @@ window.updateMessageContent = function(messageElement, contentObj) {
       reasoningToggle.querySelector('.toggle-label').textContent = isCollapsed ? 'Show reasoning' : 'Hide reasoning';
     };
     contentWrapper.appendChild(reasoningToggle);
-    
-    // Create reasoning content
+      // Create reasoning content
     const reasoningContent = document.createElement('div');
     reasoningContent.className = 'reasoning-content';
     if (window.markdownit) {
-      reasoningContent.innerHTML = window.markdownit().render(reasoning);
+      reasoningContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(window.markdownit().render(reasoning)) : DOMPurify.sanitize(window.markdownit().render(reasoning));
     } else {
-      reasoningContent.innerHTML = reasoning.replace(/\n/g, '<br>');
+      reasoningContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(reasoning.replace(/\n/g, '<br>')) : DOMPurify.sanitize(reasoning.replace(/\n/g, '<br>'));
     }
     reasoningContainer.appendChild(reasoningContent);
     contentWrapper.appendChild(reasoningContainer);

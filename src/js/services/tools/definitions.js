@@ -1028,6 +1028,97 @@ window.toolDefinitions = [
       },
       strict: false
     }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_jobs",
+      description: "Search for job listings by query, location, and various filters. Returns job information including titles, companies, locations, descriptions, and application links.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "Free-form jobs search query. It is highly recommended to include job title and location as part of the query. (e.g., 'web development jobs in chicago', 'marketing manager in new york via linkedin')"
+          },
+          page: {
+            type: "number",
+            description: "Page to return (each page includes up to 10 results). Default is 1, allowed values: 1-100"
+          },
+          num_pages: {
+            type: "number",
+            description: "Number of pages to return, starting from page. Default is 1, allowed values: 1-20"
+          },
+          country: {
+            type: "string",
+            description: "Country code of the country from which to return job postings. Default is 'us'"
+          },
+          date_posted: {
+            type: "string",
+            enum: ["all", "today", "3days", "week", "month"],
+            description: "Find jobs posted within the time you specify. Default is 'all'"
+          },
+          work_from_home: {
+            type: "boolean",
+            description: "Only return work from home / remote jobs. Default is false"
+          },
+          employment_types: {
+            type: "string",
+            description: "Find jobs of particular employment types, specified as a comma delimited list of the following values: FULLTIME, CONTRACTOR, PARTTIME, INTERN"
+          },
+          job_requirements: {
+            type: "string",
+            description: "Find jobs with specific requirements, specified as a comma delimited list of the following values: under_3_years_experience, more_than_3_years_experience, no_experience, no_degree"
+          },
+          radius: {
+            type: "number",
+            description: "Return jobs within a certain distance from location as specified as part of the query (in km). This internally sent as the Google 'rad' parameter and although it might affect the results, it is not strictly followed by Google for Jobs."
+          },
+          exclude_job_publishers: {
+            type: "string",
+            description: "Exclude jobs published by specific publishers, specified as a comma (,) separated list of publishers to exclude."
+          },
+          fields: {
+            type: "string",
+            description: "A comma separated list of job fields to include in the response (field projection). By default all fields are returned."
+          }
+        },
+        required: ["query"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_job_details",
+      description: "Get detailed information about a specific job posting using the job ID",
+      parameters: {
+        type: "object",
+        properties: {
+          job_id: {
+            type: "string",
+            description: "Job ID of the job for which to get details. Batching of up to 20 Job Ids is supported by separating multiple Job Ids by comma (,). Note that each Job Id in a batch request is counted as a request for quota calculation."
+          },
+          country: {
+            type: "string",
+            description: "Country code of the country from which to return job posting. Default is 'us'"
+          },
+          language: {
+            type: "string",
+            description: "Language code in which to return job postings. Leave empty to use the primary language in the specified country (country parameter)."
+          },
+          fields: {
+            type: "string",
+            description: "A comma separated list of job fields to include in the response (field projection). By default all fields are returned."
+          }
+        },
+        required: ["job_id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
   }
 ];
 

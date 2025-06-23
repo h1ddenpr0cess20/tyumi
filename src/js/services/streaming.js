@@ -339,9 +339,8 @@ window.processMainContentMarkdown = function(mainText) {
     if (backtickCount % 2 !== 0 && html.endsWith('`')) {
         html += '`';
     }
-    
-    // First parse the markdown content
-    let parsedContent = marked.parse(html);
+      // First parse the markdown content
+    let parsedContent = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(marked.parse(html)) : DOMPurify.sanitize(marked.parse(html));
     
     // Then wrap image placeholders with span elements so they can be hidden with CSS
     // This ensures the markdown parser doesn't interfere with our spans

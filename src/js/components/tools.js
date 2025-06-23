@@ -50,9 +50,8 @@ window.initToolsSettings = function() {
     ],
     'Finance': [
       'crypto_prices', 'twelve_data_price', 'twelve_data_quote'
-    ],
-    'More': [
-      'search_recipes', 'weather'
+    ],    'More': [
+      'search_recipes', 'weather', 'search_jobs', 'get_job_details'
     ]
   };
 

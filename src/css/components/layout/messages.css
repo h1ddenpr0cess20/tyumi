@@ -146,6 +146,17 @@
   cursor: pointer;
 }
 
+/* Enhanced styling for expandable embedded images */
+.message-content img.expandable-image {
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.message-content img.expandable-image:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 20px rgba(var(--accent-color-rgb, 102, 102, 102), 0.3);
+}
+
 /* Image container for hover effects */
 .message-content .image-container {
   position: relative;
