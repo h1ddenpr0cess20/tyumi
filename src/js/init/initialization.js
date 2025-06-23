@@ -5,9 +5,11 @@
 
 // Configure DOMPurify to allow YouTube iframes
 function configureDOMPurify() {
-  if (typeof DOMPurify !== 'undefined') {
-    // Create a custom configuration that allows YouTube iframes
-    window.DOMPurifyConfig = {
+  // Add a small delay to ensure DOMPurify has loaded
+  function attemptConfiguration(retries = 0) {
+    if (typeof DOMPurify !== 'undefined') {
+      // Create a custom configuration that allows YouTube iframes
+      window.DOMPurifyConfig = {
       ALLOWED_TAGS: [
         // Standard HTML tags
         'a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'menu', 'menuitem', 'meter', 'nav', 'ol', 'optgroup', 'option', 'output', 'p', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'select', 'small', 'source', 'span', 'strike', 'strong', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr',
@@ -96,11 +98,18 @@ function configureDOMPurify() {
     
     // Keep the old function name for backward compatibility
     window.sanitizeWithYouTube = window.sanitizeWithMedia;
-    
-    if (window.VERBOSE_LOGGING) console.info('DOMPurify configured to allow YouTube iframes and external images');
-  } else {
-    console.warn('DOMPurify not available for configuration');
+      if (window.VERBOSE_LOGGING) console.info('DOMPurify configured to allow YouTube iframes and external images');
+    } else if (retries < 3) {
+      // Retry after a short delay
+      if (window.VERBOSE_LOGGING) console.warn(`DOMPurify not ready, retrying in 100ms (attempt ${retries + 1}/3)`);
+      setTimeout(() => attemptConfiguration(retries + 1), 100);
+    } else {
+      console.warn('DOMPurify not available for configuration after 3 attempts. Check if purify.min.js is loading correctly.');
+    }
   }
+  
+  // Start the configuration attempt
+  attemptConfiguration();
 }
 
 // Main initialization function
