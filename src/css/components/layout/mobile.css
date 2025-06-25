@@ -52,7 +52,7 @@
   }
   
   pre code {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   
   .theme-teletext .message-content,
@@ -64,7 +64,7 @@
   .theme-teletext select,
   .theme-teletext option,
   .theme-teletext code {
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
   }
   
   .theme-terminal .message-content,
@@ -76,7 +76,7 @@
   .theme-terminal select,
   .theme-terminal option,
   .theme-terminal code {
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
   }
   
   #chat-container {
@@ -104,13 +104,14 @@
   }
   
   #header-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     max-width: 70%;
     text-overflow: ellipsis;
   }
   
   #model-info {
     max-width: 70%;
+    font-size: 0.5rem;
   }
   
   .gallery-slideshow {
@@ -177,7 +178,7 @@
   
   pre code,
   .message-content pre code {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: -0.01em;
   }
   
@@ -185,6 +186,10 @@
   label,
   .radio-text {
     font-size: 0.85rem;
+  }
+  
+  #model-info {
+    font-size: 0.5rem;
   }
 }
 
@@ -224,7 +229,7 @@
   }
   
   .message-content pre code {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: -0.01em;
   }
 }
@@ -309,7 +314,7 @@
     font-size: 0.9rem;
   }
     #header h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   #tyumi-logo {
     width: 48px;
@@ -317,12 +322,12 @@
   }
   
   #header-title {
-    font-size: 1.1rem;
+    font-size: 1.0rem;
   }
   
   #model-info {
     max-width: 60%;
-    font-size: 0.7rem;
+    font-size: 0.5rem;
   }
 }
 
@@ -342,11 +347,11 @@
   }
   
   pre code {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   
   .message-content pre code {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: normal;
     line-height: 1.4;
   }
@@ -360,7 +365,7 @@
   .theme-teletext select,
   .theme-teletext option,
   .theme-teletext code {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
   }
   
   .theme-terminal .message-content,
@@ -372,7 +377,7 @@
   .theme-terminal select,
   .theme-terminal option,
   .theme-terminal code {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
   }
 }
 
