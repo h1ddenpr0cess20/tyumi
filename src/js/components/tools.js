@@ -43,7 +43,9 @@ window.initToolsSettings = function() {
     'Entertainment': [
       'search_imdb', 'get_title_details', 'get_actor_details', 
       'steam_search_games', 'steam_get_app_details', 'steam_get_app_reviews',
-      'youtube_search', 'youtube_video_details'
+      'youtube_search', 'youtube_video_details', 'search_spotify', 'get_spotify_albums',
+      'get_spotify_artists', 'get_spotify_artist_overview', 'get_spotify_related_artists',
+      'get_spotify_artist_albums'
     ],
     'Images': [
       'openai_image', 'grok_image', 'gemini_image', 'openai_image_edit'
@@ -51,7 +53,7 @@ window.initToolsSettings = function() {
     'Finance': [
       'crypto_prices', 'twelve_data_price', 'twelve_data_quote'
     ],    'More': [
-      'search_recipes', 'weather', 'search_jobs', 'get_job_details'
+      'search_recipes', 'weather', 'search_jobs', 'get_job_details', 'search_rental_properties', 'get_property_details'
     ]
   };
 

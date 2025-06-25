@@ -38,8 +38,8 @@
 /* Send button - positioned inside textarea */
 #send-button {
   position: absolute;
-  right: 12px;
-  top: 50%;
+  right: 5px;
+  top: 48%;
   transform: translateY(-50%);
   background: transparent;
   color: var(--accent-color);

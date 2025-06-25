@@ -1119,6 +1119,285 @@ window.toolDefinitions = [
       },
       strict: false
     }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_rental_properties",
+      description: "Search for rental properties using Zillow API. Returns detailed rental listings with pricing, location, amenities, and property details.",
+      parameters: {
+        type: "object",
+        properties: {
+          location: {
+            type: "string",
+            description: "Enter an address, neighborhood, city, or ZIP code (e.g., 'New York, NY', 'Brooklyn, NY', '10001')"
+          },
+          page: {
+            type: "number",
+            description: "The page index, for paging purpose. Default is 1."
+          },
+          sortBy: {
+            type: "string",
+            enum: ["relevance", "recentlyChanged", "daysOn", "priceHighToLow", "priceLowToHigh", "beds", "baths", "livingArea", "lotArea", "yearBuilt"],
+            description: "Sort order for the results. Default is 'relevance'."
+          },
+          price: {
+            type: "object",
+            description: "Price range filter. Example: {\"min\":60000,\"max\":240000} or {\"max\":240000} or {\"min\":60000}"
+          },
+          bedrooms: {
+            type: "object",
+            description: "Bedrooms filter. Example: {\"min\":0,\"max\":2} or {\"max\":2} or {\"min\":0}. Values for bedrooms from 0 to 5"
+          },
+          minBathrooms: {
+            type: "number",
+            description: "Minimum number of bathrooms. Values: 1, 1.5, 2, 3, 4"
+          },
+          homeTypes: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["houses", "townhomes", "apartmentsCondosCoops"]
+            },
+            description: "Types of homes to include. Options: houses, townhomes, apartmentsCondosCoops"
+          },
+          moveInDate: {
+            type: "object",
+            description: "Move-in date filter. Example: {\"availableBefore\": \"2023-11-18\", \"hideListings\": true}. availableBefore: The date has the format YYYY-MM-DD, hideListings: true/false"
+          },
+          rentalAmenities: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["allowsLargeDogs", "allowsSmallDogs", "allowsCats", "onSiteParking", "inUnitLaundry", "incomeRestricted", "apartmentCommunity", "acceptsZillowApplications"]
+            },
+            description: "Rental amenities to filter by"
+          },
+          popularFilters: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["3dTourOnly", "singleStoryHomesOnly"]
+            },
+            description: "Popular filters: 3D tour only, single-story homes only"
+          },
+          homeSize: {
+            type: "object",
+            description: "Home size filter in square feet. Example: {\"min\":500,\"max\":2500} or {\"max\":2500} or {\"min\":500}"
+          },
+          lotSize: {
+            type: "object",
+            description: "Lot size filter. 1 acre = 43560 sqft. Example: {\"min\":1000,\"max\":2000} or {\"max\":2000} or {\"min\":1000}"
+          },
+          yearBuilt: {
+            type: "object",
+            description: "Year built filter. Example: {\"min\":2009,\"max\":2020} or {\"max\":2020} or {\"min\":2009}. Values from 1900 to current year"
+          },
+          basementTypes: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["finished", "unFinished"]
+            },
+            description: "Basement types: finished, unFinished"
+          },
+          amenities: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["mustHaveAC", "mustHavePool", "onWaterfront"]
+            },
+            description: "Property amenities: must have A/C, must have pool, on waterfront"
+          },
+          views: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["city", "mountain", "park", "water"]
+            },
+            description: "Property views: city, mountain, park, water"
+          },
+          timeOnZillow: {
+            type: "string",
+            enum: ["1d", "1w", "2w", "1m", "2m", "6m", "12m", "24m", "36m"],
+            description: "Time on Zillow filter. Options: 1d (1 day), 1w (1 week), 2w (1 weeks), 1m (1 month), 2m (2 months), 6m (6 months), 12m (12 months), 24m (24 months), 36m (36 months)"
+          },
+          keywords: {
+            type: "string",
+            description: "Keywords: Backyard, fireplace, horses, MLS#, etc."
+          }
+        },
+        required: ["location"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_property_details",
+      description: "Get detailed information about a specific property using Zillow Property ID (ZPID). Returns comprehensive property data including price, features, history, and location details.",
+      parameters: {
+        type: "object",
+        properties: {
+          zpid: {
+            type: "string",
+            description: "Zillow Property ID (ZPID) - a unique identifier for the property. Can be found in Zillow URLs or from rental search results."
+          }
+        },
+        required: ["zpid"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_spotify",
+      description: "Search for music content on Spotify including tracks, albums, artists, playlists, podcasts, and more. Returns detailed music information with previews and metadata.",
+      parameters: {
+        type: "object",
+        properties: {
+          q: {
+            type: "string",
+            description: "Search query for music content (e.g., 'The Beatles', 'Bohemian Rhapsody', 'jazz playlist')"
+          },
+          type: {
+            type: "string",
+            enum: ["multi", "albums", "artists", "episodes", "genres", "playlists", "podcasts", "tracks", "users"],
+            description: "Type of content to search for. 'multi' searches all types. Default is 'multi'."
+          },
+          offset: {
+            type: "number",
+            description: "The index of the first result to return. Default is 0."
+          },
+          limit: {
+            type: "number",
+            description: "The maximum number of results to return. Default is 10."
+          },
+          numberOfTopResults: {
+            type: "number",
+            description: "Number of top results to return. Default is 5."
+          },
+          gl: {
+            type: "string",
+            description: "Country code for localized results (e.g., 'US', 'GB', 'DE'). Default is 'US'."
+          }
+        },
+        required: ["q"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_spotify_albums",
+      description: "Get detailed information about specific Spotify albums using their album IDs. Returns comprehensive album data including tracks, artists, release info, and metadata.",
+      parameters: {
+        type: "object",
+        properties: {
+          ids: {
+            type: "string",
+            description: "Album IDs (you can use commas to separate multiple IDs). Example: '3IBcaUcj5M2A6lTeffJzdv' or '3IBcaUcj5M2A6lTeffJzdv,4aawyAB9vmqN3uQ7FjRGTy'"
+          }
+        },
+        required: ["ids"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_spotify_artists",
+      description: "Get detailed information about specific Spotify artists using their artist IDs. Returns comprehensive artist data including follower counts, genres, popularity, and metadata.",
+      parameters: {
+        type: "object",
+        properties: {
+          ids: {
+            type: "string",
+            description: "Artist IDs (you can use commas to separate multiple IDs). Example: '4Z8W4fKeB5YxbusRsdQVPb' or '4Z8W4fKeB5YxbusRsdQVPb,06HL4z0CvFAxyc27GXpf02'"
+          }
+        },
+        required: ["ids"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_spotify_artist_overview",
+      description: "Get comprehensive overview information about a specific Spotify artist including their top tracks, albums, related artists, and detailed profile information.",
+      parameters: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            description: "Spotify artist ID. Example: '4Z8W4fKeB5YxbusRsdQVPb'"
+          },
+          gl: {
+            type: "string",
+            description: "Country code for localized results (e.g., 'US', 'GB', 'DE'). Default is 'US'."
+          }
+        },
+        required: ["id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_spotify_related_artists",
+      description: "Get artists related to a specific Spotify artist. Returns a list of similar artists based on musical style and listener preferences.",
+      parameters: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            description: "Spotify artist ID. Example: '4Z8W4fKeB5YxbusRsdQVPb'"
+          }
+        },
+        required: ["id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_spotify_artist_albums",
+      description: "Get albums for a specific Spotify artist with pagination support. Returns a list of albums by the artist including singles, albums, and compilations.",
+      parameters: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            description: "Spotify artist ID. Example: '4Z8W4fKeB5YxbusRsdQVPb'"
+          },
+          offset: {
+            type: "number",
+            description: "The index of the first album to return. Default is 0."
+          },
+          limit: {
+            type: "number",
+            description: "The maximum number of albums to return. Default is 100."
+          }
+        },
+        required: ["id"],
+        additionalProperties: false
+      },
+      strict: false
+    }
   }
 ];
 
