@@ -111,7 +111,45 @@
   
   #model-info {
     max-width: 70%;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    max-height: 1.5rem;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  #model-info.expanded {
+    max-height: none !important;
+    -webkit-line-clamp: none !important;
+    line-clamp: none !important;
+    overflow: visible !important;
+    white-space: normal;
+    background: none !important;
+    border: none !important;
+  }
+  
+  #model-info::after {
+    content: "tap to expand";
+    font-size: 0.6rem;
+    opacity: 0.6;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 2px;
+  }
+  
+  #model-info.expanded::after {
+    content: "tap to collapse";
+  }
+  
+  #model-info:empty::after {
+    display: none;
   }
   
   .gallery-slideshow {
@@ -160,6 +198,51 @@
   .gallery-slideshow-counter {
     bottom: -5px;
   }
+  
+  /* Tap-to-expand system prompt on mobile */
+  .prompt-container {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background: rgba(var(--accent-color-rgb, 102, 102, 102), 0.1);
+    border: 1px solid transparent;
+  }
+  
+  .prompt-container:hover {
+    border-color: rgba(var(--accent-color-rgb, 102, 102, 102), 0.3);
+  }
+  
+  .prompt-container.expanded {
+    max-height: none !important;
+    -webkit-line-clamp: none !important;
+    line-clamp: none !important;
+    overflow: visible !important;
+    background: rgba(var(--accent-color-rgb, 102, 102, 102), 0.15);
+    border-color: var(--accent-color);
+    white-space: normal;
+  }
+  
+  .prompt-container::after {
+    content: "tap to expand";
+    position: absolute;
+    bottom: -18px;
+    right: 4px;
+    font-size: 0.6rem;
+    opacity: 0.6;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .prompt-container.expanded::after {
+    content: "tap to collapse";
+  }
+  
+  .prompt-container:empty::after {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 360px) {
@@ -189,7 +272,13 @@
   }
   
   #model-info {
+    font-size: 0.6rem;
+  }
+  
+  /* Even smaller tap indicator on very small screens */
+  #model-info::after {
     font-size: 0.5rem;
+    bottom: -14px;
   }
 }
 
@@ -327,7 +416,13 @@
   
   #model-info {
     max-width: 60%;
-    font-size: 0.5rem;
+    font-size: 0.65rem;
+  }
+  
+  /* Smaller tap indicator on smaller screens */
+  #model-info::after {
+    font-size: 0.55rem;
+    bottom: -16px;
   }
 }
 

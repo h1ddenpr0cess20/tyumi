@@ -93,6 +93,9 @@ window.initializeMobileKeyboardHandling = function() {
   
   // Optimize scrolling behavior for better performance on mobile
   window.optimizeScrolling();
+  
+  // Setup tap-to-expand for system prompt area
+  window.setupPromptTapExpand();
 };
 
 /**
@@ -141,3 +144,82 @@ window.optimizeScrolling = function() {
     }
   }
 };
+
+/**
+ * Sets up tap-to-expand functionality for the system prompt area on mobile
+ */
+window.setupPromptTapExpand = function() {
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.setupPromptTapExpand);
+    return;
+  }
+  
+  const promptContainer = document.getElementById('model-info');
+  if (!promptContainer) {
+    console.log('model-info element not found for tap-to-expand, retrying in 1 second...');
+    setTimeout(window.setupPromptTapExpand, 1000);
+    return;
+  }
+  
+  // Only add this functionality on mobile devices
+  const isMobile = window.isMobileDevice();
+  if (!isMobile) {
+    console.log('Not a mobile device, skipping tap-to-expand');
+    return;
+  }
+  
+  console.log('Setting up mobile tap-to-expand for system prompt');
+  
+  // Remove any existing event listeners first
+  promptContainer.removeEventListener('click', handlePromptTap);
+  
+  function handlePromptTap(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Prompt container tapped, current classes:', promptContainer.className);
+    
+    // Toggle expanded state
+    if (promptContainer.classList.contains('expanded')) {
+      promptContainer.classList.remove('expanded');
+      console.log('Collapsed prompt');
+    } else {
+      promptContainer.classList.add('expanded');
+      console.log('Expanded prompt');
+    }
+  }
+  
+  // Add click event listener
+  promptContainer.addEventListener('click', handlePromptTap);
+  
+  // Close expanded state when tapping elsewhere
+  document.addEventListener('click', function(e) {
+    if (!promptContainer.contains(e.target) && promptContainer.classList.contains('expanded')) {
+      promptContainer.classList.remove('expanded');
+      console.log('Closing expanded prompt');
+    }
+  });
+  
+  console.log('Tap-to-expand setup complete');
+};
+
+// Test function to manually trigger setup
+window.testPromptExpand = function() {
+  console.log('Manual test of prompt expand');
+  const element = document.getElementById('model-info');
+  if (element) {
+    console.log('Found element:', element);
+    console.log('Current content:', element.textContent);
+    element.classList.toggle('expanded');
+    console.log('Toggled expanded class, new classes:', element.className);
+  } else {
+    console.log('Element not found');
+  }
+};
+
+// Also force setup on window load
+window.addEventListener('load', function() {
+  console.log('Window loaded, forcing prompt expand setup');
+  setTimeout(window.setupPromptTapExpand, 100);
+});
