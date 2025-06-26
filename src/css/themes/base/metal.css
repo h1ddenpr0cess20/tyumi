@@ -117,6 +117,7 @@
     rgba(255, 215, 0, 0.1) 100%
   );
   border-bottom: 2px solid var(--accent-color);
+  color: var(--text-primary) !important;
 }
 
 /* Silver theme special effects */
@@ -202,6 +203,7 @@
     rgba(192, 192, 192, 0.1) 100%
   );
   border-bottom: 2px solid var(--accent-color);
+  color: var(--text-primary) !important;
 }
 
 /* Chat input shimmer effects */

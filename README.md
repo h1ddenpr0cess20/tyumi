@@ -6,7 +6,7 @@
 
 **An open source AI assistant platform**
 
-[![Version](https://img.shields.io/badge/version-v0.9.5-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
+[![Version](https://img.shields.io/badge/version-v0.9.6-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)]()
 
@@ -29,8 +29,14 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 ### 🛠️ Advanced Tool Calling
 - **Web Search** - Real-time internet search capabilities
 - **Image Generation** - Create images via AI
-- **Finance Tools** - Stock prices, market data
-- **Utility Functions** - Various helper tools
+- **Finance Tools** - Stock prices, cryptocurrency, market data
+- **Food & Recipes** - Restaurant recommendations, recipes, nutrition info
+- **Entertainment** - Movies, music, games, and media recommendations
+- **Social Media** - Social platform integrations and content tools
+- **Job Search** - Career opportunities and job market insights
+- **Real Estate** - Property search and market information
+- **Spotify Integration** - Music search and playlist management
+- **Utility Functions** - Weather, time, calculations, and helper tools
 - **Extensible Architecture** - Easy to add new tools
 
 ### 🎨 Rich User Experience
@@ -46,10 +52,18 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 - **Audio Controls** - Play, pause, and manage TTS
 
 ### 💾 Local Storage & Privacy
-- **IndexedDB Storage** - All conversations stored locally
+- **IndexedDB Storage** - All conversations, images, and audio stored locally
 - **No Server Dependency** - Runs entirely in your browser
 - **Secure API Key Management** - Keys stored locally, never transmitted
 - **Chat History Management** - Save, load, rename, and export conversations
+- **Audio Message Storage** - TTS audio messages saved and managed locally
+- **Database Migration** - Seamless upgrades from previous versions
+
+### 🌐 Enhanced Services
+- **Location Services** - Optional geographical context and location-aware features
+- **Notification System** - System notifications and user alerts
+- **Mobile Optimization** - Enhanced mobile interface and touch interactions
+- **Menu System** - Organized panel navigation and state management
 
 ### ⚙️ Customization
 - **Personality Presets** - Multiple AI personality options
@@ -75,7 +89,12 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
    - Simply open `index.html` in your web browser
    - Or serve from a local web server for HTTPS features
 
-3. **Configure API Keys:**
+3. **Android APK (Optional):**
+   - Download `tyumi.apk` from the `apk/` directory
+   - Install on Android device for a native app experience
+   - The APK is a WebView wrapper that runs the web application located at tyumi.app
+
+4. **Configure API Keys:**
    - Click the settings button (⚙️)
    - Navigate to "API Keys" tab
    - Enter your API keys for desired services
@@ -112,6 +131,7 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 - Enable "Tool Calling" in settings
 - Ask questions that require web search, image generation, or other tools
 - The AI will automatically use appropriate tools when needed
+- Available tools include finance, food, entertainment, social media, jobs, real estate, and more
 - Be sure to obtain API keys before enabling the tools
 
 #### Personality Customization
@@ -123,10 +143,12 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 - Themes include syntax highlighting for code blocks
 
 #### Conversation Management
-- All chats are auto-saved locally
+- All chats are auto-saved locally with IndexedDB
 - Access chat history via the History panel
-- Export conversations as text files
+- Export conversations as text files with optional reasoning content
 - Rename or delete conversations as needed
+- Audio messages are stored and managed locally
+- Database migration tools for upgrading from previous versions
 
 ## 🏗️ Architecture
 
@@ -136,20 +158,31 @@ Tyumi follows a modular architecture with clear separation of concerns:
 src/
 ├── config/           # Configuration files
 ├── css/              # Styling (themes, components)
+│   ├── components/   # Modular component styles
+│   │   ├── features/ # Feature-specific styles (gallery, history)
+│   │   ├── layout/   # Layout and responsive design
+│   │   └── ui/       # UI controls and animations
+│   └── themes/       # Theme system with base and code themes
+├── html/             # HTML templates and panels
 ├── js/
 │   ├── components/   # UI components
 │   ├── init/         # Initialization modules
+│   ├── lib/          # External libraries
 │   ├── services/     # API and service logic
+│   │   └── tools/    # Tool implementations (finance, food, social, etc.)
 │   └── utils/        # Utility functions
 └── index.html        # Main application file
 ```
 
 ### Key Components
-- **Initialization**: Modular startup sequence
+- **Initialization**: Modular startup sequence with service configuration
 - **Message Flow**: User input → API → Streaming response → UI
-- **Tool System**: Extensible function calling framework
-- **Storage**: IndexedDB for conversations and images
+- **Tool System**: Extensible function calling framework with specialized tools
+- **Storage**: IndexedDB for conversations, images, and audio messages
 - **Theming**: CSS custom properties with multiple theme support
+- **Location Services**: Geolocation and location-aware functionality
+- **Notification System**: User alerts and system notifications
+- **Mobile Support**: Responsive design with mobile-specific optimizations
 
 ## 🔧 Configuration
 
@@ -204,6 +237,7 @@ If you find this project helpful, consider supporting its development:
 - Built with modern web technologies
 - Uses [marked.js](https://marked.js.org/) for Markdown parsing
 - Syntax highlighting powered by [Highlight.js](https://highlightjs.org/)
+- Content sanitization via [DOMPurify](https://github.com/cure53/DOMPurify)
 - Icons and design inspired by modern web applications
 
 ## 📞 Contact
