@@ -52,7 +52,7 @@
   }
   
   pre code {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
   }
   
   .theme-teletext .message-content,
@@ -285,7 +285,7 @@
   
   pre code,
   .message-content pre code {
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     letter-spacing: -0.01em;
   }
   
@@ -342,7 +342,7 @@
   }
   
   .message-content pre code {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     letter-spacing: -0.01em;
   }
 }
@@ -466,11 +466,11 @@
   }
   
   pre code {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
   }
   
   .message-content pre code {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     letter-spacing: normal;
     line-height: 1.4;
   }
@@ -516,7 +516,7 @@
   
   pre code,
   .message-content pre code {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     letter-spacing: -0.01em;
   }
 }
