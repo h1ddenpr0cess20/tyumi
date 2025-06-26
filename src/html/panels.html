@@ -478,6 +478,9 @@
               <span class="footer-separator">•</span>
               <a href="#" onclick="showContactPopup(); return false;">Contact</a>
             </div>
+            <div class="footer-links">
+              <a href="#" onclick="showDownloadPopup(); return false;">Download Mobile App</a>
+            </div>
           </div>
         </div>
         
@@ -545,6 +548,23 @@
           </div>
           <div class="popup-content">
             <div id="help-content-container"></div>
+          </div>
+        </div>
+
+        <!-- Download Popup -->
+        <div id="download-popup" class="about-popup" style="display: none;">
+          <div class="popup-header">
+            <button class="popup-back-btn" onclick="hideDownloadPopup()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </button>
+            <h2>Download Mobile App</h2>
+          </div>
+          <div class="popup-content">
+            <div id="download-content-container"></div>
           </div>
         </div>
       </div>

@@ -7,9 +7,10 @@ async function loadContentIntoContainer(url, containerId) {
     
     // Create a temporary DOM to extract just the main content
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;    // Extract content from the main sections (privacy-content, terms-content, help-content or contact-content)
+    tempDiv.innerHTML = html;    // Extract content from the main sections (privacy-content, terms-content, help-content, contact-content, or download-content)
     const mainContent = tempDiv.querySelector('.privacy-content') || tempDiv.querySelector('.terms-content') || 
-                       tempDiv.querySelector('.help-content') || tempDiv.querySelector('.contact-content');
+                       tempDiv.querySelector('.help-content') || tempDiv.querySelector('.contact-content') ||
+                       tempDiv.querySelector('.download-content');
     if (mainContent) {
       document.getElementById(containerId).innerHTML = mainContent.innerHTML;
     } else {
@@ -145,6 +146,36 @@ function hideHelpPopup() {
   }
 }
 
+async function showDownloadPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const downloadPopup = document.getElementById('download-popup');
+  
+  if (aboutContent && downloadPopup) {
+    aboutContent.style.display = 'none';
+    downloadPopup.style.display = 'flex';
+    
+    // Load download content
+    await loadContentIntoContainer('src/html/download.html', 'download-content-container');
+    
+    // Trigger reflow and add active class for animation
+    downloadPopup.offsetHeight;
+    downloadPopup.classList.add('active');
+  }
+}
+
+function hideDownloadPopup() {
+  const aboutContent = document.querySelector('#content-about .about-content');
+  const downloadPopup = document.getElementById('download-popup');
+  
+  if (aboutContent && downloadPopup) {
+    downloadPopup.classList.remove('active');
+    setTimeout(() => {
+      downloadPopup.style.display = 'none';
+      aboutContent.style.display = 'block';
+    }, 250); // Match CSS transition duration
+  }
+}
+
 // Expose popup functions to global window scope
 window.showPrivacyPopup = showPrivacyPopup;
 window.hidePrivacyPopup = hidePrivacyPopup;
@@ -154,5 +185,5 @@ window.showTermsPopup = showTermsPopup;
 window.hideTermsPopup = hideTermsPopup;
 window.showHelpPopup = showHelpPopup;
 window.hideHelpPopup = hideHelpPopup;
-window.showHelpPopup = showHelpPopup;
-window.hideHelpPopup = hideHelpPopup;
+window.showDownloadPopup = showDownloadPopup;
+window.hideDownloadPopup = hideDownloadPopup;
