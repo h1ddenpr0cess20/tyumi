@@ -172,14 +172,18 @@ function createToolToggle(tool) {
   toolElement.className = 'setting-item tool-toggle-item';
   toolElement.dataset.toolName = tool.name;
   
-  // Add tooltip with tool description
-  if (tool.description) {
-    toolElement.setAttribute('data-tooltip', tool.description);
-  }
-  
   const label = document.createElement('label');
   label.htmlFor = `tool-toggle-${tool.name}`;
   label.textContent = tool.name;
+  
+  // Create help icon for tooltip (only if description exists)
+  let helpIcon = null;
+  if (tool.description) {
+    helpIcon = document.createElement('span');
+    helpIcon.className = 'tool-help-icon';
+    helpIcon.setAttribute('data-tooltip', tool.description);
+    helpIcon.innerHTML = '?';
+  }
   
   const toggleContainer = document.createElement('div');
   toggleContainer.className = 'toggle-container';
@@ -205,7 +209,10 @@ function createToolToggle(tool) {
   toolElement.appendChild(label);
   toolElement.appendChild(toggleContainer);
   
-  // No longer adding description paragraph - using tooltip instead
+  // Add help icon if it exists
+  if (helpIcon) {
+    toolElement.appendChild(helpIcon);
+  }
   
   return toolElement;
 }

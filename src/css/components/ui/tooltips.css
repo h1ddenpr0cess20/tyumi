@@ -23,75 +23,7 @@
   visibility: visible;
 }
 
-/* Tooltip arrow */
-.tooltip::before {
-  content: '';
-  position: absolute;
-  border: 6px solid transparent;
-  border-bottom-color: var(--border-color);
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.tooltip::after {
-  content: '';
-  position: absolute;
-  border: 5px solid transparent;
-  border-bottom-color: var(--bg-primary);
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Tooltip variants for different arrow positions */
-.tooltip.arrow-bottom::before {
-  border-top-color: var(--border-color);
-  border-bottom-color: transparent;
-  top: auto;
-  bottom: -12px;
-}
-
-.tooltip.arrow-bottom::after {
-  border-top-color: var(--bg-primary);
-  border-bottom-color: transparent;
-  top: auto;
-  bottom: -10px;
-}
-
-.tooltip.arrow-left::before {
-  border-right-color: var(--border-color);
-  border-bottom-color: transparent;
-  top: 50%;
-  left: -12px;
-  transform: translateY(-50%);
-}
-
-.tooltip.arrow-left::after {
-  border-right-color: var(--bg-primary);
-  border-bottom-color: transparent;
-  top: 50%;
-  left: -10px;
-  transform: translateY(-50%);
-}
-
-.tooltip.arrow-right::before {
-  border-left-color: var(--border-color);
-  border-bottom-color: transparent;
-  top: 50%;
-  left: auto;
-  right: -12px;
-  transform: translateY(-50%);
-}
-
-.tooltip.arrow-right::after {
-  border-left-color: var(--bg-primary);
-  border-bottom-color: transparent;
-  top: 50%;
-  left: auto;
-  right: -10px;
-  transform: translateY(-50%);
-}
+/* Tool toggle specific tooltip styles */
 
 /* Special styling for tool description tooltips */
 .tooltip.tool-description {
@@ -101,22 +33,6 @@
   font-size: 0.9rem;
 }
 
-.tooltip.tool-description::after {
-  border-bottom-color: var(--bg-secondary);
-}
-
-.tooltip.tool-description.arrow-bottom::after {
-  border-top-color: var(--bg-secondary);
-}
-
-.tooltip.tool-description.arrow-left::after {
-  border-right-color: var(--bg-secondary);
-}
-
-.tooltip.tool-description.arrow-right::after {
-  border-left-color: var(--bg-secondary);
-}
-
 /* Elements with tooltips get a subtle indicator */
 [data-tooltip] {
   position: relative;
@@ -124,18 +40,12 @@
 }
 
 /* Tool toggle specific tooltip styles */
-.tool-toggle-item[data-tooltip] {
-  cursor: pointer; /* Keep normal cursor for interactive elements */
-  position: relative;
+.tool-toggle-item {
+  position: relative; /* Ensure positioning context for help icon */
 }
 
-.tool-toggle-item[data-tooltip]:hover {
-  border-color: var(--accent-color);
-}
-
-/* Add a subtle indicator that tooltips are available */
-.tool-toggle-item[data-tooltip]::after {
-  content: '?';
+/* Help icon for tool descriptions */
+.tool-help-icon {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -151,9 +61,36 @@
   justify-content: center;
   opacity: 0.7;
   transition: opacity 0.2s ease;
-  pointer-events: none;
+  cursor: pointer;
+  z-index: 2;
+  user-select: none;
+  /* Prevent text selection on mobile */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
-.tool-toggle-item[data-tooltip]:hover::after {
+.tool-help-icon:hover,
+.tool-help-icon:active {
   opacity: 1;
+}
+
+/* Add focus styles for accessibility */
+.tool-help-icon:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+/* Mobile adjustments for help icons in tools */
+@media screen and (max-width: 768px) {
+  .tool-help-icon {
+    top: 6px;
+    right: 6px;
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+  }
 }
