@@ -12,8 +12,7 @@ Disallow: /key.pem
 Allow: /src/html/
 
 # Allow access to static assets
-Allow: /favicon.ico
-Allow: /logo.svg
+Allow: /src/assets/
 Allow: /src/css/themes/fonts/files/
 
 # Sitemap location
