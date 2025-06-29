@@ -82,6 +82,8 @@ function setupEventListeners() {
       window.settingsPanel.setAttribute('aria-hidden', 'false');
       window.settingsPanel.removeAttribute('inert'); // Ensure panel is not inert when opened
       window.settingsButton.style.display = 'none'; // Hide settings button when panel is active
+      if (window.historyButton) window.historyButton.style.display = 'none';
+      if (window.galleryButton) window.galleryButton.style.display = 'none';
       
       // Organize the settings layout for the wider panel
       if (typeof window.organizeSettingsLayout === 'function') {
@@ -109,6 +111,8 @@ function setupEventListeners() {
       window.settingsPanel.setAttribute('aria-hidden', 'true');
       window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
       window.settingsButton.style.display = ''; // Show settings button when panel is closed
+      if (window.historyButton) window.historyButton.style.display = '';
+      if (window.galleryButton) window.galleryButton.style.display = '';
       window.updateHeaderInfo();
       window.settingsButton.focus(); // Explicitly move focus
     });
@@ -227,6 +231,8 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
         window.settingsPanel.setAttribute('aria-hidden', 'true');
         window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
         window.settingsButton.style.display = '';
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
       }
       
       // Update the UI to show the selected personality
@@ -271,6 +277,8 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
         window.settingsPanel.setAttribute('aria-hidden', 'true');
         window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
         window.settingsButton.style.display = '';
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
       }
       
       // Update browser history
@@ -302,8 +310,10 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
         window.settingsPanel.classList.remove('active');
         window.settingsButton.setAttribute('aria-expanded', 'false');
         window.settingsPanel.setAttribute('aria-hidden', 'true');
-        window.settingsPanel.setAttribute('inert', 'true'); 
+        window.settingsPanel.setAttribute('inert', 'true');
         window.settingsButton.style.display = '';
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
       }
       
       // Update UI and history
@@ -332,8 +342,10 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
         window.settingsPanel.classList.remove('active');
         window.settingsButton.setAttribute('aria-expanded', 'false');
         window.settingsPanel.setAttribute('aria-hidden', 'true');
-        window.settingsPanel.setAttribute('inert', 'true'); 
+        window.settingsPanel.setAttribute('inert', 'true');
         window.settingsButton.style.display = '';
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
       }
       
       // Update UI and history
@@ -584,6 +596,8 @@ function setupPersonalityPresetEventListeners() {
           window.settingsPanel.setAttribute('aria-hidden', 'true');
           window.settingsPanel.setAttribute('inert', 'true');
           window.settingsButton.style.display = '';
+          if (window.historyButton) window.historyButton.style.display = '';
+          if (window.galleryButton) window.galleryButton.style.display = '';
         }
         
         // Update the UI to show the selected personality
@@ -664,6 +678,8 @@ function setupSettingsPanelOutsideClickHandler(originalPersonalityValue, origina
         window.settingsPanel.setAttribute('aria-hidden', 'true');
         window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
         window.settingsButton.style.display = ''; // Show the settings button again
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
         window.updateHeaderInfo();
         window.settingsButton.focus(); // Explicitly move focus
     }
