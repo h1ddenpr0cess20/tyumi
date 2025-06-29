@@ -82,3 +82,19 @@ body:not([class*="theme-"]) {
     padding-right: 8px; /* Fallback padding to account for scrollbar */
   }
 }
+
+/* Debug toggle notification styles */
+.debug-toggle-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-color);
+  color: var(--button-text-color);
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}

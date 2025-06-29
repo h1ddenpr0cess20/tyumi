@@ -1101,20 +1101,6 @@ function showDebugToggleNotification(status) {
   const notification = document.createElement('div');
   notification.className = 'debug-toggle-notification';
   notification.textContent = `Debug Mode ${status.charAt(0).toUpperCase() + status.slice(1)}`;
-  notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-color);
-    color: var(--button-text-color);
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  `;
   
   // Add to document
   document.body.appendChild(notification);
