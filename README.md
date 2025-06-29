@@ -100,9 +100,11 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
    - Enter your API keys for desired services
    - Keys are stored securely in your browser's local storage
 
+> **Ollama users:** To use tool-calling features with Ollama, you must select a model that supports tools. We recommend using the Qwen3 model. Look for models with the `tools` label on the [Ollama model search page](https://ollama.com/search?c=tools).
+
 ### Using HTTPS (Recommended)
 
-For full functionality (including TTS and location services), you should serve Tyumi over HTTPS. Here’s how to set up a local HTTPS server with a self-signed certificate:
+For full functionality, you should serve Tyumi over HTTPS. Here’s how to set up a local HTTPS server with a self-signed certificate:
 
 ### 1. Generate a Self-Signed SSL Certificate
 
@@ -256,7 +258,6 @@ If you find this project helpful, consider supporting its development:
 **Cryptocurrency Donations:**
 - **Bitcoin (BTC)**: `34rgxUdtg3aM5Fm6Q3aMwT1qEuFYQmSzLd`
 - **Bitcoin Cash (BCH)**: `13JUmyzZ3vnddCqiqwAvzHJaCmMcjVpJD1`
-- **Ethereum (ETH)**: `0xE8ac85A7331F66e7795A64Ab51C8c5A5A85Ed761`
 - **Dogecoin (DOGE)**: `DCmgAhS7U77krayBN1cooeaic2H8F289uY`
 
 ## 🙏 Acknowledgments
