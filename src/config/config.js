@@ -12,7 +12,7 @@ window.VERBOSE_LOGGING = false;
 // DO NOT hardcode actual API keys here
 
 // Application version
-window.APP_VERSION = '0.9.6';
+window.APP_VERSION = '0.9.7';
 
 // GitHub repository URL
 window.GITHUB_URL = 'https://github.com/h1ddenpr0cess20/Tyumi';
@@ -29,11 +29,6 @@ window.CRYPTO_DONATIONS = [
     address: '13JUmyzZ3vnddCqiqwAvzHJaCmMcjVpJD1',
     symbol: 'BCH'
   },
-  {
-    name: 'Ethereum (ETH)',
-    address: '0xE8ac85A7331F66e7795A64Ab51C8c5A5A85Ed761',
-    symbol: 'ETH'
-  }, 
   {
     name: 'Dogecoin (DOGE)',
     address: 'DCmgAhS7U77krayBN1cooeaic2H8F289uY',

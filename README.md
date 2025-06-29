@@ -6,9 +6,9 @@
 
 **An open source AI assistant platform**
 
-[![Version](https://img.shields.io/badge/version-v0.9.6-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
+[![Version](https://img.shields.io/badge/version-v0.9.7-blue.svg)](https://github.com/h1ddenpr0cess20/Tyumi)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)]()
+[![JavaScript](https://img.shields.io/badge/javascript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 </div>
 
@@ -102,20 +102,47 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 
 ### Using HTTPS (Recommended)
 
-For full functionality (including TTS and location services), serve over HTTPS:
+For full functionality (including TTS and location services), you should serve Tyumi over HTTPS. Here’s how to set up a local HTTPS server with a self-signed certificate:
+
+### 1. Generate a Self-Signed SSL Certificate
 
 ```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js (if you have http-server installed)
-npx http-server
-
-# Using PHP
-php -S localhost:8000
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 ```
 
-Then access via `https://localhost:8000` (you may need to accept the self-signed certificate).
+- When prompted, you can enter dummy values or leave fields blank.
+- This will create `key.pem` (private key) and `cert.pem` (certificate) in your current directory.
+
+### 2. Serve Locally with HTTPS
+
+**Using Node.js (http-server):**
+
+First, install `http-server` if you haven’t:
+
+```bash
+npm install -g http-server
+```
+
+Then launch with SSL:
+
+```bash
+http-server -S -C cert.pem -K key.pem -p 8000
+```
+
+**Using Python 3:**
+
+```bash
+python -m http.server 8000 --bind 127.0.0.1 --directory . --ssl-certfile cert.pem --ssl-keyfile key.pem
+```
+*(Note: Native SSL support requires Python 3.10+. For earlier versions, consider using a third-party package like `sslserver`.)*
+
+### 3. Access the App
+
+Open your browser and go to:  
+`https://localhost:8000`
+
+You may need to accept a security warning for the self-signed certificate.
+
 
 ## 📖 Usage
 

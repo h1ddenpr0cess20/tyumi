@@ -772,3 +772,59 @@
   top: 20px;
   left: 20px;
 }
+
+/* User message right, assistant left */
+.message.user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.message.assistant {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Ensure sender and content align with bubble */
+.message.user .message-sender,
+.message.user .message-content {
+  align-self: flex-end;
+}
+
+.message.assistant .message-sender,
+.message.assistant .message-content {
+  align-self: flex-start;
+}
+
+/* Limit message bubble width for user and assistant */
+.message.user, .message.assistant {
+  max-width: 70vw;
+  width: auto;
+  min-width: 0;
+}
+
+/* Opposing side alignment for message bubbles */
+#chat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.message.user {
+  align-self: flex-end;
+  /* keep previous width and text settings */
+}
+
+.message.assistant {
+  align-self: flex-start;
+  /* keep previous width and text settings */
+}
+
+/* On mobile, use a higher percentage */
+@media (max-width: 600px) {
+  .message.user, .message.assistant {
+    max-width: 92vw;
+  }
+}
