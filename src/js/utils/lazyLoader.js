@@ -43,15 +43,6 @@ window.loadMobileHandling = function() {
   return loadScriptOnce('/src/js/utils/mobileHandling.js', 'mobileHandling');
 };
 
-window.loadMobileCss = function() {
-  if (window.lazyModulesLoaded.mobileCss) return;
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'src/css/components/layout/mobile.css';
-  document.head.appendChild(link);
-  window.lazyModulesLoaded.mobileCss = true;
-};
-
 window.loadMarkedLibrary = function() {
   return loadScriptOnce('/src/js/lib/marked.min.js', 'marked').then(() => {
     if (typeof window.initializeMarked === 'function') {
