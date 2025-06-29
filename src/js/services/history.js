@@ -930,7 +930,21 @@ function renderConversationMessages(convo, imageCache) {
     if (serviceOption) {
       window.config.defaultService = convo.service;
       window.serviceSelector.value = convo.service;
-      window.updateModelSelector();
+
+      if (convo.service === 'ollama' &&
+          window.config.services.ollama &&
+          typeof window.config.services.ollama.fetchAndUpdateModels === 'function') {
+        window.config.services.ollama.fetchAndUpdateModels()
+          .then(() => {
+            window.updateModelSelector();
+          })
+          .catch(err => {
+            console.error('Failed to refresh Ollama models:', err);
+            window.updateModelSelector();
+          });
+      } else {
+        window.updateModelSelector();
+      }
     }
   }
   
