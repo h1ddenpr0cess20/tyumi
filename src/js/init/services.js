@@ -92,10 +92,15 @@ function initializeToolCalling() {
     }
     window.toolCallingToggle.checked = enabled;
     window.config.enableFunctionCalling = enabled;
-    
+
     // Make sure to apply the master toggle state to individual tool toggles
     if (typeof window.updateMasterToolCallingStatus === 'function') {
       window.updateMasterToolCallingStatus(enabled);
+    }
+
+    // Load tool scripts on first initialization if enabled
+    if (enabled && typeof window.loadToolScripts === 'function') {
+      window.loadToolScripts().catch(err => console.error('Failed to load tool scripts:', err));
     }
   }
 }

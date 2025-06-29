@@ -129,6 +129,7 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 
 #### Tool Calling
 - Enable "Tool Calling" in settings
+- Tool modules are loaded only when this option is on to speed up initial page loads
 - Ask questions that require web search, image generation, or other tools
 - The AI will automatically use appropriate tools when needed
 - Available tools include finance, food, entertainment, social media, jobs, real estate, and more

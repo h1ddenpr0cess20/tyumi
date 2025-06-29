@@ -766,6 +766,10 @@ function setupToolCallingEventListeners() {
           });
         }
       }
+
+      if (e.target.checked && typeof window.loadToolScripts === 'function') {
+        window.loadToolScripts().catch(err => console.error('Failed to load tool scripts:', err));
+      }
     });
   }
 }
