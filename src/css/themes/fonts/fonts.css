@@ -223,6 +223,7 @@
 [class*="theme-neon-"] .setting-item,
 [class*="theme-neon-"] .personality-header {
   font-family: 'Orbitron', 'Arial', sans-serif !important;
+  font-size: 0.9rem;
   font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.3;
