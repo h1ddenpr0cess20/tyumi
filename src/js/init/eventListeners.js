@@ -51,14 +51,24 @@ function setupEventListeners() {
     window.userInput.style.height = '56px';
     window.userInput.style.height = Math.max(56, window.userInput.scrollHeight) + 'px';
   });
-  
-  // Initialize gallery if available
-  if (typeof window.initGallery === 'function') {
-    window.initGallery();
-    if (window.VERBOSE_LOGGING) console.info('Gallery functionality initialized.');
-  } else {
-    console.warn('Gallery initialization function not found.');
+
+  // Lazy load gallery module on first use
+  if (window.galleryButton) {
+    const firstGalleryClick = async (e) => {
+      e.preventDefault();
+      if (typeof window.loadGalleryModule === 'function') {
+        await window.loadGalleryModule();
+      }
+      if (typeof window.initGallery === 'function') {
+        window.initGallery();
+      }
+      window.galleryButton.removeEventListener('click', firstGalleryClick);
+      window.galleryButton.click();
+    };
+    window.galleryButton.addEventListener('click', firstGalleryClick, { once: true });
   }
+  
+
 
   // Settings panel toggle
   if (window.settingsButton && window.settingsPanel) {
@@ -184,7 +194,9 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
       
       // Update UI
       window.updateHeaderInfo();
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
       // Only focus on non-mobile devices
       if (typeof window.isMobileDevice === 'function' && !window.isMobileDevice()) {
         window.userInput.focus();
@@ -221,7 +233,9 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
       window.updateHeaderInfo();
       
       // Update browser history
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
       if (typeof window.focusUserInputSafely === 'function') {
         window.focusUserInputSafely();
       }
@@ -260,7 +274,9 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
       }
       
       // Update browser history
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
       if (typeof window.focusUserInputSafely === 'function') {
         window.focusUserInputSafely();
       }
@@ -292,7 +308,9 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
       
       // Update UI and history
       window.updateHeaderInfo();
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
       window.userInput.focus();
     });
   }
@@ -320,7 +338,9 @@ function setupButtonEventListeners(originalPersonalityValue, originalCustomPromp
       
       // Update UI and history
       window.updateHeaderInfo();
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
       window.userInput.focus();
     });
   }  // Reset model settings button
@@ -437,7 +457,9 @@ function setupSelectorEventListeners() {
     window.modelSelector.addEventListener('change', () => {
       window.modelSelector.setAttribute('data-last-selected', window.modelSelector.value);
       window.updateHeaderInfo();
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
     });
   }
 
@@ -453,7 +475,9 @@ function setupSelectorEventListeners() {
       window.updateModelSelector();
       window.updateParameterControls();
       window.updateHeaderInfo();
-      window.updateBrowserHistory();
+      if (typeof window.updateBrowserHistory === 'function') {
+        window.updateBrowserHistory();
+      }
     });
   }
 }
@@ -652,11 +676,17 @@ function setupSettingsPanelOutsideClickHandler(originalPersonalityValue, origina
 function setupTtsEventListeners() {
   // TTS settings
   if (window.ttsToggle) {
-    window.ttsToggle.addEventListener('change', (e) => {
+    window.ttsToggle.addEventListener('change', async (e) => {
       window.ttsConfig.enabled = e.target.checked;
-      
-      // Stop any playing audio when TTS is disabled
-      if (!e.target.checked && typeof window.stopTtsAudio === 'function') {
+
+      if (e.target.checked) {
+        if (typeof window.loadTtsModule === 'function' && !window.lazyModulesLoaded?.tts) {
+          await window.loadTtsModule();
+        }
+        if (typeof window.initializeTts === 'function') {
+          window.initializeTts();
+        }
+      } else if (typeof window.stopTtsAudio === 'function') {
         window.stopTtsAudio();
       }
     });
@@ -782,8 +812,11 @@ function setupLocationEventListeners() {
   if (window.locationToggle) {
     window.locationToggle.addEventListener('change', async (e) => {
       const isEnabled = e.target.checked;
-      
+
       if (isEnabled) {
+        if (typeof window.loadLocationModule === 'function' && !window.lazyModulesLoaded?.location) {
+          await window.loadLocationModule();
+        }
         // Request location permission
         const result = await window.requestLocation();
         
@@ -835,13 +868,18 @@ function setupLocationEventListeners() {
  */
 function setupChatHistoryEventListeners() {  // Chat history panel toggle
   if (window.historyButton && window.historyPanel) {
-    window.historyButton.addEventListener('click', () => {
+    window.historyButton.addEventListener('click', async () => {
+      if (typeof window.loadHistoryModule === 'function' && !window.lazyModulesLoaded?.history) {
+        await window.loadHistoryModule();
+      }
       const isExpanded = window.historyButton.getAttribute('aria-expanded') === 'true';
       window.historyButton.setAttribute('aria-expanded', String(!isExpanded));
       window.historyPanel.setAttribute('aria-hidden', String(isExpanded));
       if (!isExpanded) {
         window.historyPanel.removeAttribute('inert');
-        window.renderChatHistoryList(); // Load history when panel is opened
+        if (typeof window.renderChatHistoryList === 'function') {
+          window.renderChatHistoryList();
+        }
       } else {
         window.historyPanel.setAttribute('inert', 'true');
       }

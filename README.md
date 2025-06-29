@@ -130,6 +130,9 @@ Then access via `https://localhost:8000` (you may need to accept the self-signed
 #### Tool Calling
 - Enable "Tool Calling" in settings
 - Tool modules are loaded only when this option is on to speed up initial page loads
+- Gallery, chat history, and text-to-speech modules are also lazy loaded the first time you use them
+- Location and mobile helpers only load when their toggles are enabled
+- Markdown and syntax highlighting libraries load after the first message
 - Ask questions that require web search, image generation, or other tools
 - The AI will automatically use appropriate tools when needed
 - Available tools include finance, food, entertainment, social media, jobs, real estate, and more

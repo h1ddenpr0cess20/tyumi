@@ -37,8 +37,6 @@
 
   <!-- Link to modular CSS -->
   <link rel="stylesheet" href="src/css/main.css" />
-  <!-- Marked for markdown parsing -->
-  <script src="src/js/lib/marked.min.js"></script>
 
   <!-- DOMPurify for sanitizing HTML -->
   <script src="src/js/lib/purify.min.js"></script>
@@ -50,18 +48,17 @@
   <script src="src/js/utils/highlight.js"></script>
   <script src="src/js/utils/imageStorage.js"></script>
   <script src="src/js/utils/conversationStorage.js"></script>
-  <script src="src/js/utils/mobileHandling.js"></script>
   <script src="src/js/utils/notifications.js"></script>
   <script src="src/js/utils/menuSystem.js"></script>
   <script src="src/js/utils/tooltips.js"></script>
   <script src="src/js/utils/toolLoader.js"></script>
+  <script src="src/js/utils/lazyLoader.js"></script>
   <!-- Load components next -->
   <script src="src/js/components/messages.js"></script>
   <script src="src/js/components/settings.js"></script>
   <script src="src/js/components/ui.js"></script>
   <script src="src/js/components/theme.js"></script>
   <script src="src/js/components/interaction.js"></script>
-  <script src="src/js/components/gallery.js"></script>
   <script src="src/js/components/tools.js"></script>
   <script src="src/js/components/logo.js"></script>
   <!-- Load service functions -->  
@@ -69,10 +66,7 @@
   <script src="src/js/services/apiKeys.js"></script>
   <script src="src/js/services/api.js"></script>
   <script src="src/js/services/streaming.js"></script>
-  <script src="src/js/services/history.js"></script>
   <script src="src/js/services/export.js"></script>
-  <script src="src/js/services/tts.js"></script>
-  <script src="src/js/services/location.js"></script>
   
   <!-- Load initialization code -->
   <!-- Initialize global variables and state first -->

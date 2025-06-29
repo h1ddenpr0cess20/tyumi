@@ -145,9 +145,7 @@ function initialize() {
     // Set initial conversation name based on personality/prompt type
     initializeConversationName();
     
-    // Initialize marked (Markdown parser)
-    initializeMarked();
-    if (window.VERBOSE_LOGGING) console.info('Marked (Markdown parser) initialized.');
+
     
     // Setup event listeners
     setupEventListeners();
@@ -180,13 +178,21 @@ function initialize() {
     // Initialize services and models
     initializeServicesAndModels();
     
-    // Initialize TTS
-    window.initializeTts();
-    if (window.VERBOSE_LOGGING) console.info('TTS initialized.');
+
     
-    // Initialize mobile keyboard handling
-    window.initializeMobileKeyboardHandling();
-    if (window.VERBOSE_LOGGING) console.info('Mobile keyboard handling initialized.');
+    // Load mobile features if needed
+    if (window.isMobileDevice && window.isMobileDevice()) {
+      if (typeof window.loadMobileCss === 'function') {
+        window.loadMobileCss();
+      }
+      if (typeof window.loadMobileHandling === 'function') {
+        window.loadMobileHandling().then(() => {
+          if (typeof window.initializeMobileKeyboardHandling === 'function') {
+            window.initializeMobileKeyboardHandling();
+          }
+        }).catch(err => console.error('Failed to load mobile handling module', err));
+      }
+    }
       // Call these functions to initialize the UI
     window.updateParameterControls();
     
@@ -213,13 +219,17 @@ function initialize() {
     // Focus the user input safely (checks for mobile device)
     focusInputField();
     
-    // Pre-load highlight.js
-    window.loadHighlightJS().then(() => {
-      if (window.VERBOSE_LOGGING) console.info('Highlight.js preloaded.');
-    }).catch(err => console.error('Failed to preload highlight.js', err));    // Initialize tool calling toggle state
+    // Initialize tool calling toggle state
     initializeToolCalling();
-      // Initialize location service
-    initializeLocationService();
+
+    // Load location services if previously enabled
+    if (localStorage.getItem('locationEnabled') === 'true' && typeof window.loadLocationModule === 'function') {
+      window.loadLocationModule().then(() => {
+        if (typeof window.initializeLocationService === 'function') {
+          window.initializeLocationService();
+        }
+      }).catch(err => console.error('Failed to load location module', err));
+    }
     
     // Check if API keys are missing and auto-open the API keys tab if needed
     if (typeof window.openApiKeysTabIfNeeded === 'function') {
