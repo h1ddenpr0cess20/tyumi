@@ -113,7 +113,7 @@ function configureDOMPurify() {
 }
 
 // Main initialization function
-function initialize() {
+async function initialize() {
   try {
     if (window.VERBOSE_LOGGING) console.info('Initializing chatbot application...');
     
@@ -145,9 +145,7 @@ function initialize() {
     // Set initial conversation name based on personality/prompt type
     initializeConversationName();
     
-    // Initialize marked (Markdown parser)
-    initializeMarked();
-    if (window.VERBOSE_LOGGING) console.info('Marked (Markdown parser) initialized.');
+
     
     // Setup event listeners
     setupEventListeners();
@@ -171,7 +169,14 @@ function initialize() {
     
     // Try to load from URL if available
     try {
-      window.loadFromUrl();
+      if (typeof window.loadFromUrl === 'function') {
+        window.loadFromUrl();
+      } else if (typeof window.loadHistoryModule === 'function') {
+        await window.loadHistoryModule();
+        if (typeof window.loadFromUrl === 'function') {
+          window.loadFromUrl();
+        }
+      }
       if (window.VERBOSE_LOGGING) console.info('Loaded chat state from URL (if present).');
     } catch (e) {
       console.warn('Error loading from URL:', e);
@@ -180,9 +185,7 @@ function initialize() {
     // Initialize services and models
     initializeServicesAndModels();
     
-    // Initialize TTS
-    window.initializeTts();
-    if (window.VERBOSE_LOGGING) console.info('TTS initialized.');
+
     
     // Initialize mobile keyboard handling
     window.initializeMobileKeyboardHandling();
@@ -213,13 +216,17 @@ function initialize() {
     // Focus the user input safely (checks for mobile device)
     focusInputField();
     
-    // Pre-load highlight.js
-    window.loadHighlightJS().then(() => {
-      if (window.VERBOSE_LOGGING) console.info('Highlight.js preloaded.');
-    }).catch(err => console.error('Failed to preload highlight.js', err));    // Initialize tool calling toggle state
+    // Initialize tool calling toggle state
     initializeToolCalling();
-      // Initialize location service
-    initializeLocationService();
+
+    // Load location services if previously enabled
+    if (localStorage.getItem('locationEnabled') === 'true' && typeof window.loadLocationModule === 'function') {
+      window.loadLocationModule().then(() => {
+        if (typeof window.initializeLocationService === 'function') {
+          window.initializeLocationService();
+        }
+      }).catch(err => console.error('Failed to load location module', err));
+    }
     
     // Check if API keys are missing and auto-open the API keys tab if needed
     if (typeof window.openApiKeysTabIfNeeded === 'function') {

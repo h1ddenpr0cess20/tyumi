@@ -1,0 +1,8 @@
+{
+  "name": "tyumi",
+  "version": "1.0.0",
+  "description": "Tyumi web app",
+  "scripts": {
+    "test": "echo \"No tests configured\" && exit 0"
+  }
+}

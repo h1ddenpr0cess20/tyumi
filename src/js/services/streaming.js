@@ -340,7 +340,12 @@ window.processMainContentMarkdown = function(mainText) {
         html += '`';
     }
       // First parse the markdown content
-    let parsedContent = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(marked.parse(html)) : DOMPurify.sanitize(marked.parse(html));
+    if (typeof marked === 'undefined' && typeof window.loadMarkedLibrary === 'function') {
+        window.loadMarkedLibrary();
+    }
+    let parsedContent = typeof marked !== 'undefined'
+        ? (window.sanitizeWithYouTube ? window.sanitizeWithYouTube(marked.parse(html)) : DOMPurify.sanitize(marked.parse(html)))
+        : DOMPurify.sanitize(html);
     
     // Then wrap image placeholders with span elements so they can be hidden with CSS
     // This ensures the markdown parser doesn't interfere with our spans
@@ -468,7 +473,9 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
     window.generateTtsForMessage(cleanContentForTTS, loadingMessage.id);
   }
 
-  window.updateBrowserHistory();
+  if (typeof window.updateBrowserHistory === 'function') {
+    window.updateBrowserHistory();
+  }
   
   // Auto-save conversation after assistant message is finalized
   if (window.saveCurrentConversation) {
@@ -549,7 +556,9 @@ window.addToConversationHistory = function(assistantMessage, reasoning) {
   });
   
   // Update browser history
-  window.updateBrowserHistory();
+  if (typeof window.updateBrowserHistory === 'function') {
+    window.updateBrowserHistory();
+  }
 };
 
 /**
