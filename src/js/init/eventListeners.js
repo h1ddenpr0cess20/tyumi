@@ -477,13 +477,25 @@ function setupSelectorEventListeners() {
 
   // Service selector change handler
   if (window.serviceSelector) {
-    window.serviceSelector.addEventListener('change', () => {
+    window.serviceSelector.addEventListener('change', async () => {
       const selectedService = window.serviceSelector.value;
-      
+
       window.config.defaultService = selectedService;
       if (typeof window.ensureApiKeysLoaded === 'function') {
         window.ensureApiKeysLoaded();
       }
+
+      // If Ollama is selected, refresh available models first
+      if (selectedService === 'ollama' &&
+          window.config.services.ollama &&
+          typeof window.config.services.ollama.fetchAndUpdateModels === 'function') {
+        try {
+          await window.config.services.ollama.fetchAndUpdateModels();
+        } catch (err) {
+          console.error('Failed to refresh Ollama models:', err);
+        }
+      }
+
       window.updateModelSelector();
       window.updateParameterControls();
       window.updateHeaderInfo();
