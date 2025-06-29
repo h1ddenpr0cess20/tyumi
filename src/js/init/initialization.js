@@ -187,15 +187,9 @@ async function initialize() {
     
 
     
-    // Mobile handling now loads at startup so just run initialization on mobile
-    if (window.isMobileDevice && window.isMobileDevice()) {
-      if (typeof window.loadMobileCss === 'function') {
-        window.loadMobileCss();
-      }
-      if (typeof window.initializeMobileKeyboardHandling === 'function') {
-        window.initializeMobileKeyboardHandling();
-      }
-    }
+    // Initialize mobile keyboard handling
+    window.initializeMobileKeyboardHandling();
+    if (window.VERBOSE_LOGGING) console.info('Mobile keyboard handling initialized.');
       // Call these functions to initialize the UI
     window.updateParameterControls();
     
