@@ -30,7 +30,6 @@
 /* Layout Components */
 @import url('./components/layout/layout.css');
 @import url('./components/layout/messages.css');
-@import url('./components/layout/mobile.css');
 
 /* UI Components */
 @import url('./components/ui/controls.css');

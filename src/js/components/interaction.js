@@ -52,8 +52,10 @@ window.sendMessage = async function() {
   console.info('User message added to conversation history.');
   
   // Update browser URL
-  window.updateBrowserHistory();
-  console.info('Browser history updated.');
+  if (typeof window.updateBrowserHistory === 'function') {
+    window.updateBrowserHistory();
+    console.info('Browser history updated.');
+  }
 
   try {
     // Get API endpoint and prepare request data

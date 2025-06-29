@@ -197,17 +197,20 @@ window.appendMessage = function(sender, content, type, skipHistory = false) {
   messageElement.appendChild(contentElement);
   window.chatBox.appendChild(messageElement);
   setTimeout(() => {
-    const sanitized = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(marked.parse(content)) : DOMPurify.sanitize(marked.parse(content));
-    contentElement.innerHTML = sanitized;
-    
-    // Safely call the highlightAndAddCopyButtons function if it exists
-    if (typeof window.highlightAndAddCopyButtons === 'function') {
-      try {
-        window.highlightAndAddCopyButtons(messageElement);
-      } catch (e) {
-        console.error('Error highlighting code:', e);
+    const ensureMarked = typeof marked === 'undefined' && typeof window.loadMarkedLibrary === 'function'
+      ? window.loadMarkedLibrary() : Promise.resolve();
+    Promise.resolve(ensureMarked).then(() => {
+      const sanitized = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(marked.parse(content)) : DOMPurify.sanitize(marked.parse(content));
+      contentElement.innerHTML = sanitized;
+
+      // Safely call the highlightAndAddCopyButtons function if it exists
+      if (typeof window.highlightAndAddCopyButtons === 'function') {
+        try {
+          window.highlightAndAddCopyButtons(messageElement);
+        } catch (e) {
+          console.error('Error highlighting code:', e);
+        }
       }
-    }
     
     // Safely call setupImageInteractions if it exists
     if (typeof window.setupImageInteractions === 'function') {
@@ -223,9 +226,10 @@ window.appendMessage = function(sender, content, type, skipHistory = false) {
       window.chatBox.scrollTop = window.chatBox.scrollHeight;
     }
     
-    if ((type === 'user' || type === 'system') && !skipHistory) {
-      window.shouldAutoScroll = true;
-    }
+      if ((type === 'user' || type === 'system') && !skipHistory) {
+        window.shouldAutoScroll = true;
+      }
+    });
   }, 0); // Reduced from 10ms to 0ms for immediate execution
   
   return messageElement;
