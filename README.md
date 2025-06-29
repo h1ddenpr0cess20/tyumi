@@ -117,17 +117,6 @@ To use local models, you'll need to set up Ollama:
    - Browse more models with tool support on the [Ollama model search page](https://ollama.com/search?c=tools).
    - You can use models that do not support tools, but you will not have access to the advanced tool-calling features.
 
-3. **Run the Model:**
-   - Start the model with:
-     ```bash
-     ollama run qwen3
-     ```
-   - Replace `qwen3` with your chosen model if different.
-
-4. **Connect Tyumi:**
-   - In Tyumi, select Ollama as your provider and choose your running model.
-   - Make sure Ollama is running before starting a chat.
-
 
 ### Using HTTPS (Recommended)
 
