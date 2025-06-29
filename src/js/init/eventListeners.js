@@ -677,23 +677,31 @@ function setupTtsEventListeners() {
   // TTS settings
   if (window.ttsToggle) {
     window.ttsToggle.addEventListener('change', async (e) => {
-      window.ttsConfig.enabled = e.target.checked;
-
       if (e.target.checked) {
         if (typeof window.loadTtsModule === 'function' && !window.lazyModulesLoaded?.tts) {
           await window.loadTtsModule();
         }
+        // Ensure config exists after loading module
+        window.ttsConfig = window.ttsConfig || { enabled: false, voice: 'ash', instructions: '', autoplay: true };
+        window.ttsConfig.enabled = true;
+
         if (typeof window.initializeTts === 'function') {
           window.initializeTts();
         }
-      } else if (typeof window.stopTtsAudio === 'function') {
-        window.stopTtsAudio();
+      } else {
+        if (window.ttsConfig) {
+          window.ttsConfig.enabled = false;
+        }
+        if (typeof window.stopTtsAudio === 'function') {
+          window.stopTtsAudio();
+        }
       }
     });
   }
   
   if (window.ttsAutoplayToggle) {
     window.ttsAutoplayToggle.addEventListener('change', (e) => {
+      window.ttsConfig = window.ttsConfig || { enabled: false, voice: 'ash', instructions: '', autoplay: true };
       window.ttsConfig.autoplay = e.target.checked;
       
       // If autoplay was enabled and we have messages in queue, start playing
@@ -707,6 +715,7 @@ function setupTtsEventListeners() {
   if (window.ttsVoiceSelector) {
     window.ttsVoiceSelector.addEventListener('change', (e) => {
       // Update the TTS configuration with the new voice
+      window.ttsConfig = window.ttsConfig || { enabled: false, voice: 'ash', instructions: '', autoplay: true };
       window.ttsConfig.voice = e.target.value;
       
       // Notification is now handled in tts.js
@@ -715,11 +724,13 @@ function setupTtsEventListeners() {
   
   if (window.ttsInstructionsInput) {
     window.ttsInstructionsInput.addEventListener('change', (e) => {
+      window.ttsConfig = window.ttsConfig || { enabled: false, voice: 'ash', instructions: '', autoplay: true };
       window.ttsConfig.instructions = e.target.value;
     });
   }
-    if (window.testTtsButton) {
+  if (window.testTtsButton) {
     window.testTtsButton.addEventListener('click', () => {
+      window.ttsConfig = window.ttsConfig || { enabled: false, voice: 'ash', instructions: '', autoplay: true };
       if (!window.ttsConfig.enabled) {
         console.warn('TTS is disabled. Enable it first to test.');
         return;
