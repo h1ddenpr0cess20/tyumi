@@ -180,17 +180,13 @@ function initialize() {
     
 
     
-    // Load mobile features if needed
+    // Mobile handling now loads at startup so just run initialization on mobile
     if (window.isMobileDevice && window.isMobileDevice()) {
       if (typeof window.loadMobileCss === 'function') {
         window.loadMobileCss();
       }
-      if (typeof window.loadMobileHandling === 'function') {
-        window.loadMobileHandling().then(() => {
-          if (typeof window.initializeMobileKeyboardHandling === 'function') {
-            window.initializeMobileKeyboardHandling();
-          }
-        }).catch(err => console.error('Failed to load mobile handling module', err));
+      if (typeof window.initializeMobileKeyboardHandling === 'function') {
+        window.initializeMobileKeyboardHandling();
       }
     }
       // Call these functions to initialize the UI
