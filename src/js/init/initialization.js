@@ -113,7 +113,7 @@ function configureDOMPurify() {
 }
 
 // Main initialization function
-function initialize() {
+async function initialize() {
   try {
     if (window.VERBOSE_LOGGING) console.info('Initializing chatbot application...');
     
@@ -169,7 +169,14 @@ function initialize() {
     
     // Try to load from URL if available
     try {
-      window.loadFromUrl();
+      if (typeof window.loadFromUrl === 'function') {
+        window.loadFromUrl();
+      } else if (typeof window.loadHistoryModule === 'function') {
+        await window.loadHistoryModule();
+        if (typeof window.loadFromUrl === 'function') {
+          window.loadFromUrl();
+        }
+      }
       if (window.VERBOSE_LOGGING) console.info('Loaded chat state from URL (if present).');
     } catch (e) {
       console.warn('Error loading from URL:', e);

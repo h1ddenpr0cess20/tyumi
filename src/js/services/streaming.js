@@ -473,7 +473,9 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
     window.generateTtsForMessage(cleanContentForTTS, loadingMessage.id);
   }
 
-  window.updateBrowserHistory();
+  if (typeof window.updateBrowserHistory === 'function') {
+    window.updateBrowserHistory();
+  }
   
   // Auto-save conversation after assistant message is finalized
   if (window.saveCurrentConversation) {
@@ -554,7 +556,9 @@ window.addToConversationHistory = function(assistantMessage, reasoning) {
   });
   
   // Update browser history
-  window.updateBrowserHistory();
+  if (typeof window.updateBrowserHistory === 'function') {
+    window.updateBrowserHistory();
+  }
 };
 
 /**
