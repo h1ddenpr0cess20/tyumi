@@ -102,7 +102,7 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 
 ### Ollama Setup (for Local Models)
 
-To use local models with tool-calling features, you'll need to set up Ollama:
+To use local models, you'll need to set up Ollama:
 
 1. **Install Ollama:**
    - Download and install Ollama from the [official website](https://ollama.com/download).
