@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Tyumi Logo](logo.svg)
+![Tyumi Logo](src/assets/img/logo.svg)
 
 **An open source AI assistant platform**
 
