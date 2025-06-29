@@ -100,7 +100,34 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
    - Enter your API keys for desired services
    - Keys are stored securely in your browser's local storage
 
-> **Ollama users:** To use tool-calling features with Ollama, you must select a model that supports tools. We recommend using the Qwen3 model. Look for models with the `tools` label on the [Ollama model search page](https://ollama.com/search?c=tools).
+### Ollama Setup (for Local Models)
+
+To use local models with tool-calling features, you'll need to set up Ollama:
+
+1. **Install Ollama:**
+   - Download and install Ollama from the [official website](https://ollama.com/download).
+   - Follow the installation instructions for your operating system.
+
+2. **Pull a Model with Tool Support:**
+   - We recommend the Qwen3 model, but you can choose any model with the `tools` label.
+   - Example command:
+     ```bash
+     ollama pull qwen3
+     ```
+   - Browse more models with tool support on the [Ollama model search page](https://ollama.com/search?c=tools).
+   - You can use models that do not support tools, but you will not have access to the advanced tool-calling features.
+
+3. **Run the Model:**
+   - Start the model with:
+     ```bash
+     ollama run qwen3
+     ```
+   - Replace `qwen3` with your chosen model if different.
+
+4. **Connect Tyumi:**
+   - In Tyumi, select Ollama as your provider and choose your running model.
+   - Make sure Ollama is running before starting a chat.
+
 
 ### Using HTTPS (Recommended)
 
