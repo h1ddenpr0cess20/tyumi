@@ -51,7 +51,7 @@ function hidePrivacyPopup() {
     privacyPopup.classList.remove('active');
     setTimeout(() => {
       privacyPopup.style.display = 'none';
-      aboutContent.style.display = 'block';
+      aboutContent.style.display = '';
     }, 250); // Match CSS transition duration
   }
 }
@@ -81,7 +81,7 @@ function hideContactPopup() {
     contactPopup.classList.remove('active');
     setTimeout(() => {
       contactPopup.style.display = 'none';
-      aboutContent.style.display = 'block';
+      aboutContent.style.display = '';
     }, 250); // Match CSS transition duration
   }
 }
@@ -111,7 +111,7 @@ function hideTermsPopup() {
     termsPopup.classList.remove('active');
     setTimeout(() => {
       termsPopup.style.display = 'none';
-      aboutContent.style.display = 'block';
+      aboutContent.style.display = '';
     }, 250); // Match CSS transition duration
   }
 }
@@ -141,7 +141,7 @@ function hideHelpPopup() {
     helpPopup.classList.remove('active');
     setTimeout(() => {
       helpPopup.style.display = 'none';
-      aboutContent.style.display = 'block';
+      aboutContent.style.display = '';
     }, 250); // Match CSS transition duration
   }
 }
@@ -171,7 +171,7 @@ function hideDownloadPopup() {
     downloadPopup.classList.remove('active');
     setTimeout(() => {
       downloadPopup.style.display = 'none';
-      aboutContent.style.display = 'block';
+      aboutContent.style.display = '';
     }, 250); // Match CSS transition duration
   }
 }
