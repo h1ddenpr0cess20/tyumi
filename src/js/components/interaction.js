@@ -31,8 +31,18 @@ window.sendMessage = async function() {
   window.sendButton.removeEventListener('click', window.sendMessage);
   window.sendButton.addEventListener('click', window.stopGeneration);
 
-  // Add user message to the conversation
-  window.appendMessage('You', window.sanitizeInput(message), 'user');
+  // Add user message to the conversation and store in history manually
+  const userElement = window.appendMessage('You', window.sanitizeInput(message), 'user', true);
+  const userId = userElement ? userElement.id : (typeof window.generateMessageId === 'function'
+    ? window.generateMessageId()
+    : 'msg-' + Date.now());
+  window.conversationHistory.push({
+    role: 'user',
+    content: message,
+    id: userId,
+    timestamp: new Date().toISOString()
+  });
+  console.info('User message added to conversation history.');
   // Auto-save after user message
   if (window.saveCurrentConversation) window.saveCurrentConversation();
   
