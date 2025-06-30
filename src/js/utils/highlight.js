@@ -60,12 +60,7 @@ window.addCopyButton = function(codeBlock) {
     const copyButton = document.createElement('button');
     copyButton.className = 'copy-btn';
     copyButton.setAttribute('aria-label', 'Copy code');
-    copyButton.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-    `;
+    copyButton.innerHTML = `<img src="/src/assets/img/icons/copy.svg" width="16" height="16" alt="copy">`;
     copyButton.addEventListener('click', () => {
       // Define the copy function with proper error handling
       const copyText = function(text) {
@@ -101,11 +96,7 @@ window.addCopyButton = function(codeBlock) {
             // Store original SVG
             const originalSvg = copyButton.innerHTML;
             // Show check mark SVG for success feedback
-            copyButton.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            `;
+            copyButton.innerHTML = `<img src="/src/assets/img/icons/check.svg" width="16" height="16" alt="ok">`;
             setTimeout(() => {
               // Revert back to copy icon
               copyButton.innerHTML = originalSvg;
@@ -114,12 +105,7 @@ window.addCopyButton = function(codeBlock) {
             // Store original SVG
             const originalSvg = copyButton.innerHTML;
             // Show X mark SVG for failure feedback
-            copyButton.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            `;
+            copyButton.innerHTML = `<img src="/src/assets/img/icons/x.svg" width="16" height="16" alt="error">`;
             setTimeout(() => {
               // Revert back to copy icon
               copyButton.innerHTML = originalSvg;

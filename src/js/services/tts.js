@@ -12,10 +12,10 @@ window.ttsConfig = {
 
 // SVG Icons for TTS controls
 window.ttsSvgIcons = {
-  play: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`,
-  pause: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`,
-  stop: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="0"></rect></svg>`,
-  download: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`
+  play: `<img src="/src/assets/img/icons/play.svg" width="14" height="14" alt="play">`,
+  pause: `<img src="/src/assets/img/icons/pause.svg" width="14" height="14" alt="pause">`,
+  stop: `<img src="/src/assets/img/icons/stop.svg" width="14" height="14" alt="stop">`,
+  download: `<img src="/src/assets/img/icons/download.svg" width="14" height="14" alt="download">`
 };
 
 // Track currently playing TTS audio

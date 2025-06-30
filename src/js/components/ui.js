@@ -245,7 +245,7 @@ window.setupImageInteractions = function(messageElement) {
   if (images.length === 0) return;
   
   // Define the download icon SVG
-  const downloadIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>`;
+  const downloadIconSvg = `<img src="/src/assets/img/icons/download.svg" width="16" height="16" alt="download">`;
   
   // Wrap each image in a container and add download button
   images.forEach((img, index) => {
@@ -355,15 +355,7 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
     downloadBtn.id = 'slideshow-share';
     downloadBtn.title = 'Share this image';
     downloadBtn.setAttribute('aria-label', 'Share this image');
-    downloadBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="18" cy="5" r="3"></circle>
-        <circle cx="6" cy="12" r="3"></circle>
-        <circle cx="18" cy="19" r="3"></circle>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-      </svg>
-    `;
+    downloadBtn.innerHTML = `<img src="/src/assets/img/icons/share.svg" width="24" height="24" alt="share">`;
   } else {
     // Standard download button for desktop
     downloadBtn = document.createElement('button');
@@ -371,13 +363,7 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
     downloadBtn.id = 'slideshow-download';
     downloadBtn.title = 'Download this image';
     downloadBtn.setAttribute('aria-label', 'Download this image');
-    downloadBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
-    `;
+    downloadBtn.innerHTML = `<img src="/src/assets/img/icons/download.svg" width="24" height="24" alt="download">`;
   }
   
   const closeBtn = document.createElement('button');
@@ -385,12 +371,7 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
   closeBtn.id = 'slideshow-close';
   closeBtn.title = 'Close image viewer';
   closeBtn.setAttribute('aria-label', 'Close image viewer');
-  closeBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  `;
+  closeBtn.innerHTML = `<img src="/src/assets/img/icons/x.svg" width="24" height="24" alt="close">`;
   
   // Add delete button only for gallery mode
   if (isGalleryMode) {
@@ -399,14 +380,7 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
     deleteBtn.id = 'slideshow-delete';
     deleteBtn.title = 'Delete this image permanently';
     deleteBtn.setAttribute('aria-label', 'Delete this image permanently');
-    deleteBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="3 6 5 6 21 6"/>
-        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-        <line x1="10" y1="11" x2="10" y2="17"/>
-        <line x1="14" y1="11" x2="14" y2="17"/>
-      </svg>
-    `;
+    deleteBtn.innerHTML = `<img src="/src/assets/img/icons/trash.svg" width="24" height="24" alt="delete">`;
     controlsBar.appendChild(deleteBtn);
     
     // Add delete button handler
