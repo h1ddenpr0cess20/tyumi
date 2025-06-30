@@ -111,21 +111,9 @@ window.processToolCalls = async function(response, messages) {
         const imgHtml = `<img src="${toolResult.url}" alt="Generated Image" class="generated-image-thumbnail" data-filename="${filename}" data-prompt="${toolArgs.prompt || ''}" data-timestamp="${timestamp}" />`;
         window.currentGeneratedImageHtml.push(imgHtml);
         
-        // Find the last assistant message ID to associate with this image
-        let associatedMessageId = null;
-        for (let i = messages.length - 1; i >= 0; i--) {
-          if (messages[i].role === 'assistant' && messages[i].content) {
-            // If the message doesn't have an ID, create one
-            if (!messages[i].id) {
-              messages[i].id = `msg-${Date.now()}-${i}`;
-            }
-            associatedMessageId = messages[i].id;
-            
-            // Mark the message as having images for easy identification later
-            messages[i].hasImages = true;
-            break;
-          }
-        }
+        // We'll associate this image with the correct message once the
+        // assistant's response is finalized, so leave the ID null for now
+        const associatedMessageId = null;
         
         // Add to generatedImages with all necessary metadata
         window.generatedImages.push({

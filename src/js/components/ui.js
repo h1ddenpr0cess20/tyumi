@@ -703,12 +703,25 @@ window.gatherAllConversationImages = function(clickedImg) {
  */
 window.appendAssistantMessage = function(assistantMessage, skipHistory = false) {
   // Only store in conversation history if not skipped
+  let msgId = null;
   if (!skipHistory) {
-    window.conversationHistory.push({ role: 'assistant', content: assistantMessage });
+    msgId = typeof window.generateMessageId === 'function'
+      ? window.generateMessageId()
+      : 'msg-' + Date.now();
+    window.conversationHistory.push({
+      role: 'assistant',
+      content: assistantMessage,
+      id: msgId,
+      timestamp: new Date().toISOString()
+    });
   }
-  
+
   // Process the message with thinking tags and display it
-  return window.appendMessage('Assistant', assistantMessage, 'assistant', skipHistory);
+  const el = window.appendMessage('Assistant', assistantMessage, 'assistant', skipHistory);
+  if (el && msgId) {
+    el.id = msgId;
+  }
+  return el;
 };
 
 /**
