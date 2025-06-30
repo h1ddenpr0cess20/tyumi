@@ -402,29 +402,36 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
 
   // Include any generated images in the conversation history
   let fullContent = content;
-  
+
   // First check if the content already contains image placeholders
   const hasExistingImagePlaceholders = /\[\[IMAGE: [^\]]+\]\]/.test(fullContent);
-  
+
   // Only add image placeholders if there aren't any already in the content
-  if (!hasExistingImagePlaceholders && window.currentGeneratedImageHtml && window.currentGeneratedImageHtml.length > 0 && 
-      window.generatedImages && window.generatedImages.length > 0) {
-    // Add specific image placeholders for each image
-    const imageList = window.generatedImages
-      .filter(img => img.associatedMessageId === loadingMessage.id || !img.associatedMessageId)
-      .map(img => `[[IMAGE: ${img.filename}]]`)
+  const willHaveImages = !hasExistingImagePlaceholders &&
+                         window.currentGeneratedImageHtml &&
+                         window.currentGeneratedImageHtml.length > 0;
+
+  if (willHaveImages) {
+    // Build the placeholder list from the images generated for this message
+    const imageList = window.currentGeneratedImageHtml
+      .map(html => {
+        const match = html.match(/data-filename="([^"]+)"/);
+        return match ? `[[IMAGE: ${match[1]}]]` : null;
+      })
+      .filter(Boolean)
       .join('\n');
     if (imageList) {
       fullContent = imageList + '\n\n' + fullContent;
     }
   }
-  
+
   window.conversationHistory.push({
     role: 'assistant',
     content: fullContent,
     reasoning: reasoning,
     id: loadingMessage.id,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    hasImages: willHaveImages
   });
 
   // Create a fresh content structure
@@ -462,6 +469,12 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
           img.associatedMessageId = loadingMessage.id;
         }
       });
+    }
+
+    // Mark the conversation history entry as having images
+    const historyEntry = window.conversationHistory && window.conversationHistory.find(msg => msg.id === loadingMessage.id);
+    if (historyEntry) {
+      historyEntry.hasImages = true;
     }
 
     // Store these images with this specific message ID for future reference
