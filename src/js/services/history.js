@@ -332,9 +332,17 @@ window.loadConversation = function(id) {
         console.warn(`Conversation ${id} not found in IndexedDB`);
         return false;
       }
-      
-      loadConversationIntoUI(convo);
-      return true;
+
+      const ensureHighlight = typeof hljs === 'undefined' && typeof window.loadHighlightJS === 'function'
+        ? window.loadHighlightJS() : Promise.resolve();
+      const ensureMarked = typeof marked === 'undefined' && typeof window.loadMarkedLibrary === 'function'
+        ? window.loadMarkedLibrary() : Promise.resolve();
+
+      return Promise.all([ensureHighlight, ensureMarked])
+        .then(() => {
+          loadConversationIntoUI(convo);
+          return true;
+        });
     })
     .catch(err => {
       console.error('Error loading conversation from IndexedDB:', err);
