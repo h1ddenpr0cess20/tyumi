@@ -149,11 +149,23 @@ window.updateModelSelector = function() {
       option.textContent = model;
       window.modelSelector.appendChild(option);
     });
+
+    // If the currently selected model from a loaded conversation isn't in the
+    // list of available models, preserve it as a custom option so history loads
+    // use the original model instead of defaulting to another one.
+    if (currentlySelectedModel && !models.includes(currentlySelectedModel)) {
+      const unavailableOption = document.createElement('option');
+      unavailableOption.value = currentlySelectedModel;
+      unavailableOption.textContent = `${currentlySelectedModel} (unavailable)`;
+      unavailableOption.dataset.unavailable = 'true';
+      window.modelSelector.appendChild(unavailableOption);
+    }
     
-    // First try to use the currently selected model
-    if (currentlySelectedModel && models.includes(currentlySelectedModel)) {
+    // First try to use the currently selected model (may be an unavailable one
+    // added above)
+    if (currentlySelectedModel) {
       window.modelSelector.value = currentlySelectedModel;
-    } 
+    }
     // Then try to use the saved model
     else if (savedModel && models.includes(savedModel)) {
       window.modelSelector.value = savedModel;
