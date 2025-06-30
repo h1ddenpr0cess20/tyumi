@@ -393,6 +393,13 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
   const contentWrapper = loadingMessage.querySelector('.message-content');
   if (!contentWrapper) return;
 
+  // Ensure this message has a stable ID for history association
+  if (!loadingMessage.id) {
+    loadingMessage.id = typeof window.generateMessageId === 'function'
+      ? window.generateMessageId()
+      : 'msg-' + Date.now();
+  }
+
   // Include any generated images in the conversation history
   let fullContent = content;
   
@@ -412,7 +419,13 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
     }
   }
   
-  window.conversationHistory.push({ role: 'assistant', content: fullContent, reasoning: reasoning });
+  window.conversationHistory.push({
+    role: 'assistant',
+    content: fullContent,
+    reasoning: reasoning,
+    id: loadingMessage.id,
+    timestamp: new Date().toISOString()
+  });
 
   // Create a fresh content structure
   contentWrapper.innerHTML = '';
@@ -430,12 +443,27 @@ window.finalizeStreamedResponse = function(loadingMessage, contentObj) {
     // Don't clear the currentGeneratedImageHtml array yet - we need it for history
     // But make a copy of it to associate with this message specifically
     const thisMessageImages = [...window.currentGeneratedImageHtml];
-    
+
     // Create a unique ID for this message to properly associate images
     if (!loadingMessage.id) {
       loadingMessage.id = 'msg-' + Date.now();
     }
-    
+
+    // Associate these images in the global generatedImages array
+    const filenamesForThisMessage = thisMessageImages
+      .map(html => {
+        const match = html.match(/data-filename="([^"]+)"/);
+        return match ? match[1] : null;
+      })
+      .filter(Boolean);
+    if (Array.isArray(window.generatedImages)) {
+      window.generatedImages.forEach(img => {
+        if (!img.associatedMessageId && filenamesForThisMessage.includes(img.filename)) {
+          img.associatedMessageId = loadingMessage.id;
+        }
+      });
+    }
+
     // Store these images with this specific message ID for future reference
     if (!window.messageImages) window.messageImages = {};
     window.messageImages[loadingMessage.id] = thisMessageImages;
@@ -519,8 +547,8 @@ window.handleNonStreamingResponse = function(data, loadingId) {
     const messageObj = data.choices[0].message;
     const assistantMessage = messageObj.content;
     const reasoning = messageObj.reasoning_content || '';
-    window.addToConversationHistory(assistantMessage, reasoning);
-    window.updateLoadingIndicator(loadingMessage, { content: assistantMessage, reasoning });
+    const msgId = window.addToConversationHistory(assistantMessage, reasoning);
+    window.updateLoadingIndicator(loadingMessage, { content: assistantMessage, reasoning, id: msgId });
   } else {
     // Handle invalid or empty response
     window.handleInvalidResponse(loadingId);
@@ -549,11 +577,19 @@ window.hasValidAssistantMessage = function(data) {
  * @param {string} assistantMessage - The assistant's response message
  */
 window.addToConversationHistory = function(assistantMessage, reasoning) {
+  const msgId = typeof window.generateMessageId === 'function'
+    ? window.generateMessageId()
+    : 'msg-' + Date.now();
+
   window.conversationHistory.push({
     role: 'assistant',
     content: assistantMessage,
-    reasoning: reasoning || ''
+    reasoning: reasoning || '',
+    id: msgId,
+    timestamp: new Date().toISOString()
   });
+
+  return msgId;
   
   // Update browser history
   if (typeof window.updateBrowserHistory === 'function') {
@@ -568,6 +604,9 @@ window.addToConversationHistory = function(assistantMessage, reasoning) {
  */
 window.updateLoadingIndicator = function(loadingMessage, assistantMessageObj) {
   if (loadingMessage) {
+    if (assistantMessageObj && assistantMessageObj.id) {
+      loadingMessage.id = assistantMessageObj.id;
+    }
     const cursor = loadingMessage.querySelector('.streaming-cursor');
     if (cursor) {
       cursor.classList.add('fade-out');

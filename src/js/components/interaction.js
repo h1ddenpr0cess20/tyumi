@@ -43,13 +43,9 @@ window.sendMessage = async function() {
   // Create loading message with pure animation
   const loadingId = 'loading-' + Date.now();
   const loadingHTML = '<div class="loading-animation"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>';
-  window.appendMessage('Assistant', loadingHTML, 'assistant');
+  window.appendMessage('Assistant', loadingHTML, 'assistant', true);
   const loadingElement = window.chatBox.lastElementChild;
   loadingElement.id = loadingId;
-  
-  // Add user message to conversation history
-  window.conversationHistory.push({ role: 'user', content: message });
-  console.info('User message added to conversation history.');
   
   // Update browser URL
   if (typeof window.updateBrowserHistory === 'function') {
