@@ -798,8 +798,13 @@ function renderConversationMessages(convo, imageCache) {
       messageElement.id = messageId;
       const sender = document.createElement('div');
       sender.className = 'message-sender';
-      sender.textContent = 'Assistant';
-      messageElement.appendChild(sender);      
+      const icon = document.createElement('img');
+      icon.width = 20;
+      icon.height = 20;
+      icon.alt = 'Assistant';
+      icon.src = 'src/assets/img/robot.svg';
+      sender.appendChild(icon);
+      messageElement.appendChild(sender);
       const contentWrapper = document.createElement('div');
       contentWrapper.className = 'message-content';
       messageElement.appendChild(contentWrapper);

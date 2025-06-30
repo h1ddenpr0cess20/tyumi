@@ -188,7 +188,14 @@ window.appendMessage = function(sender, content, type, skipHistory = false) {
 
   const senderElement = document.createElement('div');
   senderElement.className = 'message-sender';
-  senderElement.textContent = sender;
+  const icon = document.createElement('img');
+  icon.width = 20;
+  icon.height = 20;
+  icon.alt = sender;
+  icon.src = sender === 'You'
+    ? 'src/assets/img/human.svg'
+    : 'src/assets/img/robot.svg';
+  senderElement.appendChild(icon);
 
   const contentElement = document.createElement('div');
   contentElement.className = 'message-content';

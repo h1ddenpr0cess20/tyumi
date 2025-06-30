@@ -107,7 +107,14 @@ window.appendMessage = function(sender, message, role, skipHistory = false) {
   // Create sender element
   const senderElement = document.createElement('div');
   senderElement.className = 'message-sender';
-  senderElement.textContent = sender;
+  const icon = document.createElement('img');
+  icon.width = 20;
+  icon.height = 20;
+  icon.alt = sender;
+  icon.src = sender === 'You'
+    ? 'src/assets/img/human.svg'
+    : 'src/assets/img/robot.svg';
+  senderElement.appendChild(icon);
   messageElement.appendChild(senderElement);
   
   // Create content wrapper for the message
