@@ -325,7 +325,14 @@ window.startNewConversation = function(name = null) {
 };
 
 // Load a conversation by id
-window.loadConversation = function(id) {
+window.loadConversation = async function(id) {
+  if (typeof window.initImageDb === 'function') {
+    try {
+      await window.initImageDb();
+    } catch (err) {
+      console.warn('Image DB init failed:', err);
+    }
+  }
   return window.loadConversationFromDb(id)
     .then(convo => {
       if (!convo) {
@@ -866,11 +873,16 @@ function renderConversationMessages(convo, imageCache) {
         // Add container at the top of the message
         if (imagesContainer.childNodes.length > 0) {
           contentWrapper.appendChild(imagesContainer);
-          
+
           // Store these images with this specific message ID for future reference
           // This matches what streaming.js does with live chat images
           if (!window.messageImages) window.messageImages = {};
           window.messageImages[messageElement.id] = imgHtmlArray;
+
+          // Setup interactions now that images are added
+          if (window.setupImageInteractions) {
+            window.setupImageInteractions(imagesContainer);
+          }
         }
       }
       
@@ -878,6 +890,13 @@ function renderConversationMessages(convo, imageCache) {
       const reasoning = msg.reasoning || '';
       const contentObj = { content: displayContent, reasoning };
       window.updateMessageContent(messageElement, contentObj);
+
+      // Ensure reasoning starts collapsed
+      const rContainer = messageElement.querySelector('.reasoning-container');
+      if (rContainer && !rContainer.classList.contains('collapsed')) {
+        rContainer.classList.add('collapsed');
+      }
+
       window.highlightAndAddCopyButtons(messageElement);
       if (window.setupImageInteractions) {
         window.setupImageInteractions(contentWrapper);
