@@ -905,22 +905,35 @@ function setupLocationEventListeners() {
 /**
  * Setup chat history event listeners
  */
-function setupChatHistoryEventListeners() {  // Chat history panel toggle
+function setupChatHistoryEventListeners() {
+  // Track if the history panel is currently processing a toggle
+  let historyToggleBusy = false;
+
   if (window.historyButton && window.historyPanel) {
     window.historyButton.addEventListener('click', async () => {
-      if (typeof window.loadHistoryModule === 'function' && !window.lazyModulesLoaded?.history) {
-        await window.loadHistoryModule();
-      }
-      const isExpanded = window.historyButton.getAttribute('aria-expanded') === 'true';
-      window.historyButton.setAttribute('aria-expanded', String(!isExpanded));
-      window.historyPanel.setAttribute('aria-hidden', String(isExpanded));
-      if (!isExpanded) {
-        window.historyPanel.removeAttribute('inert');
-        if (typeof window.renderChatHistoryList === 'function') {
-          window.renderChatHistoryList();
+      // Ignore additional clicks while the panel is toggling
+      if (historyToggleBusy) return;
+      historyToggleBusy = true;
+
+      try {
+        if (typeof window.loadHistoryModule === 'function' && !window.lazyModulesLoaded?.history) {
+          await window.loadHistoryModule();
         }
-      } else {
-        window.historyPanel.setAttribute('inert', 'true');
+
+        const isExpanded = window.historyButton.getAttribute('aria-expanded') === 'true';
+        window.historyButton.setAttribute('aria-expanded', String(!isExpanded));
+        window.historyPanel.setAttribute('aria-hidden', String(isExpanded));
+
+        if (!isExpanded) {
+          window.historyPanel.removeAttribute('inert');
+          if (typeof window.renderChatHistoryList === 'function') {
+            window.renderChatHistoryList();
+          }
+        } else {
+          window.historyPanel.setAttribute('inert', 'true');
+        }
+      } finally {
+        historyToggleBusy = false;
       }
     });
   }
@@ -928,10 +941,16 @@ function setupChatHistoryEventListeners() {  // Chat history panel toggle
   // Close history panel
   if (window.closeHistoryButton && window.historyPanel) {
     window.closeHistoryButton.addEventListener('click', () => {
+      // Prevent race conditions with the toggle handler
+      if (historyToggleBusy) return;
+      historyToggleBusy = true;
+
       window.historyPanel.setAttribute('aria-hidden', 'true');
       window.historyPanel.setAttribute('inert', 'true');
       window.historyButton.setAttribute('aria-expanded', 'false');
       window.historyButton.focus(); // Explicitly move focus
+
+      historyToggleBusy = false;
     });
   }
 }
