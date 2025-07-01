@@ -300,7 +300,7 @@ input:focus + .toggle-switch {
 /* Upload button */
 #upload-button {
   position: absolute;
-  right: 58px;
+  right: 55px;
   bottom: 5px;
   background: transparent;
   color: var(--accent-color);
