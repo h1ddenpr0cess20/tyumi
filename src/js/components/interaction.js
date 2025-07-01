@@ -110,7 +110,7 @@ window.sendMessage = async function() {
   try {
     // Get API endpoint and prepare request data
     const apiEndpoint = window.getApiEndpoint();
-    const { requestBody, headers } = window.prepareRequestData(message);
+    const { requestBody, headers } = window.prepareRequestData(message, uploads);
 
     // Ensure an API key is configured before proceeding (except for Ollama)
     const currentService = window.config.defaultService;
@@ -218,6 +218,9 @@ window.sendMessage = async function() {
   } finally {
     // Reset UI state
     window.resetSendButton();
+    if (uploads.length > 0 && typeof window.stripBase64FromHistory === 'function') {
+      window.stripBase64FromHistory(userId, placeholders);
+    }
     if (window.VERBOSE_LOGGING) console.info('Send button reset.');
   }
 };

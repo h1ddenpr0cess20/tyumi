@@ -124,7 +124,7 @@ window.getCurrentDateTime = function() {
  * @param {string} message - The user message
  * @returns {Object} - Object containing requestBody and headers
  */
-window.prepareRequestData = function(message) {
+window.prepareRequestData = function(message, uploads = []) {
   const model = this.modelSelector.value;
   const temperature = parseFloat(this.temperatureSlider.value);
   const topP = parseFloat(this.topPSlider.value);
@@ -217,6 +217,10 @@ window.prepareRequestData = function(message) {
     let rawMessages = this.conversationHistory
       .filter(msg => msg.role !== 'system' && msg.role !== 'developer')
       .slice(-(maxContext * 2));
+
+    if (uploads.length > 0 && rawMessages.length > 0 && rawMessages[rawMessages.length - 1].role === 'user') {
+      rawMessages.pop(); // replace with image-based message below
+    }
     
     // Clean messages: remove thinking tags and extra fields not supported by all APIs
     rawMessages = window.cleanMessagesForApi(rawMessages);
@@ -243,6 +247,20 @@ window.prepareRequestData = function(message) {
   }
 
   const apiMessages = [...contextMessages];
+
+  if (uploads.length > 0) {
+    const imageParts = uploads.map(up => ({
+      type: 'image_url',
+      image_url: { url: up.dataUrl }
+    }));
+    apiMessages.push({
+      role: 'user',
+      content: [
+        { type: 'text', text: message },
+        ...imageParts
+      ]
+    });
+  }
 
   if (window.VERBOSE_LOGGING) {
     console.info('Current context messages:', apiMessages);
