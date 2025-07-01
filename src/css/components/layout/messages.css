@@ -15,6 +15,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   flex: 1;
   min-width: 0; /* Allows content to shrink */
+  position: relative; /* For copy button positioning */
 }
 
 .user .message-content {
@@ -552,6 +553,27 @@
 }
 
 .copy-btn:hover {
+  opacity: 1;
+  color: var(--accent-color);
+}
+
+/* Copy button for entire messages */
+.message-copy-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.message-copy-btn:hover {
   opacity: 1;
   color: var(--accent-color);
 }

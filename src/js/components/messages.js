@@ -355,3 +355,43 @@ window.updateMessageContent = function(messageElement, contentObj) {
     contentWrapper.appendChild(thinkingContainer);
   }
 };
+
+/**
+ * Retrieve raw message content from conversation history
+ * @param {string} messageId - The ID of the message
+ * @returns {string} Raw text content
+ */
+window.getRawMessageContent = function(messageId) {
+  if (!window.conversationHistory) return '';
+  const entry = window.conversationHistory.find(msg => msg.id === messageId);
+  return entry ? entry.content || '' : '';
+};
+
+/**
+ * Add a copy button to a message bubble
+ * @param {HTMLElement} messageElement - Target message element
+ * @param {string} messageId - ID used to look up raw content
+ */
+window.addMessageCopyButton = function(messageElement, messageId) {
+  if (!messageElement) return;
+  const wrapper = messageElement.querySelector('.message-content');
+  if (!wrapper || wrapper.querySelector('.message-copy-btn')) return;
+  const btn = document.createElement('button');
+  btn.className = 'message-copy-btn';
+  btn.setAttribute('aria-label', 'Copy message');
+  btn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>`;
+  btn.addEventListener('click', () => {
+    const raw = window.getRawMessageContent(messageId);
+    if (!raw) return;
+    if (typeof window.copyToClipboard === 'function') {
+      window.copyToClipboard(raw, btn);
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(raw);
+    }
+  });
+  wrapper.appendChild(btn);
+};

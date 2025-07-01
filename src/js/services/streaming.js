@@ -543,6 +543,9 @@ window.updateFinalMessage = function(loadingMessage) {
   if (!loadingMessage.id) {
     loadingMessage.id = 'msg-' + Date.now();
   }
+  if (typeof window.addMessageCopyButton === 'function') {
+    window.addMessageCopyButton(loadingMessage, loadingMessage.id);
+  }
 };
 
 /**
