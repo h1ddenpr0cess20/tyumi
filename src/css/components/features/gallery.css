@@ -441,14 +441,18 @@
   color: var(--button-text-color);
   border: 0px solid var(--accent-hover);
   border-radius: var(--border-radius);
-  width: 50vw;
-  size: auto;
-  max-width: 600px; /* Limit width for larger screens */  
-  overflow-y: clip; /* Allow vertical scrolling for long content */
-  max-height: 30vh; /* Limit height and enable scrolling */
+  width: 60vw; /* Increased from 50vw for better readability at 100% zoom */
+  min-width: 400px; /* Ensure minimum readable width */
+  max-width: 800px; /* Increased from 600px for longer content */
+  overflow-y: auto; /* Changed from clip to auto to allow scrolling */
+  max-height: 35vh; /* Slightly increased from 30vh */
   position: relative; /* Ensure proper positioning */
   z-index: 1010; /* Keep above other elements */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  word-wrap: break-word; /* Allow long words to break */
+  word-break: break-word; /* Ensure long words break properly */
+  hyphens: auto; /* Enable automatic hyphenation */
+  line-height: 1.5; /* Improved line spacing for readability */
 }
 
 .gallery-slideshow-info h3 {
@@ -462,12 +466,27 @@
 
 .gallery-slideshow-info p {
   margin: 8px 0;
-  line-height: 1.4;
+  line-height: 1.5; /* Improved line spacing */
+  word-wrap: break-word; /* Allow long words to wrap */
+  overflow-wrap: break-word; /* Modern property for word wrapping */
+  max-width: 100%; /* Ensure text doesn't overflow container */
 }
 
 .gallery-slideshow-info strong {
   color: var(--button-text-color);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Prompt text styling within description box */
+.gallery-slideshow-info .prompt-text {
+  display: block;
+  margin-top: 4px;
+  white-space: pre-wrap; /* Preserve line breaks and wrap text */
+  word-break: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Modern word breaking */
+  font-style: italic;
+  opacity: 0.95;
+  line-height: 1.4;
 }
 
 /* Bulk delete indicator styling */
@@ -517,6 +536,54 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+/* Custom scrollbar styling for description box */
+.gallery-slideshow-info::-webkit-scrollbar {
+  width: 8px;
+}
+
+.gallery-slideshow-info::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.gallery-slideshow-info::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.gallery-slideshow-info::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments for gallery slideshow info */
+@media screen and (max-width: 1200px) {
+  .gallery-slideshow-info {
+    width: 70vw;
+    min-width: 350px;
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gallery-slideshow-info {
+    width: 85vw;
+    min-width: 300px;
+    max-width: none;
+    padding: 15px;
+    max-height: 40vh;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gallery-slideshow-info {
+    width: 95vw;
+    min-width: 280px;
+    padding: 12px;
+    font-size: 0.9rem;
   }
 }
 

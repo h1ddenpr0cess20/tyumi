@@ -383,37 +383,19 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
   // Create buttons based on device capabilities
   let downloadBtn;
   
-  if (isMobile && navigator.share) {
-    // Use share button instead of download on mobile if Web Share API is available
-    downloadBtn = document.createElement('button');
-    downloadBtn.className = 'slideshow-icon-btn';
-    downloadBtn.id = 'slideshow-share';
-    downloadBtn.title = 'Share this image';
-    downloadBtn.setAttribute('aria-label', 'Share this image');
-    downloadBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="18" cy="5" r="3"></circle>
-        <circle cx="6" cy="12" r="3"></circle>
-        <circle cx="18" cy="19" r="3"></circle>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-      </svg>
-    `;
-  } else {
-    // Standard download button for desktop
-    downloadBtn = document.createElement('button');
-    downloadBtn.className = 'slideshow-icon-btn';
-    downloadBtn.id = 'slideshow-download';
-    downloadBtn.title = 'Download this image';
-    downloadBtn.setAttribute('aria-label', 'Download this image');
-    downloadBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
-    `;
-  }
+  // Always create download button (don't switch to share button automatically)
+  downloadBtn = document.createElement('button');
+  downloadBtn.className = 'slideshow-icon-btn';
+  downloadBtn.id = 'slideshow-download';
+  downloadBtn.title = 'Download this image';
+  downloadBtn.setAttribute('aria-label', 'Download this image');
+  downloadBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  `;
   
   const closeBtn = document.createElement('button');
   closeBtn.className = 'slideshow-icon-btn';
@@ -530,10 +512,18 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
       ? new Date(timestamp).toLocaleDateString() + ' ' + new Date(timestamp).toLocaleTimeString() 
       : 'Unknown date';
     
+    // Format prompt for better display - escape HTML and add soft line breaks for very long prompts
+    const formattedPrompt = prompt
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#x27;');
+    
     // Update info panel with all available metadata
     infoPanel.innerHTML = `
       <h3>Image Details</h3>
-      <p><strong>Prompt:</strong> ${prompt}</p>
+      <p><strong>Prompt:</strong><br><span class="prompt-text">${formattedPrompt}</span></p>
       <p><strong>Date:</strong> ${date}</p>
       <p><strong>Filename:</strong> ${filename}</p>
     `;
@@ -629,19 +619,14 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
   
   // Handle download or share
   downloadBtn.addEventListener('click', () => {
-    if (isMobile && navigator.share) {
-      // Use Web Share API on mobile devices
-      shareImage(isGalleryMode ? images[currentIndex] : images[currentIndex]);
+    // Always try to download first
+    if (isGalleryMode) {
+      const image = images[currentIndex];
+      window.downloadGalleryImage(image.data, image.filename);
     } else {
-      // Traditional download on desktop
-      if (isGalleryMode) {
-        const image = images[currentIndex];
-        window.downloadGalleryImage(image.data, image.filename);
-      } else {
-        const imgElement = images[currentIndex];
-        const filename = imgElement.dataset.filename || `image-${Date.now()}.png`;
-        window.downloadImage(imgElement.src, filename);
-      }
+      const imgElement = images[currentIndex];
+      const filename = imgElement.dataset.filename || `image-${Date.now()}.png`;
+      window.downloadImage(imgElement.src, filename);
     }
   });
   
