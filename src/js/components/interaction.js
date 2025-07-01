@@ -11,10 +11,22 @@
  */
 window.sendMessage = async function() {
   const message = window.userInput.value.trim();
-  if (!message) {
+  if (!message && (!window.pendingUploads || window.pendingUploads.length === 0)) {
     if (window.VERBOSE_LOGGING) console.info('No message entered. sendMessage aborted.');
     return;
   }
+
+  const uploads = window.pendingUploads || [];
+  let uploadHtml = '';
+  let placeholders = [];
+  uploads.forEach(up => {
+    const ext = up.file && up.file.name.includes('.') ? up.file.name.split('.').pop() : 'png';
+    const filename = `upload-${Date.now()}-${Math.random().toString(36).substring(2,8)}.${ext}`;
+    up.filename = filename;
+    up.timestamp = new Date().toISOString();
+    uploadHtml += `<img src="${up.dataUrl}" alt="Uploaded Image" class="generated-image-thumbnail" data-filename="${filename}" data-timestamp="${up.timestamp}" />`;
+    placeholders.push(`[[IMAGE: ${filename}]]`);
+  });
   
   window.shouldStopGeneration = false;
   
@@ -31,17 +43,49 @@ window.sendMessage = async function() {
   window.sendButton.removeEventListener('click', window.sendMessage);
   window.sendButton.addEventListener('click', window.stopGeneration);
 
+  let userHtml = window.sanitizeInput(message);
+  if (uploadHtml) {
+    userHtml = `<div class="generated-images">${uploadHtml}</div>` + userHtml;
+  }
+
   // Add user message to the conversation and store in history manually
-  const userElement = window.appendMessage('You', window.sanitizeInput(message), 'user', true);
+  const userElement = window.appendMessage('You', userHtml, 'user', true);
   const userId = userElement ? userElement.id : (typeof window.generateMessageId === 'function'
     ? window.generateMessageId()
     : 'msg-' + Date.now());
+  const historyContent = placeholders.length > 0 ? `${placeholders.join('\n')}\n\n${message}` : message;
   window.conversationHistory.push({
     role: 'user',
-    content: message,
+    content: historyContent,
     id: userId,
     timestamp: new Date().toISOString()
   });
+  if (uploads.length > 0) {
+    window.generatedImages = window.generatedImages || [];
+    for (const up of uploads) {
+      window.generatedImages.push({
+        url: up.dataUrl,
+        tool: 'upload',
+        prompt: '',
+        timestamp: up.timestamp,
+        filename: up.filename,
+        associatedMessageId: userId,
+        uploaded: true
+      });
+      if (window.saveImageToDb) {
+        window.saveImageToDb(up.dataUrl, up.filename, {
+          tool: 'upload',
+          prompt: '',
+          timestamp: up.timestamp,
+          associatedMessageId: userId,
+          uploaded: true
+        }).catch(err => console.error('Failed to save upload image:', err));
+      }
+    }
+    window.pendingUploads = [];
+    const preview = document.querySelector('.upload-previews');
+    if (preview) preview.innerHTML = '';
+  }
   console.info('User message added to conversation history.');
   // Auto-save after user message
   if (window.saveCurrentConversation) window.saveCurrentConversation();

@@ -118,21 +118,22 @@ window.loadGalleryImages = async function() {
     try {
         // Get all image keys from IndexedDB
         const images = await window.getAllImagesFromDb();
-        
-        if (!images || images.length === 0) {
+        const visibleImages = images.filter(img => !img.filename.startsWith('upload-'));
+
+        if (!visibleImages || visibleImages.length === 0) {
             galleryGrid.innerHTML = '<div class="gallery-empty">No images found in gallery</div>';
             return;
         }
         
         // Sort images by timestamp, newest first
-        images.sort((a, b) => {
+        visibleImages.sort((a, b) => {
             const dateA = a.timestamp ? new Date(a.timestamp) : new Date(0);
             const dateB = b.timestamp ? new Date(b.timestamp) : new Date(0);
             return dateB - dateA;
         });
-        
+
         // Store images globally for slideshow access
-        window.galleryImages = images;
+        window.galleryImages = visibleImages;
         window.galleryImagesLoaded = true;
         
         // Clear placeholders
@@ -141,17 +142,17 @@ window.loadGalleryImages = async function() {
         // Update gallery count
         const galleryCount = document.getElementById('gallery-count');
         if (galleryCount) {
-            galleryCount.textContent = images.length;
+            galleryCount.textContent = visibleImages.length;
         }
         
         // Process images in batches to not block the UI
         const batchSize = 10;
         
         function processBatch(startIndex) {
-            const endIndex = Math.min(startIndex + batchSize, images.length);
-            
+            const endIndex = Math.min(startIndex + batchSize, visibleImages.length);
+
             for (let i = startIndex; i < endIndex; i++) {
-                const image = images[i];
+                const image = visibleImages[i];
                 
                 // Create gallery item
                 const galleryItem = document.createElement('div');
@@ -266,7 +267,7 @@ window.loadGalleryImages = async function() {
             }
             
             // Process next batch if needed
-            if (endIndex < images.length) {
+            if (endIndex < visibleImages.length) {
                 setTimeout(() => processBatch(endIndex), 0);
             }
         }

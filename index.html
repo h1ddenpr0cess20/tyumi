@@ -61,6 +61,7 @@
   <script src="src/js/components/ui.js"></script>
   <script src="src/js/components/theme.js"></script>
   <script src="src/js/components/interaction.js"></script>
+  <script src="src/js/components/attachments.js"></script>
   <script src="src/js/components/tools.js"></script>
   <script src="src/js/components/logo.js"></script>
   <!-- Load service functions -->  
@@ -160,12 +161,17 @@
 
     <div class="input-container">
       <div class="input-wrapper">
+        <div class="upload-previews"></div>
         <textarea
           id="user-input"
           placeholder="Type your message here..."
           rows="1"
           aria-label="User input"
         ></textarea>
+        <button id="upload-button" title="Attach image">
+          <img src="src/assets/img/upload.svg" alt="Upload" width="20" height="20" />
+        </button>
+        <input type="file" id="image-upload" accept="image/*" multiple style="display:none" />
         <button id="send-button" title="Send message">
           <svg class="send-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
