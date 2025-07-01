@@ -49,7 +49,7 @@ window.loadFromUrl = function() {
         // Load saved messages into the UI
         chatData.messages.forEach((msg) => {
           if (msg.role !== 'system') {
-            window.appendMessage(msg.role === 'user' ? 'You' : 'Assistant', msg.content, msg.role);
+            window.appendMessage(msg.role === 'user' ? 'You' : '  ', msg.content, msg.role);
           }
         });
         
@@ -798,7 +798,27 @@ function renderConversationMessages(convo, imageCache) {
       messageElement.id = messageId;
       const sender = document.createElement('div');
       sender.className = 'message-sender';
-      sender.textContent = 'Assistant';
+      sender.innerHTML = `
+        <svg class="sender-icon assistant-icon" width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="var(--accent-color)" stroke-width="1"></g>
+        </svg>
+      `;
+      
+      // Call generateNonagonLogo to populate the g element
+      const originalSelector = document.querySelector;
+      document.querySelector = function(selector) {
+        if (selector === '#tyumi-logo g') {
+          return sender.querySelector('g');
+        }
+        return originalSelector.call(document, selector);
+      };
+      
+      if (typeof generateNonagonLogo === 'function') {
+        generateNonagonLogo();
+      }
+      
+      // Restore original querySelector
+      document.querySelector = originalSelector;
       messageElement.appendChild(sender);      
       const contentWrapper = document.createElement('div');
       contentWrapper.className = 'message-content';

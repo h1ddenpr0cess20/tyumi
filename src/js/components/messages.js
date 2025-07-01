@@ -107,7 +107,42 @@ window.appendMessage = function(sender, message, role, skipHistory = false) {
   // Create sender element
   const senderElement = document.createElement('div');
   senderElement.className = 'message-sender';
-  senderElement.textContent = sender;
+  
+  // Create SVG icon based on sender type - NO TEXT, JUST ICONS
+  if (sender === 'You') {
+    senderElement.innerHTML = `
+      <svg class="sender-icon user-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    `;
+  } else if (sender === 'Assistant') {
+    // Use the exact same logo structure as in index.html
+    senderElement.innerHTML = `
+      <svg class="sender-icon assistant-icon" width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="var(--accent-color)" stroke-width="1"></g>
+      </svg>
+    `;
+    
+    // Call generateNonagonLogo to populate the g element
+    const originalSelector = document.querySelector;
+    document.querySelector = function(selector) {
+      if (selector === '#tyumi-logo g') {
+        return senderElement.querySelector('g');
+      }
+      return originalSelector.call(document, selector);
+    };
+    
+    if (typeof generateNonagonLogo === 'function') {
+      generateNonagonLogo();
+    }
+    
+    // Restore original querySelector
+    document.querySelector = originalSelector;
+  } else {
+    // Fallback for other sender types
+    senderElement.textContent = sender;
+  }
   messageElement.appendChild(senderElement);
   
   // Create content wrapper for the message
@@ -285,38 +320,38 @@ window.updateMessageContent = function(messageElement, contentObj) {
   mainContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(parsedContent) : DOMPurify.sanitize(parsedContent);
   contentWrapper.appendChild(mainContent);
   
-  // If there's reasoning, create the reasoning section
+  // If there's reasoning, create the thinking section
   if (reasoning.trim()) {
-    // Create reasoning container
-    const reasoningContainer = document.createElement('div');
-    reasoningContainer.className = 'reasoning-container collapsed';
+    // Create thinking container
+    const thinkingContainer = document.createElement('div');
+    thinkingContainer.className = 'thinking-container collapsed';
     
-    // Create reasoning toggle button
-    const reasoningToggle = document.createElement('button');
-    reasoningToggle.className = 'reasoning-toggle';
-    reasoningToggle.innerHTML = '<span class="toggle-icon">▶</span> <span class="toggle-label">Show reasoning</span>';
-    reasoningToggle.onclick = function(event) {
+    // Create thinking toggle button
+    const thinkingToggle = document.createElement('button');
+    thinkingToggle.className = 'thinking-title';
+    thinkingToggle.innerHTML = '<span class="toggle-icon">▶</span> <span class="toggle-label">Show reasoning</span>';
+    thinkingToggle.onclick = function(event) {
       // Prevent event bubbling that might affect other elements
       if (event) {
         event.stopPropagation();
         event.preventDefault();
       }
       
-      reasoningContainer.classList.toggle('collapsed');
-      const isCollapsed = reasoningContainer.classList.contains('collapsed');
-      reasoningToggle.querySelector('.toggle-icon').textContent = isCollapsed ? '▶' : '▼';
-      reasoningToggle.querySelector('.toggle-label').textContent = isCollapsed ? 'Show reasoning' : 'Hide reasoning';
+      thinkingContainer.classList.toggle('collapsed');
+      const isCollapsed = thinkingContainer.classList.contains('collapsed');
+      thinkingToggle.querySelector('.toggle-icon').textContent = isCollapsed ? '▶' : '▼';
+      thinkingToggle.querySelector('.toggle-label').textContent = isCollapsed ? 'Show reasoning' : 'Hide reasoning';
     };
-    contentWrapper.appendChild(reasoningToggle);
-      // Create reasoning content
-    const reasoningContent = document.createElement('div');
-    reasoningContent.className = 'reasoning-content';
+    contentWrapper.appendChild(thinkingToggle);
+      // Create thinking content
+    const thinkingContent = document.createElement('div');
+    thinkingContent.className = 'thinking-content';
     if (window.markdownit) {
-      reasoningContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(window.markdownit().render(reasoning)) : DOMPurify.sanitize(window.markdownit().render(reasoning));
+      thinkingContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(window.markdownit().render(reasoning)) : DOMPurify.sanitize(window.markdownit().render(reasoning));
     } else {
-      reasoningContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(reasoning.replace(/\n/g, '<br>')) : DOMPurify.sanitize(reasoning.replace(/\n/g, '<br>'));
+      thinkingContent.innerHTML = window.sanitizeWithYouTube ? window.sanitizeWithYouTube(reasoning.replace(/\n/g, '<br>')) : DOMPurify.sanitize(reasoning.replace(/\n/g, '<br>'));
     }
-    reasoningContainer.appendChild(reasoningContent);
-    contentWrapper.appendChild(reasoningContainer);
+    thinkingContainer.appendChild(thinkingContent);
+    contentWrapper.appendChild(thinkingContainer);
   }
 };

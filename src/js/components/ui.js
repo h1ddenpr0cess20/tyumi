@@ -188,7 +188,42 @@ window.appendMessage = function(sender, content, type, skipHistory = false) {
 
   const senderElement = document.createElement('div');
   senderElement.className = 'message-sender';
-  senderElement.textContent = sender;
+  
+  // Create SVG icon based on sender type - NO TEXT, JUST ICONS
+  if (sender === 'You') {
+    senderElement.innerHTML = `
+      <svg class="sender-icon user-icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    `;
+  } else if (sender === 'Assistant') {
+    // Use the exact same logo structure as in index.html
+    senderElement.innerHTML = `
+      <svg class="sender-icon assistant-icon" width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="var(--accent-color)" stroke-width="1"></g>
+      </svg>
+    `;
+    
+    // Call generateNonagonLogo to populate the g element
+    const originalSelector = document.querySelector;
+    document.querySelector = function(selector) {
+      if (selector === '#tyumi-logo g') {
+        return senderElement.querySelector('g');
+      }
+      return originalSelector.call(document, selector);
+    };
+    
+    if (typeof generateNonagonLogo === 'function') {
+      generateNonagonLogo();
+    }
+    
+    // Restore original querySelector
+    document.querySelector = originalSelector;
+  } else {
+    // Fallback for other sender types
+    senderElement.textContent = sender;
+  }
 
   const contentElement = document.createElement('div');
   contentElement.className = 'message-content';
