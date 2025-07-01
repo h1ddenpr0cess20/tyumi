@@ -2,3 +2,6 @@ cert.pem
 key.pem
 .vscode/launch.json
 PROJECT_FILE_ANALYSIS.md
+node_modules/
+dist/
+package-lock.json

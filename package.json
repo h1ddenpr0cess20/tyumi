@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Tyumi web app",
   "scripts": {
-    "test": "echo \"No tests configured\" && exit 0"
-  }
+    "test": "echo \"No tests configured\" && exit 0",
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5",
+    "fs-extra": "^11.3.0"
+  },
+  "type": "module"
 }
