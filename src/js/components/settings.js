@@ -84,14 +84,11 @@ window.updateHeaderInfo = function() {
     
     // Always display something in the model info area even if empty
     if (!promptInfo) {
-      // Use the default personality explicitly and make sure it's set in the input
-      if (window.DEFAULT_PERSONALITY) {
-        // Set the personality in the UI if it's empty
-        if (window.personalityInput && (!window.personalityInput.value.trim() || 
-            !window.personalityInput.hasAttribute('data-explicitly-set'))) {
-          window.personalityInput.value = window.DEFAULT_PERSONALITY;
-          window.personalityInput.setAttribute('data-explicitly-set', 'true');
-        }
+      // Only show default personality in the header if it's actually set in the input
+      // Don't automatically override the personality input value here
+      if (window.DEFAULT_PERSONALITY && window.personalityInput && window.personalityInput.value.trim()) {
+        promptInfo = `Personality: ${window.personalityInput.value.trim()}`;
+      } else if (window.DEFAULT_PERSONALITY) {
         promptInfo = `Personality: ${window.DEFAULT_PERSONALITY}`;
       }
     }
