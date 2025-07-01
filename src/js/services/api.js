@@ -61,9 +61,26 @@ window.cleanMessagesForApi = function(messages) {
   return messages.map(msg => {
     if (msg.role === 'user' || msg.role === 'assistant') {
       let content = msg.content || '';
-      // Remove thinking tags
-      content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
-      content = content.replace(/<\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g, '');
+      
+      // Handle different content formats
+      if (typeof content === 'string') {
+        // Remove thinking tags from string content
+        content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
+        content = content.replace(/<\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g, '');
+      } else if (Array.isArray(content)) {
+        // Handle multimodal content (array of objects)
+        content = content.map(part => {
+          if (part.type === 'text' && typeof part.text === 'string') {
+            return {
+              ...part,
+              text: part.text
+                .replace(/<think>[\s\S]*?<\/think>/g, '')
+                .replace(/<\|begin_of_thought\|>[\s\S]*?<\|end_of_thought\|>/g, '')
+            };
+          }
+          return part; // Return non-text parts unchanged
+        });
+      }
       
       // Return only standard OpenAI Chat Completions API fields
       const cleanedMsg = {
@@ -79,15 +96,31 @@ window.cleanMessagesForApi = function(messages) {
       return cleanedMsg;
     } else if (msg.role === 'system' || msg.role === 'developer') {
       // System/developer messages should only have role and content
+      // Ensure content is a string for these message types
+      let content = msg.content || '';
+      if (typeof content !== 'string') {
+        // If content is not a string, try to extract text from it
+        if (Array.isArray(content)) {
+          const textParts = content.filter(part => part.type === 'text').map(part => part.text || '');
+          content = textParts.join(' ');
+        } else {
+          content = String(content);
+        }
+      }
       return {
         role: msg.role,
-        content: msg.content || ''
+        content: content
       };
     } else if (msg.role === 'tool') {
       // Tool messages need role, content, and tool_call_id
+      // Ensure content is a string for tool messages
+      let content = msg.content || '';
+      if (typeof content !== 'string') {
+        content = String(content);
+      }
       return {
         role: msg.role,
-        content: msg.content || '',
+        content: content,
         tool_call_id: msg.tool_call_id
       };
     }
@@ -124,7 +157,7 @@ window.getCurrentDateTime = function() {
  * @param {string} message - The user message
  * @returns {Object} - Object containing requestBody and headers
  */
-window.prepareRequestData = function(message) {
+window.prepareRequestData = function(message, uploads = []) {
   const model = this.modelSelector.value;
   const temperature = parseFloat(this.temperatureSlider.value);
   const topP = parseFloat(this.topPSlider.value);
@@ -217,6 +250,10 @@ window.prepareRequestData = function(message) {
     let rawMessages = this.conversationHistory
       .filter(msg => msg.role !== 'system' && msg.role !== 'developer')
       .slice(-(maxContext * 2));
+
+    if (uploads.length > 0 && rawMessages.length > 0 && rawMessages[rawMessages.length - 1].role === 'user') {
+      rawMessages.pop(); // replace with image-based message below
+    }
     
     // Clean messages: remove thinking tags and extra fields not supported by all APIs
     rawMessages = window.cleanMessagesForApi(rawMessages);
@@ -243,6 +280,20 @@ window.prepareRequestData = function(message) {
   }
 
   const apiMessages = [...contextMessages];
+
+  if (uploads.length > 0) {
+    const imageParts = uploads.map(up => ({
+      type: 'image_url',
+      image_url: { url: up.dataUrl }
+    }));
+    apiMessages.push({
+      role: 'user',
+      content: [
+        { type: 'text', text: message },
+        ...imageParts
+      ]
+    });
+  }
 
   if (window.VERBOSE_LOGGING) {
     console.info('Current context messages:', apiMessages);

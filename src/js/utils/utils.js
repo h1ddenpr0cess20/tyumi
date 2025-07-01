@@ -277,3 +277,21 @@ window.debugThinkingContainers = function() {
     console.log(`Thinking container ${index} (${container.id}): ${isCollapsed ? 'collapsed' : 'expanded'}`);
   });
 };
+
+/**
+ * Replace base64 image data URLs in a user message with filename placeholders.
+ * This prevents large base64 strings from being stored in conversation history.
+ * @param {string} messageId - ID of the user message
+ * @param {Array} placeholders - Array of placeholder strings like '[[IMAGE: file.jpg]]'
+ */
+window.stripBase64FromHistory = function(messageId, placeholders = []) {
+  if (!Array.isArray(window.conversationHistory)) return;
+  const entry = window.conversationHistory.find(msg => msg.id === messageId);
+  if (!entry || entry.role !== 'user') return;
+
+  let textPart = entry.content || '';
+  // Remove any base64 image data
+  textPart = textPart.replace(/data:image\/[^;]+;base64,[^\s]+/g, '').trim();
+  const placeholderText = placeholders.join('\n');
+  entry.content = placeholderText + (textPart ? `\n\n${textPart}` : '');
+};
