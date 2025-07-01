@@ -50,34 +50,39 @@ window.initApiKeys = function() {
     window.saveToolsApiKeysButton = document.getElementById('save-tools-api-keys');    // Add click handlers to prevent propagation on all input fields
     Object.values(window.apiKeyInputs).forEach(input => {
         if (input) {
-            input.addEventListener('click', function(event) {
+            const stopEvent = (event) => {
                 event.stopPropagation();
-            });
+            };
+            input.addEventListener('click', stopEvent);
+            input.addEventListener('touchstart', stopEvent);
         }
     });
     
     // Add click handlers for tool-specific API key inputs
     Object.values(window.toolApiKeyInputs).forEach(input => {
         if (input) {
-            input.addEventListener('click', function(event) {
+            const stopEvent = (event) => {
                 event.stopPropagation();
-            });
+            };
+            input.addEventListener('click', stopEvent);
+            input.addEventListener('touchstart', stopEvent);
         }
     });
     
     // Also add click handler for Ollama server URL input
     if (window.ollamaServerUrlInput) {
-        window.ollamaServerUrlInput.addEventListener('click', function(event) {
+        const stopEvent = (event) => {
             event.stopPropagation();
-        });
+        };
+        window.ollamaServerUrlInput.addEventListener('click', stopEvent);
+        window.ollamaServerUrlInput.addEventListener('touchstart', stopEvent);
     }
     
     // Get password toggle buttons
     const toggleButtons = document.querySelectorAll('.toggle-password');
       // Add event listeners to toggle password visibility
     toggleButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            // Prevent the event from propagating up to parent elements
+        const handleToggle = function(event) {
             event.preventDefault();
             event.stopPropagation();
             
@@ -101,7 +106,9 @@ window.initApiKeys = function() {
                     </svg>
                 `;
             }
-        });
+        };
+        button.addEventListener('click', handleToggle);
+        button.addEventListener('touchstart', handleToggle);
     });    // Add event listener to save button
     if (window.saveApiKeysButton) {
         window.saveApiKeysButton.addEventListener('click', function(event) {
