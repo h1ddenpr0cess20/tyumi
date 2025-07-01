@@ -39,8 +39,7 @@
 #send-button {
   position: absolute;
   right: 5px;
-  top: 48%;
-  transform: translateY(-50%);
+  bottom: 5px;
   background: transparent;
   color: var(--accent-color);
   border: none;
@@ -117,7 +116,7 @@
 /* Hover effects removed */
 
 #send-button:active {
-  transform: translateY(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 /* Settings button */
@@ -302,8 +301,7 @@ input:focus + .toggle-switch {
 #upload-button {
   position: absolute;
   right: 58px;
-  top: 48%;
-  transform: translateY(-50%);
+  bottom: 5px;
   background: transparent;
   color: var(--accent-color);
   border: none;
@@ -318,6 +316,10 @@ input:focus + .toggle-switch {
   z-index: 2;
   margin: 0;
   padding: 0;
+}
+
+#upload-button:active {
+  transform: scale(0.95);
 }
 
 .upload-previews {
