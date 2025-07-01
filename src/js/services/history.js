@@ -790,7 +790,8 @@ function renderConversationMessages(convo, imageCache) {
       return;
     }
     if (msg.role === 'user') {
-      window.appendMessage('You', msg.content, 'user', true);
+      const processed = replaceImagePlaceholders(msg.content, convo, imageCache);
+      window.appendMessage('You', processed, 'user', true);
     } else if (msg.role === 'assistant') {
       const messageElement = document.createElement('div');
       messageElement.classList.add('message', 'assistant');

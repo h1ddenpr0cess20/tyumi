@@ -120,6 +120,10 @@ async function initialize() {
     // Initialize DOM references first
     initializeDOMReferences();
     if (window.VERBOSE_LOGGING) console.info('DOM references initialized.');
+
+    if (typeof window.initImageUploads === 'function') {
+      window.initImageUploads();
+    }
     
     // Initialize textarea height to prevent shrinking when typing
     initializeTextareaHeight();
