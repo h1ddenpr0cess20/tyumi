@@ -67,42 +67,8 @@ window.initGallery = function() {
             window.bulkDeleteSelectedImages();
         });
     }
-    // Close panels when clicking outside
-    document.addEventListener('click', function(e) {
-        // Close gallery panel when clicking outside, but only if slideshow is not open
-        if (!window.isSlideshowOpen && 
-            galleryPanel && galleryPanel.getAttribute('aria-hidden') === 'false' &&
-            !galleryPanel.contains(e.target) && e.target !== galleryButton) {
-            galleryPanel.setAttribute('aria-hidden', 'true');
-            galleryPanel.setAttribute('inert', 'true'); // Make panel inert when closed
-            galleryButton.setAttribute('aria-expanded', 'false');
-            galleryButton.focus(); // Explicitly move focus
-        }
-        
-        // Close settings panel when clicking outside (if it exists)
-        const settingsPanel = document.getElementById('settings-panel');
-        const settingsButton = document.getElementById('settings-button');
-        if (settingsPanel && settingsButton && settingsPanel.classList.contains('active') &&
-            !settingsPanel.contains(e.target) && e.target !== settingsButton) {
-            settingsPanel.classList.remove('active');
-            settingsButton.setAttribute('aria-expanded', 'false');
-            settingsPanel.setAttribute('aria-hidden', 'true');
-            if (settingsPanel.hasAttribute('inert')) {
-                settingsPanel.setAttribute('inert', 'true');
-            }
-            settingsButton.style.display = '';
-        }
-          // Close history panel when clicking outside (if it exists)
-        const historyPanel = document.getElementById('history-panel');
-        const historyButton = document.getElementById('history-button');
-        if (historyPanel && historyButton && historyPanel.getAttribute('aria-hidden') === 'false' &&
-            !historyPanel.contains(e.target) && e.target !== historyButton) {
-            historyPanel.setAttribute('aria-hidden', 'true');
-            historyPanel.setAttribute('inert', 'true'); // Make panel inert when closed
-            historyButton.setAttribute('aria-expanded', 'false');
-            historyButton.focus(); // Explicitly move focus
-        }
-    });
+    // Note: Outside click handling for all panels (gallery, settings, history) 
+    // is consolidated in eventListeners.js to avoid conflicts
 };
 
 /**

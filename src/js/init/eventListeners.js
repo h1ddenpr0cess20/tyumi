@@ -99,6 +99,10 @@ function setupEventListeners() {
       // Restore original values if the user didn't click their respective "Set" buttons
       if (window.personalityPromptRadio.checked) {
         window.personalityInput.value = originalPersonalityValue;
+        // Preserve the explicitly-set attribute if the original value was the default personality
+        if (originalPersonalityValue === window.DEFAULT_PERSONALITY) {
+          window.personalityInput.setAttribute('data-explicitly-set', 'true');
+        }
       }
       
       // For custom prompts, restore original value if they didn't click "Set Custom Prompt"
@@ -122,7 +126,7 @@ function setupEventListeners() {
   setupSliderEventListeners();
   
   // Setup button event listeners
-  setupButtonEventListeners(originalPersonalityValue, originalCustomPromptValue);
+  setupButtonEventListeners();
   
   // Setup selector event listeners
   setupSelectorEventListeners();
@@ -136,7 +140,90 @@ function setupEventListeners() {
   setupPersonalityPresetEventListeners();
   
   // Setup settings panel outside click handler
-  setupSettingsPanelOutsideClickHandler(originalPersonalityValue, originalCustomPromptValue);
+  // Define inside setupEventListeners to access closure variables
+  document.addEventListener('click', function(e) {
+    // Enhanced debugging for copy button issues
+    if (window.VERBOSE_LOGGING && e.target.closest('.copy-address')) {
+      console.info('Outside click handler - copy button detected:', {
+        target: e.target,
+        closest: e.target.closest('.copy-address'),
+        defaultPrevented: e.defaultPrevented,
+        cancelBubble: e.cancelBubble,
+        handled: e.handled,
+        timeStamp: e.timeStamp
+      });
+    }
+    
+    // If the event has been marked as handled or propagation stopped, don't do anything
+    if (e.defaultPrevented || e.cancelBubble || e.handled) {
+      if (window.VERBOSE_LOGGING) console.info('Outside click handler: event already handled/prevented');
+      return;
+    }
+    
+    // Also check if the event came from a copy button specifically
+    const isCopyButton = e.target.closest('.copy-address');
+    if (isCopyButton) {
+      if (window.VERBOSE_LOGGING) console.info('Outside click handler: ignoring copy button click');
+      return;
+    }
+    
+    // Check if click target is a settings panel element
+    const isSettingsPanelElement = window.settingsPanel && window.settingsPanel.contains(e.target);
+    
+    // Check if click target is the settings button
+    const isSettingsButton = e.target === window.settingsButton;
+    
+    if (window.settingsPanel && window.settingsPanel.classList.contains('active') &&
+        !isSettingsPanelElement &&
+        !isSettingsButton) {
+        
+        if (window.VERBOSE_LOGGING) console.info('Outside click detected, closing settings panel');
+        
+        // Restore original personality value if the user didn't click "Set Personality"
+        if (window.personalityPromptRadio && window.personalityPromptRadio.checked) {
+          window.personalityInput.value = originalPersonalityValue;
+          // Preserve the explicitly-set attribute if the original value was the default personality
+          if (originalPersonalityValue === window.DEFAULT_PERSONALITY) {
+            window.personalityInput.setAttribute('data-explicitly-set', 'true');
+          }
+        }
+        
+        // For custom prompts, restore original value if they didn't click "Set Custom Prompt"
+        if (window.customPromptRadio && window.customPromptRadio.checked && window.systemPromptCustom) {
+          window.systemPromptCustom.value = originalCustomPromptValue;
+        }
+        
+        window.settingsPanel.classList.remove('active');
+        window.settingsButton.setAttribute('aria-expanded', 'false');
+        window.settingsPanel.setAttribute('aria-hidden', 'true');
+        window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
+        window.settingsButton.style.display = ''; // Show the settings button again
+        if (window.historyButton) window.historyButton.style.display = '';
+        if (window.galleryButton) window.galleryButton.style.display = '';
+        window.updateHeaderInfo();
+        window.settingsButton.focus(); // Explicitly move focus
+    }
+    
+    // Close gallery panel when clicking outside, but only if slideshow is not open
+    if (!window.isSlideshowOpen && 
+        window.galleryPanel && window.galleryPanel.getAttribute('aria-hidden') === 'false' &&
+        !window.galleryPanel.contains(e.target) && e.target !== window.galleryButton) {
+        window.galleryPanel.setAttribute('aria-hidden', 'true');
+        window.galleryPanel.setAttribute('inert', 'true'); // Make panel inert when closed
+        window.galleryButton.setAttribute('aria-expanded', 'false');
+        window.galleryButton.focus(); // Explicitly move focus
+    }
+    
+    // Close history panel when clicking outside
+    if (window.historyPanel && window.historyButton && 
+        window.historyPanel.getAttribute('aria-hidden') === 'false' &&
+        !window.historyPanel.contains(e.target) && e.target !== window.historyButton) {
+        window.historyPanel.setAttribute('aria-hidden', 'true');
+        window.historyPanel.setAttribute('inert', 'true'); // Make panel inert when closed
+        window.historyButton.setAttribute('aria-expanded', 'false');
+        window.historyButton.focus(); // Explicitly move focus
+    }
+  });
     // Setup TTS event listeners
   setupTtsEventListeners();
   
@@ -189,7 +276,7 @@ function setupSliderEventListeners() {
 /**
  * Setup button event listeners
  */
-function setupButtonEventListeners(originalPersonalityValue, originalCustomPromptValue) {
+function setupButtonEventListeners() {
   // Clear memory button
   if (window.clearMemoryButton) {
     window.clearMemoryButton.addEventListener('click', () => {
@@ -630,71 +717,6 @@ function setupPersonalityPresetEventListeners() {
         }
       }
     });
-  });
-}
-
-/**
- * Setup settings panel outside click handler
- */
-function setupSettingsPanelOutsideClickHandler(originalPersonalityValue, originalCustomPromptValue) {
-  document.addEventListener('click', function(e) {
-    // Enhanced debugging for copy button issues
-    if (window.VERBOSE_LOGGING && e.target.closest('.copy-address')) {
-      console.info('Outside click handler - copy button detected:', {
-        target: e.target,
-        closest: e.target.closest('.copy-address'),
-        defaultPrevented: e.defaultPrevented,
-        cancelBubble: e.cancelBubble,
-        handled: e.handled,
-        timeStamp: e.timeStamp
-      });
-    }
-    
-    // If the event has been marked as handled or propagation stopped, don't do anything
-    if (e.defaultPrevented || e.cancelBubble || e.handled) {
-      if (window.VERBOSE_LOGGING) console.info('Outside click handler: event already handled/prevented');
-      return;
-    }
-    
-    // Also check if the event came from a copy button specifically
-    const isCopyButton = e.target.closest('.copy-address');
-    if (isCopyButton) {
-      if (window.VERBOSE_LOGGING) console.info('Outside click handler: ignoring copy button click');
-      return;
-    }
-    
-    // Check if click target is a settings panel element
-    const isSettingsPanelElement = window.settingsPanel && window.settingsPanel.contains(e.target);
-    
-    // Check if click target is the settings button
-    const isSettingsButton = e.target === window.settingsButton;
-    
-    if (window.settingsPanel && window.settingsPanel.classList.contains('active') &&
-        !isSettingsPanelElement &&
-        !isSettingsButton) {
-        
-        if (window.VERBOSE_LOGGING) console.info('Outside click detected, closing settings panel');
-        
-        // Restore original personality value if the user didn't click "Set Personality"
-        if (window.personalityPromptRadio && window.personalityPromptRadio.checked) {
-          window.personalityInput.value = originalPersonalityValue;
-        }
-        
-        // For custom prompts, restore original value if they didn't click "Set Custom Prompt"
-        if (window.customPromptRadio && window.customPromptRadio.checked && window.systemPromptCustom) {
-          window.systemPromptCustom.value = originalCustomPromptValue;
-        }
-        
-        window.settingsPanel.classList.remove('active');
-        window.settingsButton.setAttribute('aria-expanded', 'false');
-        window.settingsPanel.setAttribute('aria-hidden', 'true');
-        window.settingsPanel.setAttribute('inert', 'true'); // Make panel inert when hidden
-        window.settingsButton.style.display = ''; // Show the settings button again
-        if (window.historyButton) window.historyButton.style.display = '';
-        if (window.galleryButton) window.galleryButton.style.display = '';
-        window.updateHeaderInfo();
-        window.settingsButton.focus(); // Explicitly move focus
-    }
   });
 }
 
