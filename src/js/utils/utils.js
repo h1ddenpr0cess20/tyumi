@@ -264,57 +264,16 @@ window.loadImageFromTemp = function(filename) {
 };
 
 /**
- * Debug function to check reasoning/thinking containers
+ * Debug function to check thinking containers
  */
-window.debugReasoningContainers = function() {
+window.debugThinkingContainers = function() {
   const thinkingContainers = document.querySelectorAll('.thinking-container');
-  const reasoningContainers = document.querySelectorAll('.reasoning-container');
   
-  console.log('=== Reasoning/Thinking Container Debug ===');
+  console.log('=== Thinking Container Debug ===');
   console.log(`Found ${thinkingContainers.length} thinking containers`);
-  console.log(`Found ${reasoningContainers.length} reasoning containers`);
   
   thinkingContainers.forEach((container, index) => {
     const isCollapsed = container.classList.contains('collapsed');
     console.log(`Thinking container ${index} (${container.id}): ${isCollapsed ? 'collapsed' : 'expanded'}`);
   });
-  
-  reasoningContainers.forEach((container, index) => {
-    const isCollapsed = container.classList.contains('collapsed');
-    console.log(`Reasoning container ${index}: ${isCollapsed ? 'collapsed' : 'expanded'}`);
-  });
 };
-
-/**
- * Bug Fix Summary for Reasoning Sections in Chat History
- * 
- * Issue: When loading chat history, reasoning sections were opening/closing unexpectedly
- * when clicking on one section would affect others.
- * 
- * Root Causes Found:
- * 1. Event bubbling was not being prevented in the toggleThinking function
- * 2. Missing CSS rules for reasoning-container class used in chat history loading
- * 3. Inconsistency between live streaming (thinking-container) and history loading (reasoning-container)
- * 
- * Fixes Applied:
- * 1. Enhanced toggleThinking function with event.stopPropagation()
- * 2. Updated all onclick handlers to pass event parameter
- * 3. Added complete CSS rules for reasoning-container and reasoning-toggle classes
- * 4. Added debug function for troubleshooting
- * 
- * Files Modified:
- * - js/utils/utils.js (toggleThinking function and debug function)
- * - js/services/streaming.js (onclick handlers updated)
- * - css/components/layout/messages.css (added reasoning container styles)
- */
-
-/**
- * Add a copy button to the code block
- * NOTE: This implementation is overridden by the one in highlight.js
- * Keeping this comment for documentation purposes only.
- * @see highlight.js for the actual implementation
- * @param {HTMLElement} codeBlock - The code block element to add the copy button to
- */
-
-
-// End of utility functions

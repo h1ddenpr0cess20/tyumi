@@ -1,34 +1,80 @@
-/* Message styles */
+/* Message styles with side icons */
 .message {
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
   width: 100%;
-  color: var(--text-primary);
+  gap: 12px;
   animation: fadeIn 0.3s ease-out;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.user {
+.message-content {
+  padding: 20px 16px 0px 16px;
+  border-radius: 12px;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  min-width: 0; /* Allows content to shrink */
+}
+
+.user .message-content {
   background-color: var(--user-bg);
 }
 
-.assistant {
+.assistant .message-content {
   background-color: var(--assistant-bg);
 }
 
-.error {
+.error .message-content {
   background-color: var(--error-bg);
   color: var(--error-text);
 }
 
-/* Sender name styles */
-.message-sender {
-  font-weight: 800;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  color: var(--text-secondary);
+/* User messages: icon on right side */
+.message.user {
+  flex-direction: row-reverse;
 }
+
+.message.user .message-content {
+  margin-right: 0;
+}
+
+/* Assistant messages: icon on left side */
+.message.assistant {
+  flex-direction: row;
+}
+
+.message.assistant .message-content {
+  margin-left: 0;
+}
+
+/* Sender icon styles */
+.message-sender {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px; /* Slight offset to align with first line of text */
+}
+
+.sender-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.user-icon {
+  color: var(--accent-color);
+  width: 24px;
+  height: 24px;
+}
+
+.assistant-icon {
+  color: var(--accent-hover);
+}
+
+/* Remove sender-text since we're not using it anymore */
 
 /* Base message content styles */
 .message-content {
@@ -539,17 +585,14 @@
 .thinking-container {
   background-color: var(--bg-secondary);
   border-radius: 6px;
-  padding: 0px 8px;
-  margin: 8px 0;
   font-size: 0.9rem;
-  line-height: 1.0; /* Tight line-height for reasoning */
+  line-height: 1.0; /* Tight line-height for thinking */
   color: var(--text-secondary);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .thinking-container:not(.collapsed) {
-  padding: 0px 8px;
   margin-bottom: 16px;
 }
 
@@ -590,11 +633,9 @@
 
 /* Collapsed state styling */
 .thinking-container.collapsed {
-  padding: 0px 8px;
   background-color: transparent;
-  height: auto;
+  height: min-content;
   overflow: visible;
-  border-bottom: 1px solid transparent; /* Optional: can remove if not needed */
 }
 
 .thinking-container.collapsed .thinking-title {
@@ -644,73 +685,6 @@
   height: 0;
   width: 0;
   overflow: hidden;
-}
-
-/* Reasoning containers (used in chat history loading) - mirror thinking container styles */
-.reasoning-container {
-  background-color: var(--bg-secondary);
-  border-radius: 6px;
-  padding: 0px 8px;
-  margin: 8px 0;
-  font-size: 0.9rem;
-  line-height: 1.0;
-  color: var(--text-secondary);
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.reasoning-container:not(.collapsed) {
-  padding: 0px 8px;
-  margin-bottom: 16px;
-}
-
-.reasoning-container.collapsed {
-  padding: 0px 8px;
-  background-color: transparent;
-  height: auto;
-  overflow: visible;
-  border-bottom: 1px solid transparent;
-}
-
-.reasoning-toggle {
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--accent-color);
-  font-size: 0.9rem;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  padding: 2px 0;
-  background: none;
-  border: none;
-}
-
-.reasoning-toggle .toggle-icon {
-  margin-right: 6px;
-  font-size: 0.75rem;
-  transition: transform 0.3s;
-  color: var(--accent-color);
-}
-
-.reasoning-toggle .toggle-label {
-  font-size: 0.75rem;
-  font-weight: normal;
-  opacity: 0.7;
-  color: var(--text-secondary);
-  margin-left: auto;
-  padding-left: 10px;
-}
-
-.reasoning-container.collapsed .reasoning-content {
-  display: none;
-}
-
-.reasoning-content {
-  max-height: 250px;
-  overflow-y: auto;
-  padding-right: 5px;
-  display: block;
 }
 
 /* Generated image thumbnail styling */
@@ -781,32 +755,37 @@
 
 .message.user {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row-reverse;
+  align-items: flex-start;
   text-align: right;
   align-self: flex-end;
   max-width: 70vw;
   width: auto;
   min-width: 0;
+  gap: 12px;
 }
 
 .message.assistant {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   text-align: left;
   align-self: flex-start;
   max-width: 70vw;
   width: auto;
   min-width: 0;
+  gap: 12px;
 }
 
-.message.user .message-sender,
-.message.user .message-content {
-  align-self: flex-end;
+/* Enhanced icon colors for different message types */
+.message.user .user-icon {
+  color: var(--accent-color);
 }
 
-.message.assistant .message-sender,
-.message.assistant .message-content {
-  align-self: flex-start;
+.message.assistant .assistant-icon {
+  color: var(--accent-hover);
+}
+
+.message.error .sender-icon {
+  color: var(--error-text);
 }
