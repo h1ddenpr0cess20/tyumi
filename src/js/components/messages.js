@@ -175,6 +175,11 @@ window.appendMessage = function(sender, message, role, skipHistory = false) {
   // Apply syntax highlighting to code blocks
   window.highlightAndAddCopyButtons(messageElement);
   
+  // Add copy button to the message
+  if (typeof window.addMessageCopyButton === 'function') {
+    window.addMessageCopyButton(messageElement, messageId);
+  }
+  
   // Setup image interactions if any
   if (typeof window.setupImageInteractions === 'function') {
     window.setupImageInteractions(contentWrapper);
@@ -364,7 +369,21 @@ window.updateMessageContent = function(messageElement, contentObj) {
 window.getRawMessageContent = function(messageId) {
   if (!window.conversationHistory) return '';
   const entry = window.conversationHistory.find(msg => msg.id === messageId);
-  return entry ? entry.content || '' : '';
+  if (entry) {
+    return entry.content || '';
+  }
+  
+  // If not found in conversation history, check if we can get it from the DOM
+  const messageElement = document.getElementById(messageId);
+  if (messageElement) {
+    const contentElement = messageElement.querySelector('.message-content');
+    if (contentElement) {
+      // Get text content, stripping HTML but preserving basic structure
+      return contentElement.innerText || contentElement.textContent || '';
+    }
+  }
+  
+  return '';
 };
 
 /**
@@ -374,8 +393,9 @@ window.getRawMessageContent = function(messageId) {
  */
 window.addMessageCopyButton = function(messageElement, messageId) {
   if (!messageElement) return;
-  const wrapper = messageElement.querySelector('.message-content');
-  if (!wrapper || wrapper.querySelector('.message-copy-btn')) return;
+  // Check if copy button already exists on this message
+  if (messageElement.querySelector('.message-copy-btn')) return;
+  
   const btn = document.createElement('button');
   btn.className = 'message-copy-btn';
   btn.setAttribute('aria-label', 'Copy message');
@@ -393,5 +413,6 @@ window.addMessageCopyButton = function(messageElement, messageId) {
       navigator.clipboard.writeText(raw);
     }
   });
-  wrapper.appendChild(btn);
+  // Append to the message element itself so it can be positioned outside the bubble
+  messageElement.appendChild(btn);
 };

@@ -791,7 +791,15 @@ function renderConversationMessages(convo, imageCache) {
     }
     if (msg.role === 'user') {
       const processed = replaceImagePlaceholders(msg.content, convo, imageCache);
-      window.appendMessage('You', processed, 'user', true);
+      const userElement = window.appendMessage('You', processed, 'user', true);
+      // Ensure we have the proper message ID and add copy button
+      if (userElement && typeof window.addMessageCopyButton === 'function') {
+        const messageId = msg.id || userElement.id;
+        if (msg.id) {
+          userElement.id = msg.id;
+        }
+        window.addMessageCopyButton(userElement, messageId);
+      }
     } else if (msg.role === 'assistant') {
       const messageElement = document.createElement('div');
       messageElement.classList.add('message', 'assistant');
@@ -908,6 +916,12 @@ function renderConversationMessages(convo, imageCache) {
       const contentObj = { content: displayContent, reasoning };
       window.updateMessageContent(messageElement, contentObj);
       window.highlightAndAddCopyButtons(messageElement);
+      
+      // Add copy button to the message
+      if (typeof window.addMessageCopyButton === 'function') {
+        window.addMessageCopyButton(messageElement, messageId);
+      }
+      
       if (window.setupImageInteractions) {
         window.setupImageInteractions(contentWrapper);
       }
