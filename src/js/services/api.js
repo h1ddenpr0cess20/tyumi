@@ -253,7 +253,7 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
       .filter(msg => msg.role !== 'system' && msg.role !== 'developer')
       .slice(-(maxContext * 2));
 
-    if (uploads.length > 0 && rawMessages.length > 0 && rawMessages[rawMessages.length - 1].role === 'user') {
+    if (uploads.length > 0 && !shouldExcludeImages && rawMessages.length > 0 && rawMessages[rawMessages.length - 1].role === 'user') {
       rawMessages.pop(); // replace with image-based message below
     }
     
