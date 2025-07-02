@@ -82,7 +82,7 @@
 .message-content {
   font-size: 1.1rem;
   line-height: 1.0;
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   overflow-wrap: break-word;
   word-break: break-word;
 }
