@@ -169,7 +169,9 @@ window.sendMessage = async function() {
     const supportsVision = currentModelSupportsVision();
     const shouldExcludeImages = uploads.length > 0 && !supportsVision;
     
-    const { requestBody, headers } = window.prepareRequestData(message, uploads, shouldExcludeImages);
+    // Use the historyContent (which includes placeholders) for the API call
+    const messageWithPlaceholders = placeholders.length > 0 ? `${placeholders.join('\n')}\n\n${message}` : message;
+    const { requestBody, headers } = window.prepareRequestData(messageWithPlaceholders, uploads, shouldExcludeImages);
 
     // Ensure an API key is configured before proceeding (except for Ollama)
     const currentService = window.config.defaultService;
