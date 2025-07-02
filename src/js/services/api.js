@@ -155,9 +155,11 @@ window.getCurrentDateTime = function() {
 /**
  * Prepares the request data for API call
  * @param {string} message - The user message
+ * @param {Array} uploads - Array of uploaded files
+ * @param {boolean} shouldExcludeImages - Whether to exclude images from the API call
  * @returns {Object} - Object containing requestBody and headers
  */
-window.prepareRequestData = function(message, uploads = []) {
+window.prepareRequestData = function(message, uploads = [], shouldExcludeImages = false) {
   const model = this.modelSelector.value;
   const temperature = parseFloat(this.temperatureSlider.value);
   const topP = parseFloat(this.topPSlider.value);
@@ -281,7 +283,7 @@ window.prepareRequestData = function(message, uploads = []) {
 
   const apiMessages = [...contextMessages];
 
-  if (uploads.length > 0) {
+  if (uploads.length > 0 && !shouldExcludeImages) {
     const imageParts = uploads.map(up => ({
       type: 'image_url',
       image_url: { url: up.dataUrl }
@@ -292,6 +294,12 @@ window.prepareRequestData = function(message, uploads = []) {
         { type: 'text', text: message },
         ...imageParts
       ]
+    });
+  } else {
+    // Add just the text message without images
+    apiMessages.push({
+      role: 'user', 
+      content: message
     });
   }
 

@@ -3,6 +3,20 @@
  */
 
 // -----------------------------------------------------
+// Helper functions
+// -----------------------------------------------------
+
+/**
+ * Checks if the current model/service supports vision capabilities
+ * @returns {boolean} - True if the current model supports vision
+ */
+function currentModelSupportsVision() {
+  const currentService = window.config.defaultService;
+  // Assume all services support vision except xAI (Grok)
+  return currentService !== 'xai';
+}
+
+// -----------------------------------------------------
 // Message sending and related functionality
 // -----------------------------------------------------
 
@@ -113,7 +127,12 @@ window.sendMessage = async function() {
   try {
     // Get API endpoint and prepare request data
     const apiEndpoint = window.getApiEndpoint();
-    const { requestBody, headers } = window.prepareRequestData(message, uploads);
+    
+    // Check if current model supports vision and exclude images if not
+    const supportsVision = currentModelSupportsVision();
+    const shouldExcludeImages = uploads.length > 0 && !supportsVision;
+    
+    const { requestBody, headers } = window.prepareRequestData(message, uploads, shouldExcludeImages);
 
     // Ensure an API key is configured before proceeding (except for Ollama)
     const currentService = window.config.defaultService;
