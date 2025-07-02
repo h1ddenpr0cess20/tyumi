@@ -12,8 +12,45 @@
  */
 function currentModelSupportsVision() {
   const currentService = window.config.defaultService;
-  // Assume all services support vision except xAI (Grok)
-  return currentService !== 'xai';
+  
+  // xAI (Grok) doesn't support vision
+  if (currentService === 'xai') {
+    return false;
+  }
+  
+  // For Ollama, check if the current model is a vision model
+  if (currentService === 'ollama') {
+    const model = window.modelSelector ? window.modelSelector.value : '';
+    if (!model) return false;
+    
+    // List of vision models available in Ollama (based on ollama.com/search?c=vision)
+    const ollamaVisionModels = [
+      'mistral-small3.2',
+      'qwen2.5vl',
+      'mistral-small3.1',
+      'llama4',
+      'gemma3',
+      'granite3.2-vision',
+      'llama3.2-vision',
+      'minicpm-v',
+      'llava-phi3',
+      'llava-llama3',
+      'moondream',
+      'bakllava',
+      'llava'
+    ];
+    
+    // Check if the current model matches any vision model (case-insensitive)
+    const modelLower = model.toLowerCase();
+    return ollamaVisionModels.some(visionModel => 
+      modelLower.includes(visionModel.toLowerCase()) || 
+      modelLower.startsWith(visionModel.toLowerCase())
+    );
+  }
+  
+  // For other services (OpenAI, Anthropic, etc.), assume they support vision
+  // Most modern API services have vision-capable models
+  return true;
 }
 
 // -----------------------------------------------------
