@@ -353,7 +353,18 @@ window.loadConversation = function(id) {
   function loadConversationIntoUI(convo) {
     // Save data
     window.conversationHistory = convo.messages || [];
-    window.generatedImages = convo.images || [];
+    // Deduplicate images by filename when loading
+    const images = Array.isArray(convo.images) ? convo.images : [];
+    const dedupedImages = [];
+    const seen = new Set();
+    images.forEach(img => {
+      const name = img && img.filename;
+      if (!name || !seen.has(name)) {
+        if (name) seen.add(name);
+        dedupedImages.push(img);
+      }
+    });
+    window.generatedImages = dedupedImages;
     window.currentConversationId = convo.id;
     window.currentConversationName = convo.name;
     window.loadedSystemPrompt = convo.systemPrompt; // Store the loaded system prompt
