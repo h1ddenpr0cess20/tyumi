@@ -16,19 +16,21 @@ async function extractThemesFromCSS() {
   const categories = {
     'Dark Themes': [],
     'Light Themes': [],
-    'Metal Themes': [],
-    'Neon Themes': [],
-    'Country Themes': [],
-    'Special Themes': []
+    // Deactivated theme categories - files kept but not loaded in interface
+    // 'Metal Themes': [],
+    // 'Neon Themes': [],
+    // 'Country Themes': [],
+    // 'Special Themes': []
   };
 
   const themeFiles = {
     'Dark Themes': '/src/css/themes/base/dark.css',
     'Light Themes': '/src/css/themes/base/light.css',
-    'Metal Themes': '/src/css/themes/base/metal.css',
-    'Neon Themes': '/src/css/themes/base/neon.css',
-    'Country Themes': '/src/css/themes/base/country.css',
-    'Special Themes': '/src/css/themes/base/special.css'
+    // Deactivated theme files - kept in folders but not loaded
+    // 'Metal Themes': '/src/css/themes/base/metal.css',
+    // 'Neon Themes': '/src/css/themes/base/neon.css',
+    // 'Country Themes': '/src/css/themes/base/country.css',
+    // 'Special Themes': '/src/css/themes/base/special.css'
   };
 
   for (const [category, filePath] of Object.entries(themeFiles)) {

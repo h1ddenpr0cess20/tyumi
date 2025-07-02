@@ -3,26 +3,28 @@
 /* Import variables first */
 @import url('./themes/variables.css');
 
-/* Import base themes */
+/* Import base themes - only dark and light active */
 @import url('./themes/base/base.css');
 @import url('./themes/base/dark.css');
 @import url('./themes/base/light.css');
-@import url('./themes/base/metal.css');
-@import url('./themes/base/neon.css');
-@import url('./themes/base/special.css');
-@import url('./themes/base/country.css');
+/* Deactivated themes - files kept in folders but not loaded */
+/* @import url('./themes/base/metal.css'); */
+/* @import url('./themes/base/neon.css'); */
+/* @import url('./themes/base/special.css'); */
+/* @import url('./themes/base/country.css'); */
 
 /* Import fonts */
 @import url('./themes/fonts/fonts.css');
 
-/* Import code themes */
+/* Import code themes - only dark and light active */
 @import url('./themes/code/base.css');
 @import url('./themes/code/dark.css');
 @import url('./themes/code/light.css');
-@import url('./themes/code/metal.css');
-@import url('./themes/code/neon.css');
-@import url('./themes/code/special.css');
-@import url('./themes/code/country.css');
+/* Deactivated code themes - files kept in folders but not loaded */
+/* @import url('./themes/code/metal.css'); */
+/* @import url('./themes/code/neon.css'); */
+/* @import url('./themes/code/special.css'); */
+/* @import url('./themes/code/country.css'); */
 
 /* Base styles */
 @import url('./global.css');
