@@ -107,6 +107,21 @@ window.loadFromUrl = function() {
 // Chat History Management
 // -----------------------------------------------------
 
+// Utility to remove duplicate images by filename
+function dedupeImages(images) {
+  if (!Array.isArray(images)) return [];
+  const unique = [];
+  const seen = new Set();
+  images.forEach(img => {
+    const name = img && img.filename;
+    if (name && !seen.has(name)) {
+      seen.add(name);
+      unique.push(img);
+    }
+  });
+  return unique;
+}
+
 // Get all saved conversations
 window.getAllConversations = function() {
   return window.getAllConversationsFromDb();
@@ -123,6 +138,11 @@ window.saveCurrentConversation = function(meta = {}) {
     if (window.VERBOSE_LOGGING && updatedCount > 0) {
       console.info(`Associated ${updatedCount} images with messages before saving`);
     }
+  }
+
+  // Deduplicate images by filename before saving
+  if (Array.isArray(window.generatedImages) && window.generatedImages.length > 1) {
+    window.generatedImages = dedupeImages(window.generatedImages);
   }
   
   const now = new Date();
@@ -355,16 +375,7 @@ window.loadConversation = function(id) {
     window.conversationHistory = convo.messages || [];
     // Deduplicate images by filename when loading
     const images = Array.isArray(convo.images) ? convo.images : [];
-    const dedupedImages = [];
-    const seen = new Set();
-    images.forEach(img => {
-      const name = img && img.filename;
-      if (!name || !seen.has(name)) {
-        if (name) seen.add(name);
-        dedupedImages.push(img);
-      }
-    });
-    window.generatedImages = dedupedImages;
+    window.generatedImages = dedupeImages(images);
     window.currentConversationId = convo.id;
     window.currentConversationName = convo.name;
     window.loadedSystemPrompt = convo.systemPrompt; // Store the loaded system prompt
