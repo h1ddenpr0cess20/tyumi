@@ -290,6 +290,18 @@ window.stripBase64FromHistory = function(messageId, placeholders = []) {
   if (!entry || entry.role !== 'user') return;
 
   let textPart = entry.content || '';
+  
+  // Check if placeholders already exist in the content
+  const existingPlaceholders = placeholders.filter(placeholder => 
+    textPart.includes(placeholder)
+  );
+  
+  // If all placeholders already exist, just remove base64 data
+  if (existingPlaceholders.length === placeholders.length) {
+    entry.content = textPart.replace(/data:image\/[^;]+;base64,[^\s]+/g, '').trim();
+    return;
+  }
+  
   // Remove any base64 image data
   textPart = textPart.replace(/data:image\/[^;]+;base64,[^\s]+/g, '').trim();
   const placeholderText = placeholders.join('\n');
