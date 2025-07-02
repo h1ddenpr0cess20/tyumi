@@ -295,13 +295,7 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
         ...imageParts
       ]
     });
-  } else {
-    // Add just the text message without images
-    apiMessages.push({
-      role: 'user', 
-      content: message
-    });
-  }
+  } 
 
   if (window.VERBOSE_LOGGING) {
     console.info('Current context messages:', apiMessages);

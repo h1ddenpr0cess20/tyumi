@@ -138,8 +138,8 @@ window.config = {
         google: {
             baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
             apiKey: '',
-            models: ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash', 'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite-preview-06-17'],
-            defaultModel: 'gemini-2.5-flash-preview-04-17',
+            models: ['gemini-2.0-flash', 'gemini-2.0-flash', 'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite-preview-06-17'],
+            defaultModel: 'gemini-2.5-flash',
         },
         
         // Anthropic API (Claude)
@@ -217,6 +217,13 @@ window.config = {
                             
                             if (this.models.length === 0) {
                                 this.models = ['No models found on server'];
+                            } else {
+                                // If the current default model is not in the fetched models, 
+                                // and we have valid models, optionally update the default
+                                const validModels = this.models.filter(model => !model.startsWith('Error:') && !model.startsWith('No models'));
+                                if (validModels.length > 0 && !this.models.includes(this.defaultModel)) {
+                                    console.info(`Current default model '${this.defaultModel}' not found in fetched models. Available models:`, validModels);
+                                }
                             }
                             console.info('Successfully updated Ollama models:', this.models);
                         } else {
@@ -267,9 +274,22 @@ window.config = {
     
     // Helper to get the default model for the current service
     getDefaultModel: function() {
-        const defaultModel = this.getActiveService().defaultModel;
+        const activeService = this.getActiveService();
+        const defaultModel = activeService.defaultModel;
         
-        // For now, just return the default model as is
+        // For Ollama, check if the default model is available in the fetched models list
+        if (this.defaultService === 'ollama' && Array.isArray(activeService.models) && activeService.models.length > 0) {
+            // If the default model is not in the available models list, use the first available model
+            if (!activeService.models.includes(defaultModel)) {
+                // Filter out error messages and use the first valid model
+                const validModels = activeService.models.filter(model => !model.startsWith('Error:') && !model.startsWith('No models'));
+                if (validModels.length > 0) {
+                    console.info(`Default model '${defaultModel}' not found in Ollama models. Using first available model: '${validModels[0]}'`);
+                    return validModels[0];
+                }
+            }
+        }
+        
         return defaultModel;
     },
     

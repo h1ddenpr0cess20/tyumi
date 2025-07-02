@@ -221,9 +221,9 @@
   position: absolute;
   top: 5px;  /* Position in top-right corner */
   right: 5px;
-  background-color: rgba(var(--accent-color-rgb, 102, 102, 102), 0.5);
-  color: var(--button-text-color);
-  border: 1px solid rgba(var(--border-color-rgb, 64, 64, 64), 0.5);
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 0px transparent;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -234,17 +234,14 @@
   opacity: 0;
   transition: all 0.2s ease;
   z-index: 2;
-  backdrop-filter: blur(4px);
+  
 }
 
 .image-container:hover .image-download-btn {
   opacity: 1;
 }
 
-.image-download-btn:hover {
-  background-color: rgba(var(--accent-hover-rgb, 136, 136, 136), 0.8);
-  transform: scale(1.05);
-}
+
 
 .image-download-btn svg {
   width: 22px;
