@@ -130,8 +130,8 @@ window.config = {
         xai: {
             baseUrl: 'https://api.x.ai/v1',
             apiKey: '',
-            models: ['grok-3-mini-fast-latest', 'grok-3-mini-latest', 'grok-3-fast-latest', 'grok-3-latest'],
-            defaultModel: 'grok-3-latest',
+            models: ['grok-3-mini-fast', 'grok-3-mini', 'grok-3-fast', 'grok-3'],
+            defaultModel: 'grok-3',
         },
         
         // Google's Gemini API

@@ -60,6 +60,9 @@ window.sendMessage = async function() {
     id: userId,
     timestamp: new Date().toISOString()
   });
+  if (typeof window.addMessageCopyButton === 'function') {
+    window.addMessageCopyButton(userElement, userId);
+  }
   if (uploads.length > 0) {
     window.generatedImages = window.generatedImages || [];
     for (const up of uploads) {

@@ -117,7 +117,7 @@
     #chat-box {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 80px;
+    padding: 0 36px 80px 36px; /* Add horizontal padding for external copy buttons */
   }
   
   #tyumi-logo {
@@ -266,6 +266,41 @@
   
   .prompt-container:empty::after {
     display: none;
+  }
+}
+
+/* Mobile responsive positioning for message copy buttons */
+@media screen and (max-width: 768px) {
+  .message-copy-btn {
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+  }
+  
+  /* Position outside bubble for smaller screens */
+  .message.assistant .message-copy-btn {
+    right: -32px;
+  }
+  
+  .message.user .message-copy-btn {
+    left: -32px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .message-copy-btn {
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+  }
+  
+  /* Position closer to bubble on very small screens */
+  .message.assistant .message-copy-btn {
+    right: -28px;
+  }
+  
+  .message.user .message-copy-btn {
+    left: -28px;
   }
 }
 
