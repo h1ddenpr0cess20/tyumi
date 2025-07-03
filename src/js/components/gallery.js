@@ -389,7 +389,13 @@ window.deleteImageAndUpdateGallery = async function(filename) {
  * @param {string} imageData - Base64 image data
  * @param {string} filename - The filename to save as
  */
+// Flag to prevent duplicate downloads on some mobile browsers
+window.isGalleryDownloading = false;
+
 window.downloadGalleryImage = function(imageData, filename) {
+    if (window.isGalleryDownloading) return;
+    window.isGalleryDownloading = true;
+
     const a = document.createElement('a');
     a.href = imageData;
     a.download = filename || 'image.png';
@@ -397,6 +403,11 @@ window.downloadGalleryImage = function(imageData, filename) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+
+    // Reset the flag shortly after triggering the download
+    setTimeout(() => {
+        window.isGalleryDownloading = false;
+    }, 500);
 };
 
 /**
