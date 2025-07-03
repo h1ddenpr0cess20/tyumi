@@ -81,8 +81,8 @@
 /* Base message content styles */
 .message-content {
   font-size: 1.1rem;
-  line-height: 2.0;
-  /* white-space: pre-wrap; */
+  line-height: .85;
+  white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
 }
