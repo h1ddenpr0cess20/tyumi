@@ -512,8 +512,15 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
       ? new Date(timestamp).toLocaleDateString() + ' ' + new Date(timestamp).toLocaleTimeString() 
       : 'Unknown date';
     
+    // Check if this is an uploaded image and handle prompt display accordingly
+    const isUploaded = filename && filename.startsWith('upload-');
+    let displayPrompt = prompt;
+    if (isUploaded) {
+      displayPrompt = 'User uploaded image - no prompt available';
+    }
+    
     // Format prompt for better display - escape HTML and add soft line breaks for very long prompts
-    const formattedPrompt = prompt
+    const formattedPrompt = displayPrompt
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -523,7 +530,7 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
     // Update info panel with all available metadata
     infoPanel.innerHTML = `
       <h3>Image Details</h3>
-      <p><strong>Prompt:</strong><br><span class="prompt-text">${formattedPrompt}</span></p>
+      <p><strong>${isUploaded ? 'Type:' : 'Prompt:'}</strong><br><span class="prompt-text ${isUploaded ? 'uploaded-info' : ''}">${formattedPrompt}</span></p>
       <p><strong>Date:</strong> ${date}</p>
       <p><strong>Filename:</strong> ${filename}</p>
     `;

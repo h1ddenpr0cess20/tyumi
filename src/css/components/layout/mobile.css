@@ -685,6 +685,16 @@
   #gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
+  
+  .gallery-tab {
+    font-size: 0.8rem;
+    padding: 10px 12px;
+  }
+  
+  .gallery-tab svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -718,6 +728,18 @@
   .settings-tabs {
     padding: 0 4px 0 2px;
   }
+  
+  .gallery-tab {
+    font-size: 0.75rem;
+    padding: 8px 6px;
+    gap: 4px;
+  }
+  
+  .gallery-tab svg {
+    width: 10px;
+    height: 10px;
+  }
+  
   .about-content {
     padding: 10px 0;
   }

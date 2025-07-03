@@ -92,6 +92,45 @@
   background-color: var(--button-hover-bg);
 }
 
+/* Gallery tabs */
+.gallery-tabs {
+  display: flex;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.gallery-tab {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+
+.gallery-tab:hover {
+  background-color: var(--hover-color);
+  color: var(--text-primary);
+}
+
+.gallery-tab.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+  background-color: var(--bg-primary);
+}
+
+.gallery-tab svg {
+  flex-shrink: 0;
+}
+
 /* Gallery grid */
 #gallery-grid {
   display: grid;
@@ -278,6 +317,13 @@
   max-width: 250px; /* Increased from 80px to 250px to show more text */
 }
 
+/* Uploaded image label styling */
+.truncated-prompt.uploaded-label {
+  color: var(--accent-color);
+  font-weight: 500;
+  font-style: italic;
+}
+
 /* Gallery empty & loading states */
 .gallery-empty,
 .gallery-loading,
@@ -289,6 +335,13 @@
   background-color: var(--hover-color);
   border-radius: 8px;
   font-style: italic;
+}
+
+.gallery-empty small {
+  display: block;
+  margin-top: 8px;
+  opacity: 0.7;
+  font-size: 0.8rem;
 }
 
 .gallery-loading {
@@ -487,6 +540,12 @@
   font-style: italic;
   opacity: 0.95;
   line-height: 1.4;
+}
+
+/* Uploaded image info styling in slideshow */
+.gallery-slideshow-info .prompt-text.uploaded-info {
+  color: var(--accent-color);
+  font-weight: 500;
 }
 
 /* Bulk delete indicator styling */

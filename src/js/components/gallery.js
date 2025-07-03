@@ -67,6 +67,10 @@ window.initGallery = function() {
             window.bulkDeleteSelectedImages();
         });
     }
+    
+    // Initialize gallery tabs
+    initializeGalleryTabs();
+    
     // Note: Outside click handling for all panels (gallery, settings, history) 
     // is consolidated in eventListeners.js to avoid conflicts
 };
@@ -118,10 +122,39 @@ window.loadGalleryImages = async function() {
     try {
         // Get all image keys from IndexedDB
         const images = await window.getAllImagesFromDb();
-        const visibleImages = images.filter(img => !img.filename.startsWith('upload-'));
+        
+        // Filter images based on current tab
+        const currentTab = window.currentGalleryTab || 'generated';
+        let visibleImages;
+        
+        if (currentTab === 'uploaded') {
+            // Show only uploaded images
+            visibleImages = images.filter(img => img.filename && img.filename.startsWith('upload-'));
+        } else {
+            // Show only generated images (not uploaded)
+            visibleImages = images.filter(img => !img.filename || !img.filename.startsWith('upload-'));
+        }
+
+        // Update individual tab counts
+        const generatedImages = images.filter(img => !img.filename || !img.filename.startsWith('upload-'));
+        const uploadedImages = images.filter(img => img.filename && img.filename.startsWith('upload-'));
+        
+        const generatedCount = document.getElementById('generated-count');
+        const uploadedCount = document.getElementById('uploaded-count');
+        const galleryCount = document.getElementById('gallery-count');
+        
+        if (generatedCount) generatedCount.textContent = generatedImages.length;
+        if (uploadedCount) uploadedCount.textContent = uploadedImages.length;
+        if (galleryCount) galleryCount.textContent = visibleImages.length;
 
         if (!visibleImages || visibleImages.length === 0) {
-            galleryGrid.innerHTML = '<div class="gallery-empty">No images found in gallery</div>';
+            let emptyMessage;
+            if (currentTab === 'uploaded') {
+                emptyMessage = 'No uploaded images found.<br><small>Upload images using the 📎 button in the chat.</small>';
+            } else {
+                emptyMessage = 'No generated images found.<br><small>Generate images by asking the AI to create images for you.</small>';
+            }
+            galleryGrid.innerHTML = `<div class="gallery-empty">${emptyMessage}</div>`;
             return;
         }
         
@@ -138,12 +171,6 @@ window.loadGalleryImages = async function() {
         
         // Clear placeholders
         galleryGrid.innerHTML = '';
-        
-        // Update gallery count
-        const galleryCount = document.getElementById('gallery-count');
-        if (galleryCount) {
-            galleryCount.textContent = visibleImages.length;
-        }
         
         // Process images in batches to not block the UI
         const batchSize = 10;
@@ -228,13 +255,23 @@ window.loadGalleryImages = async function() {
                     window.downloadGalleryImage(image.data, image.filename);
                 });
                 
-                // Add prompt truncated text (first few words)
+                // Add prompt truncated text (first few words) or "uploaded" label
                 const truncatedPrompt = document.createElement('div');
                 truncatedPrompt.className = 'truncated-prompt';
-                truncatedPrompt.title = image.prompt || 'No prompt data';
-                truncatedPrompt.textContent = image.prompt ? 
-                    (image.prompt.length > 50 ? image.prompt.substring(0, 50) + '...' : image.prompt) : 
-                    'No prompt';
+                
+                // Check if this is an uploaded image
+                const isUploaded = image.filename && image.filename.startsWith('upload-');
+                
+                if (isUploaded) {
+                    truncatedPrompt.textContent = 'Uploaded Image';
+                    truncatedPrompt.title = 'User uploaded image';
+                    truncatedPrompt.classList.add('uploaded-label');
+                } else {
+                    truncatedPrompt.title = image.prompt || 'No prompt data';
+                    truncatedPrompt.textContent = image.prompt ? 
+                        (image.prompt.length > 50 ? image.prompt.substring(0, 50) + '...' : image.prompt) : 
+                        'No prompt';
+                }
                 
                 itemFooter.appendChild(truncatedPrompt);
                 itemFooter.appendChild(actions);
@@ -454,4 +491,57 @@ window.bulkDeleteSelectedImages = async function() {
         // Reload the gallery
         window.loadGalleryImages();
     }
+};
+
+/**
+ * Initialize gallery tabs functionality
+ */
+function initializeGalleryTabs() {
+    // Set the current active tab (default to 'generated')
+    window.currentGalleryTab = 'generated';
+    
+    // Get tab elements
+    const generatedTab = document.getElementById('gallery-tab-generated');
+    const uploadedTab = document.getElementById('gallery-tab-uploaded');
+    
+    if (!generatedTab || !uploadedTab) {
+        console.warn('Gallery tab elements not found');
+        return;
+    }
+    
+    // Add click handlers for tabs
+    generatedTab.addEventListener('click', function() {
+        switchGalleryTab('generated');
+    });
+    
+    uploadedTab.addEventListener('click', function() {
+        switchGalleryTab('uploaded');
+    });
+}
+
+/**
+ * Switch between gallery tabs
+ * @param {string} tabName - 'generated' or 'uploaded'
+ */
+window.switchGalleryTab = function(tabName) {
+    window.currentGalleryTab = tabName;
+    
+    // Update tab active states
+    const tabs = document.querySelectorAll('.gallery-tab');
+    tabs.forEach(tab => {
+        if (tab.dataset.tab === tabName) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+    
+    // Clear any selected checkboxes when switching tabs
+    const checkboxes = document.querySelectorAll('.gallery-select-checkbox:checked');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Reload gallery with the new filter
+    window.loadGalleryImages();
 };
