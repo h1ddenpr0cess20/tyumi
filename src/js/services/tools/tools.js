@@ -101,7 +101,7 @@ window.processToolCalls = async function(response, messages) {
     }
 
     // If this is an image generation tool, collect the image HTML instead of displaying immediately
-    if (["grok_image", "gemini_image", "openai_image", "openai_image_edit"].includes(toolName) && toolResult && toolResult.url) {
+    if (["grok_image", "gemini_image", "openai_image", "openai_image_edit", "gemini_image_edit"].includes(toolName) && toolResult && toolResult.url) {
       if (typeof toolResult.url === 'string' && toolResult.url.startsWith('data:image/')) {
         imageCount++;
         const filename = generateUniqueFilename(imageCount);
@@ -140,7 +140,7 @@ window.processToolCalls = async function(response, messages) {
     }
     // Always add the tool response to messages, but omit base64 from history
     let toolResultForHistory = { ...toolResult };
-    if (["grok_image", "gemini_image", "openai_image", "openai_image_edit"].includes(toolName) && toolResultForHistory && toolResultForHistory.url) {
+    if (["grok_image", "gemini_image", "openai_image", "openai_image_edit", "gemini_image_edit"].includes(toolName) && toolResultForHistory && toolResultForHistory.url) {
       // Use the existing filename already generated for this image
       const filename = window.generatedImages[window.generatedImages.length - 1].filename;
       toolResultForHistory.url = `[[IMAGE: ${filename}]]`;

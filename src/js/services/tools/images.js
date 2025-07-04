@@ -418,65 +418,133 @@ async function openaiImageEdit(args) {
 }
 
 /**
- * Helper function to convert a data URL to a Blob
- * @param {string} dataURL - The data URL to convert
- * @returns {Blob} - The resulting Blob
+ * Edit image using Google Gemini image generation API with image input
+ * @param {Object} args - Arguments for the tool
+ * @returns {Promise<Object>} - The result with edited image
  */
-function dataURLtoBlob(dataURL) {  try {
-    if (!dataURL || typeof dataURL !== 'string') {
-      throw new Error('Invalid data URL: must be a non-empty string');
-    }
-    
-    // Validate data URL format
-    if (!dataURL.startsWith('data:')) {
-      throw new Error('Invalid data URL format: must start with "data:"');
-    }
-    
-    const parts = dataURL.split(';base64,');
-    if (parts.length !== 2) {
-      throw new Error('Invalid data URL format: missing ";base64," marker');
-    }
-    
-    const contentType = parts[0].split(':')[1] || 'image/png'; // Default to PNG if no MIME type
-    const base64Data = parts[1].trim();
-    
-    // Minimal validation - just make sure we have some data
-    if (!base64Data) {
-      throw new Error('Empty base64 data in data URL');
-    }
-    
-    // Decode base64 - let the browser's atob function handle validation
-    let raw;
-    try {
-      raw = window.atob(base64Data);
-    } catch (e) {
-      throw new Error(`Base64 decode failed: ${e.message}`);
-    }
-    
-    const rawLength = raw.length;
-    const uInt8Array = new Uint8Array(rawLength);
-    
-    for (let i = 0; i < rawLength; ++i) {
-      uInt8Array[i] = raw.charCodeAt(i);
-    }
-    
-    return new Blob([uInt8Array], { type: contentType });
-  } catch (error) {
-    console.error('Error converting data URL to Blob:', error);
-    throw error;
+async function geminiImageEdit(args) {
+  const apiKey = window.config.services.google.apiKey;
+  
+  if (!apiKey) {
+    return {
+      notice: 'Google API key not configured. Please add your Google API key in the API Keys settings.',
+      error: null
+    };
   }
-}
 
-/**
- * Basic validation for base64 strings
- * This function is now more permissive as the browser's atob function will handle
- * the actual validation during decoding
- * @param {string} str - The string to check
- * @returns {boolean} - Whether the string looks like valid base64
- */
-function isValidBase64(str) {
-  return !!(str && typeof str === 'string' && str.length > 0);
+  try {
+    // Process images - handle both single image and array
+    let imageIds = [];
+    if (Array.isArray(args.images)) {
+      imageIds = args.images;
+    } else {
+      imageIds = [args.images];
+    }
+
+    if (imageIds.length === 0) {
+      throw new Error('No image IDs provided for editing');
+    }
+
+    // For now, we'll only use the first image if multiple are provided
+    // Gemini API typically processes one image at a time in this context
+    const imageId = imageIds[0];
+    
+    // Get the image data from storage
+    const imageData = await window.getImageDataForUpload(imageId);
+    if (!imageData) {
+      throw new Error(`Could not retrieve image data for ID: ${imageId}`);
+    }
+
+    // Convert data URL to base64 data only (remove data:image/jpeg;base64, prefix)
+    let base64Data;
+    if (imageData.startsWith('data:image/')) {
+      const base64Index = imageData.indexOf(',');
+      if (base64Index === -1) {
+        throw new Error('Invalid data URL format');
+      }
+      base64Data = imageData.substring(base64Index + 1);
+    } else {
+      // Assume it's already base64
+      base64Data = imageData;
+    }
+
+    // Determine MIME type from the original data URL
+    let mimeType = 'image/jpeg'; // default
+    if (imageData.startsWith('data:image/png')) {
+      mimeType = 'image/png';
+    } else if (imageData.startsWith('data:image/webp')) {
+      mimeType = 'image/webp';
+    }
+
+    const model = "gemini-2.0-flash-preview-image-generation";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    
+    const payload = {
+      contents: [{
+        parts: [
+          {
+            text: args.prompt
+          },
+          {
+            inline_data: {
+              mime_type: mimeType,
+              data: base64Data
+            }
+          }
+        ]
+      }],
+      generationConfig: { 
+        responseModalities: ["TEXT", "IMAGE"] 
+      }
+    };
+
+    if (window.VERBOSE_LOGGING) {
+      console.log("Gemini Image Edit API request:", {
+        url,
+        prompt: args.prompt,
+        imageId: imageId,
+        mimeType: mimeType
+      });
+    }
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      let errorText;
+      try {
+        errorText = await res.text();
+      } catch (e) {
+        errorText = "Could not read error response";
+      }
+      throw new Error(`Gemini API error: ${res.status} - ${errorText}`);
+    }
+
+    const data = await res.json();
+    if (window.VERBOSE_LOGGING) {
+      console.log("Gemini Image Edit API response:", data);
+    }
+
+    // Extract the image from the response
+    const parts = data.candidates[0].content.parts;
+    const imagePart = parts.find(p => p.inlineData && p.inlineData.data);
+    
+    if (imagePart && imagePart.inlineData && imagePart.inlineData.data) {
+      const b64 = imagePart.inlineData.data;
+      const dataUrl = `data:image/png;base64,${b64}`;
+      return { url: dataUrl, error: null };
+    } else {
+      throw new Error('No image data found in Gemini response');
+    }
+  } catch (error) {
+    console.error('Gemini Image Edit error:', error);
+    return { url: null, error: error.message };
+  }
 }
 
 // Register the image edit tool implementation
 window.toolImplementations.openai_image_edit = openaiImageEdit;
+window.toolImplementations.gemini_image_edit = geminiImageEdit;

@@ -27,6 +27,9 @@ window.initToolsSettings = function() {
   // Get all available tools
   const tools = getAllToolDefinitions();  // Define tool categories
   const categories = {
+    'Images': [
+      'openai_image', 'grok_image', 'gemini_image', 'openai_image_edit', 'gemini_image_edit'
+    ],
     'Search': [
       'google_search', 'openai_search'
     ],
@@ -47,12 +50,10 @@ window.initToolsSettings = function() {
       'get_spotify_artists', 'get_spotify_artist_overview', 'get_spotify_related_artists',
       'get_spotify_artist_albums'
     ],
-    'Images': [
-      'openai_image', 'grok_image', 'gemini_image', 'openai_image_edit'
-    ],
     'Finance': [
       'crypto_prices', 'twelve_data_price', 'twelve_data_quote'
-    ],    'More': [
+    ],
+    'More': [
       'search_recipes', 'weather', 'search_jobs', 'get_job_details', 'search_rental_properties', 'get_property_details'
     ]
   };
@@ -67,10 +68,40 @@ window.initToolsSettings = function() {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'tool-category';
 
-    // Create category header
+    // Create category header with collapse functionality
     const headerDiv = document.createElement('div');
     headerDiv.className = 'tool-category-header';
-    headerDiv.textContent = categoryName;
+    headerDiv.innerHTML = `
+      <span class="category-toggle-icon">▼</span>
+      <span class="category-name">${categoryName}</span>
+    `;
+    headerDiv.style.cursor = 'pointer';
+    
+    // Add click handler for collapsing/expanding
+    headerDiv.addEventListener('click', () => {
+      const isCollapsed = categoryDiv.classList.contains('collapsed');
+      categoryDiv.classList.toggle('collapsed');
+      const toggleIcon = headerDiv.querySelector('.category-toggle-icon');
+      toggleIcon.textContent = isCollapsed ? '▼' : '▶';
+      // Save the collapsed state to localStorage
+      saveCategoryCollapsedState(categoryName, !isCollapsed);
+    });
+
+    // Load and apply saved collapsed state
+    const collapsedStates = loadCategoryCollapsedStates();
+    const hasExistingState = Object.keys(collapsedStates).length > 0;
+    
+    // If no existing state, collapse all except the first category (Images)
+    // If existing state exists, use it
+    const shouldCollapse = hasExistingState ? 
+      collapsedStates[categoryName] : 
+      categoryName !== 'Images';
+    
+    if (shouldCollapse) {
+      categoryDiv.classList.add('collapsed');
+      const toggleIcon = headerDiv.querySelector('.category-toggle-icon');
+      toggleIcon.textContent = '▶';
+    }
 
     // Create grid for tools in this category
     const gridDiv = document.createElement('div');
@@ -95,9 +126,41 @@ window.initToolsSettings = function() {
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'tool-category';
 
+    // Create category header with collapse functionality
     const headerDiv = document.createElement('div');
     headerDiv.className = 'tool-category-header';
-    headerDiv.textContent = 'Other Tools';
+    headerDiv.innerHTML = `
+      <span class="category-toggle-icon">▼</span>
+      <span class="category-name">Other Tools</span>
+    `;
+    headerDiv.style.cursor = 'pointer';
+    
+    // Add click handler for collapsing/expanding
+    headerDiv.addEventListener('click', () => {
+      const isCollapsed = categoryDiv.classList.contains('collapsed');
+      categoryDiv.classList.toggle('collapsed');
+      const toggleIcon = headerDiv.querySelector('.category-toggle-icon');
+      toggleIcon.textContent = isCollapsed ? '▼' : '▶';
+      
+      // Save state to localStorage
+      saveCategoryCollapsedState('Other Tools', !isCollapsed);
+    });
+    
+    // Load and apply saved collapsed state
+    const collapsedStates = loadCategoryCollapsedStates();
+    const hasExistingState = Object.keys(collapsedStates).length > 0;
+    
+    // If no existing state, collapse "Other Tools" by default
+    // If existing state exists, use it
+    const shouldCollapse = hasExistingState ? 
+      collapsedStates['Other Tools'] : 
+      true; // Always collapse "Other Tools" by default
+    
+    if (shouldCollapse) {
+      categoryDiv.classList.add('collapsed');
+      const toggleIcon = headerDiv.querySelector('.category-toggle-icon');
+      toggleIcon.textContent = '▶';
+    }
 
     const gridDiv = document.createElement('div');
     gridDiv.className = 'tool-category-grid';
@@ -353,7 +416,7 @@ window.getToolsDescription = function() {
     }
   });
     // Handle image generation tools separately - group them together if any are enabled
-  const imageTools = ['openai_image', 'grok_image', 'gemini_image', 'openai_image_edit'];
+  const imageTools = ['openai_image', 'grok_image', 'gemini_image', 'openai_image_edit', 'gemini_image_edit'];
   const enabledImageTools = imageTools.filter(toolName => {
     return activeToolDefinitions.some(def => def.function && def.function.name === toolName);
   });
@@ -486,5 +549,31 @@ function setAllTools(enabled) {
   
   if (window.DEBUG) {
     console.log('All tools update complete');
+  }
+}
+
+/**
+ * Load collapsed state from localStorage
+ */
+function loadCategoryCollapsedStates() {
+  try {
+    const collapsedStates = localStorage.getItem('toolCategoryCollapsedStates');
+    return collapsedStates ? JSON.parse(collapsedStates) : {};
+  } catch (error) {
+    console.warn('Error loading category collapsed states:', error);
+    return {};
+  }
+}
+
+/**
+ * Save collapsed state to localStorage
+ */
+function saveCategoryCollapsedState(categoryName, isCollapsed) {
+  try {
+    const collapsedStates = loadCategoryCollapsedStates();
+    collapsedStates[categoryName] = isCollapsed;
+    localStorage.setItem('toolCategoryCollapsedStates', JSON.stringify(collapsedStates));
+  } catch (error) {
+    console.warn('Error saving category collapsed state:', error);
   }
 }
