@@ -350,6 +350,41 @@ window.toolDefinitions = [
   {
     type: "function",
     function: {
+      name: "gemini_image_edit",
+      description: "Edits existing images using Google Gemini image generation API with image input support",
+      parameters: {
+        type: "object",
+        properties: {
+          images: {
+            oneOf: [
+              {
+                type: "string",
+                description: "A single image ID from storage to edit"
+              },
+              {
+                type: "array",
+                items: {
+                  type: "string"
+                },
+                description: "Array of image IDs from storage to edit"
+              }
+            ],
+            description: "The image(s) to edit. Can be a single image ID or an array of image IDs from the chat history or gallery."
+          },
+          prompt: {
+            type: "string",
+            description: "A text description of how to edit the image, such as 'add a llama next to me' or 'change the background to a sunset'."
+          }
+        },
+        required: ["images", "prompt"],
+        additionalProperties: false
+      },
+      strict: false
+    }
+  },
+  {
+    type: "function",
+    function: {
       name: "google_search",
       description: "Search the web using Google.  You can display images in your response using markdown tags and embed videos using html iframe tags.",
       parameters: {
