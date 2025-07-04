@@ -4,7 +4,7 @@
 
 // Initialize theme variables
 window.themeSelector = null;
-window.currentTheme = 'theme-dark-gray'; // Default theme
+window.currentTheme = 'theme-super-dark'; // Default theme
 
 // Theme categories - will be populated dynamically from CSS files
 let themeCategories = {};
@@ -16,21 +16,19 @@ async function extractThemesFromCSS() {
   const categories = {
     'Dark Themes': [],
     'Light Themes': [],
-    // Deactivated theme categories - files kept but not loaded in interface
-    // 'Metal Themes': [],
-    // 'Neon Themes': [],
-    // 'Country Themes': [],
-    // 'Special Themes': []
+    'Metal Themes': [],
+    'Neon Themes': [],
+    'Country Themes': [],
+    'Special Themes': []
   };
 
   const themeFiles = {
     'Dark Themes': '/src/css/themes/base/dark.css',
     'Light Themes': '/src/css/themes/base/light.css',
-    // Deactivated theme files - kept in folders but not loaded
-    // 'Metal Themes': '/src/css/themes/base/metal.css',
-    // 'Neon Themes': '/src/css/themes/base/neon.css',
-    // 'Country Themes': '/src/css/themes/base/country.css',
-    // 'Special Themes': '/src/css/themes/base/special.css'
+    'Metal Themes': '/src/css/themes/base/metal.css',
+    'Neon Themes': '/src/css/themes/base/neon.css',
+    'Country Themes': '/src/css/themes/base/country.css',
+    'Special Themes': '/src/css/themes/base/special.css'
   };
 
   for (const [category, filePath] of Object.entries(themeFiles)) {
@@ -43,8 +41,9 @@ async function extractThemesFromCSS() {
       if (themeMatches) {
         const themes = themeMatches
           .map(match => match.substring(1)) // Remove the leading dot
-          .filter((theme, index, arr) => arr.indexOf(theme) === index); // Remove duplicates
-        
+          .filter((theme, index, arr) => arr.indexOf(theme) === index)
+          .filter(theme => theme !== 'theme-teletext'); // Exclude teletext theme from selector
+
         categories[category] = themes;
       }
     } catch (error) {
