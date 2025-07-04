@@ -129,7 +129,10 @@
 }
 
 /* Neon Blue Specific Styles */
-.theme-neon-blue .message-content,
+.theme-neon-blue .message-content {
+  text-shadow: 0 0 2px #00bfff;
+}
+
 .theme-neon-blue h1,
 .theme-neon-blue h2,
 .theme-neon-blue h3 {
@@ -156,9 +159,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-blue .message {
+.theme-neon-blue .message-content {
   border: 1px solid rgba(0, 191, 255, 0.3);
-  box-shadow: 0 0 5px rgba(0, 191, 255, 0.2);
+  box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff, 0 0 15px #00bfff;
 }
 
 .theme-neon-blue #chat-container {
@@ -166,7 +169,10 @@
 }
 
 /* Neon Pink Specific Styles */
-.theme-neon-pink .message-content,
+.theme-neon-pink .message-content {
+  text-shadow: 0 0 2px #ff1493;
+}
+
 .theme-neon-pink h1,
 .theme-neon-pink h2,
 .theme-neon-pink h3 {
@@ -193,9 +199,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-pink .message {
+.theme-neon-pink .message-content {
   border: 1px solid rgba(255, 20, 147, 0.3);
-  box-shadow: 0 0 5px rgba(255, 20, 147, 0.2);
+  box-shadow: 0 0 5px #ff1493, 0 0 10px #ff1493, 0 0 15px #ff1493;
 }
 
 .theme-neon-pink #chat-container {
@@ -203,7 +209,10 @@
 }
 
 /* Neon Green Specific Styles */
-.theme-neon-green .message-content,
+.theme-neon-green .message-content {
+  text-shadow: 0 0 2px #00ff00;
+}
+
 .theme-neon-green h1,
 .theme-neon-green h2,
 .theme-neon-green h3 {
@@ -230,9 +239,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-green .message {
+.theme-neon-green .message-content {
   border: 1px solid rgba(0, 255, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
 }
 
 .theme-neon-green #chat-container {
@@ -240,7 +249,10 @@
 }
 
 /* Neon Purple Specific Styles */
-.theme-neon-purple .message-content,
+.theme-neon-purple .message-content {
+  text-shadow: 0 0 2px #8a2be2;
+}
+
 .theme-neon-purple h1,
 .theme-neon-purple h2,
 .theme-neon-purple h3 {
@@ -267,9 +279,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-purple .message {
+.theme-neon-purple .message-content {
   border: 1px solid rgba(138, 43, 226, 0.3);
-  box-shadow: 0 0 5px rgba(138, 43, 226, 0.2);
+  box-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2, 0 0 15px #8a2be2;
 }
 
 .theme-neon-purple #chat-container {
@@ -277,7 +289,11 @@
 }
 
 /* Neon Orange Specific Styles */
-.theme-neon-orange .message-content,
+/* Neon Orange Specific Styles */
+.theme-neon-orange .message-content {
+  text-shadow: 0 0 2px #ff4500;
+}
+
 .theme-neon-orange h1,
 .theme-neon-orange h2,
 .theme-neon-orange h3 {
@@ -304,9 +320,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-orange .message {
+.theme-neon-orange .message-content {
   border: 1px solid rgba(255, 69, 0, 0.3);
-  box-shadow: 0 0 5px rgba(255, 69, 0, 0.2);
+  box-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500;
 }
 
 .theme-neon-orange #chat-container {
@@ -314,7 +330,11 @@
 }
 
 /* Neon Cyan Specific Styles */
-.theme-neon-cyan .message-content,
+/* Neon Cyan Specific Styles */
+.theme-neon-cyan .message-content {
+  text-shadow: 0 0 2px #00ffff;
+}
+
 .theme-neon-cyan h1,
 .theme-neon-cyan h2,
 .theme-neon-cyan h3 {
@@ -341,9 +361,9 @@
   box-shadow: none !important;
 }
 
-.theme-neon-cyan .message {
+.theme-neon-cyan .message-content {
   border: 1px solid rgba(0, 255, 255, 0.3);
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
 }
 
 .theme-neon-cyan #chat-container {
@@ -461,4 +481,59 @@
   background-color: rgba(0, 0, 0, 0.6) !important;
   border: 1px solid var(--accent-color) !important;
   box-shadow: 0 0 8px var(--accent-color) !important;
+}
+
+/* Neon button glow effects */
+.theme-neon-blue .copy-btn:hover,
+.theme-neon-blue #settings-button:hover,
+.theme-neon-blue #gallery-button:hover,
+.theme-neon-blue #history-button:hover {
+  box-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff, 0 0 15px #00bfff !important;
+  text-shadow: 0 0 5px #00bfff !important;
+  color: #00bfff !important;
+}
+
+.theme-neon-pink .copy-btn:hover,
+.theme-neon-pink #settings-button:hover,
+.theme-neon-pink #gallery-button:hover,
+.theme-neon-pink #history-button:hover {
+  box-shadow: 0 0 5px #ff1493, 0 0 10px #ff1493, 0 0 15px #ff1493 !important;
+  text-shadow: 0 0 5px #ff1493 !important;
+  color: #ff1493 !important;
+}
+
+.theme-neon-green .copy-btn:hover,
+.theme-neon-green #settings-button:hover,
+.theme-neon-green #gallery-button:hover,
+.theme-neon-green #history-button:hover {
+  box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00 !important;
+  text-shadow: 0 0 5px #00ff00 !important;
+  color: #00ff00 !important;
+}
+
+.theme-neon-purple .copy-btn:hover,
+.theme-neon-purple #settings-button:hover,
+.theme-neon-purple #gallery-button:hover,
+.theme-neon-purple #history-button:hover {
+  box-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2, 0 0 15px #8a2be2 !important;
+  text-shadow: 0 0 5px #8a2be2 !important;
+  color: #8a2be2 !important;
+}
+
+.theme-neon-orange .copy-btn:hover,
+.theme-neon-orange #settings-button:hover,
+.theme-neon-orange #gallery-button:hover,
+.theme-neon-orange #history-button:hover {
+  box-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 15px #ff4500 !important;
+  text-shadow: 0 0 5px #ff4500 !important;
+  color: #ff4500 !important;
+}
+
+.theme-neon-cyan .copy-btn:hover,
+.theme-neon-cyan #settings-button:hover,
+.theme-neon-cyan #gallery-button:hover,
+.theme-neon-cyan #history-button:hover {
+  box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff !important;
+  text-shadow: 0 0 5px #00ffff !important;
+  color: #00ffff !important;
 }

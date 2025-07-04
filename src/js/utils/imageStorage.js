@@ -331,3 +331,49 @@ window.getImageBlobForUpload = async function(imageId) {
     throw error;
   }
 };
+
+/**
+ * Get image data URL for upload/processing (for APIs that need data URLs like Gemini)
+ * @param {string} imageId - The image ID to retrieve
+ * @returns {Promise<string>} - Promise that resolves with the data URL
+ */
+window.getImageDataForUpload = async function(imageId) {
+  try {
+    // Load the image from database
+    const imageRecord = await window.loadImageFromDb(imageId);
+    
+    if (!imageRecord || !imageRecord.data) {
+      throw new Error(`Image not found or has no data: ${imageId}`);
+    }
+    
+    // If the data is already a data URL, return it directly
+    if (typeof imageRecord.data === 'string' && imageRecord.data.startsWith('data:')) {
+      return imageRecord.data;
+    }
+    
+    // If it's a Blob, convert it to data URL
+    if (imageRecord.data instanceof Blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(imageRecord.data);
+      });
+    }
+    
+    // Handle plain base64 string (convert to data URL)
+    if (typeof imageRecord.data === 'string') {
+      try {
+        // Assume PNG format if not specified
+        return `data:image/png;base64,${imageRecord.data}`;
+      } catch (error) {
+        throw new Error(`Failed to format image data as data URL: ${error.message}`);
+      }
+    }
+    
+    throw new Error(`Unsupported image data format for ${imageId}`);
+  } catch (error) {
+    console.error('Error getting image data URL for upload:', error);
+    throw error;
+  }
+};

@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 4px; /* Add spacing between categories */
+  margin-bottom: 12px; /* Increased spacing between categories */
 }
 
 .tool-category-header {
@@ -16,16 +16,63 @@
   font-weight: 600;
   color: var(--text-primary);
   padding: 8px 12px;
-  border-radius: 6px;
   margin-bottom: 8px;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
+.tool-category-header .category-name {
+  transition: color 0.2s ease;
+}
+
+.tool-category-header:hover .category-name {
+  color: var(--accent-color);
+}
+
+.tool-category-header:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.tool-category-header:active {
+  transform: scale(0.98);
+}
+
+.category-toggle-icon {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.category-name {
+  font-weight: 600;
+}
+
+/* Collapsed state for categories */
+.tool-category.collapsed .tool-category-grid {
+  display: none;
+  max-height: 0;
+  opacity: 0;
+}
+
+.tool-category.collapsed .category-toggle-icon {
+  transform: rotate(0deg);
+}
+
+/* Smooth transition for grid collapse/expand */
 .tool-category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
+
+
 
 /* Smaller tool toggle items */
 .tool-toggle-item {
