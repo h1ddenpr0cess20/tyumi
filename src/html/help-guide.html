@@ -111,6 +111,15 @@
               <li>Click "Save Ollama URL" and then "Refresh Models" to see available models</li>
             </ol>
             <p><strong>Note:</strong> Ollama runs models locally on your device. No API key is needed, and no data is sent to external servers. However, you'll need a computer with sufficient RAM and processing power for running these models.</p>
+            
+            <h5>Network Access and HTTPS Setup</h5>
+            <p>To use Ollama with other network devices or with HTTPS:</p>
+            <ul>
+              <li>Expose Ollama to the network according to the instructions for your platform</li>
+              <li>For HTTPS access, create an HTTPS proxy using tools like <code>local-ssl-proxy</code>:</li>
+            </ul>
+            <pre><code>local-ssl-proxy --hostname &lt;your-hostname&gt; --source 11435 --target 11434 --key key.pem --cert cert.pem</code></pre>
+            <p>This allows secure HTTPS connections to your local Ollama instance, which is especially useful when accessing from other devices on your network.</p>
           </div>
         </div>
 

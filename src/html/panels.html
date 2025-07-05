@@ -331,6 +331,20 @@
           <p class="info-text">Required for Mistral models. <a href="https://console.mistral.ai/api-keys" target="_blank">Get API Key</a></p>
         </div>
 
+        <div class="setting-item">
+          <label for="huggingface-api-key">Hugging Face API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="huggingface-api-key" placeholder="Enter your Hugging Face API key" aria-label="Hugging Face API Key" />
+            <button class="toggle-password" data-for="huggingface-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Hugging Face models. <a href="https://huggingface.co/settings/tokens" target="_blank">Get API Key</a></p>
+        </div>
+
         <div class="setting-item api-keys-action-buttons">
           <button id="save-api-keys" class="primary-button" title="Save API Keys">Save API Keys</button>
         </div>

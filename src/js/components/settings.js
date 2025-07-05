@@ -228,6 +228,9 @@ window.populateServiceSelector = function() {
       case 'mistral':
         displayName = 'Mistral';
         break;
+      case 'huggingface':
+        displayName = 'Hugging Face';
+        break;
       case 'ollama':
         displayName = 'Ollama (Local)';
         break;

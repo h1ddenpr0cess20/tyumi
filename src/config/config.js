@@ -158,6 +158,14 @@ window.config = {
             defaultModel: 'mistral-small-latest',
         },
         
+        // Hugging Face Inference API
+        huggingface: {
+            baseUrl: 'https://router.huggingface.co/v1',
+            apiKey: '',
+            models: ['deepseek-ai/DeepSeek-V3', 'deepseek-ai/DeepSeek-R1', 'meta-llama/Llama-4-Maverick-17B-128E-Instruct', 'meta-llama/Llama-4-Scout-17B-16E-Instruct', 'Qwen/QwQ-32B', 'Qwen/Qwen3-14B', 'Qwen/Qwen3-235B-A22B', 'Qwen/Qwen3-30B-A3B', 'Qwen/Qwen2.5-Coder-32B-Instruct'],
+            defaultModel: 'Qwen/Qwen3-30B-A3B',
+        },
+        
         // Ollama - Local AI models with OpenAI-compatible API
         ollama: {
             baseUrl: 'http://localhost:11434/v1',

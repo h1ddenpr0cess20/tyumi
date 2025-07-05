@@ -14,7 +14,7 @@
 
 ## Overview
 
-Tyumi is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
+Tyumi is a powerful, client-side AI chatbot web application that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, Hugging Face, and local Ollama models. Built with a modular architecture, it offers advanced features like personality customization, tool calling, text-to-speech, theme customization, and secure local storage.
 
 ## 🌟 Key Features
     
@@ -22,21 +22,21 @@ Tyumi is a powerful, client-side AI chatbot web application that seamlessly inte
 - **OpenAI** (GPT-4.1, GPT-4o, o3, o4, etc)
 - **Anthropic** (Claude models)
 - **Google** (Gemini models)
-- **Mistral**
+- **Mistral** (Mistral, Codestral, etc)
 - **xAI** (Grok models)
-- **Local Ollama** models
+- **Hugging Face** (open-source models like DeepSeek-R1, Llama4, Qwen3)
+- **Ollama** (local open-source models)
 
 ### 🛠️ Advanced Tool Calling
 - **Web Search** - Real-time internet search capabilities
-- **Image Generation** - Create images via AI
+- **Image Generation and Editing** - Create and modify images via AI
 - **Finance Tools** - Stock prices, cryptocurrency, market data
 - **Food & Recipes** - Restaurant recommendations, recipes, nutrition info
 - **Entertainment** - Movies, music, games, and media recommendations
 - **Social Media** - Social platform integrations and content tools
 - **Job Search** - Career opportunities and job market insights
 - **Real Estate** - Property search and market information
-- **Spotify Integration** - Music search and playlist management
-- **Utility Functions** - Weather, time, calculations, and helper tools
+- **Utility Functions** - Weather, time, other useful tools
 - **Extensible Architecture** - Easy to add new tools
 
 ### 🎨 Rich User Experience
@@ -107,6 +107,11 @@ To use local models, you'll need to set up Ollama:
 1. **Install Ollama:**
    - Download and install Ollama from the [official website](https://ollama.com/download).
    - Follow the installation instructions for your operating system.
+   - To use with other network devices, expose Ollama to the network according to the instructions for your platform.
+   - Create an HTTPS proxy with local-ssl-proxy or similar tools if you want to use HTTPS, e.g.:
+     ```bash
+     local-ssl-proxy --hostname <your-hostname> --source 11435 --target 11434 --key key.pem --cert cert.pem
+     ```
 
 2. **Pull a Model with Tool Support:**
    - We recommend the Qwen3 model, but you can choose any model with the `tools` label.
