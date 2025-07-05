@@ -137,8 +137,16 @@ window.cleanMessagesForApi = function(messages) {
 window.getApiEndpoint = function() {
   const currentService = window.config.defaultService;
   
+  // Get base URL and ensure proper slash handling
+  let baseUrl = window.config.getBaseUrl();
+  
+  // Remove trailing slash from base URL if present
+  if (baseUrl.endsWith('/')) {
+    baseUrl = baseUrl.slice(0, -1);
+  }
+  
   // Default endpoint for OpenAI-compatible APIs
-  return `${window.config.getBaseUrl()}/chat/completions`;
+  return `${baseUrl}/chat/completions`;
 }
 
 
@@ -316,6 +324,11 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
     headers['anthropic-version'] = '2023-06-01';
   }
 
+  // Add special headers for GitHub Models
+  if (currentService === 'github') {
+    headers['extra-parameters'] = 'pass-through';
+  }
+
   // Prepare request body
   let requestBody = {
     model,
@@ -333,7 +346,19 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
   // Add tools if function calling is enabled and tools are available
   if (window.config.enableFunctionCalling && window.toolDefinitions && window.toolDefinitions.length > 0) {
     requestBody.tools = window.toolDefinitions;
-    requestBody.tool_choice = "auto";
+    
+    // Handle different tool_choice requirements by service
+    if (currentService === 'huggingface') {
+      // Hugging Face models don't support tool_choice parameter
+      // Omit it to allow the API to handle tool selection
+    } else if (currentService === 'github') {
+      // GitHub Models requires specific setup for auto tool choice
+      // Omit tool_choice to use default behavior
+    } else {
+      // Other services (OpenAI, Anthropic, etc.) use "auto"
+      requestBody.tool_choice = "auto";
+    }
+    
     console.info(`Tool count: ${window.toolDefinitions.length}, Service: ${currentService}, Model: ${model}`);
   } else if (window.config.enableFunctionCalling && (!window.toolDefinitions || window.toolDefinitions.length === 0)) {
     console.warn('Function calling is enabled but no tools are available. Operating in standard mode.');

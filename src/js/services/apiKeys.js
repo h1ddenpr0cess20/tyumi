@@ -16,7 +16,9 @@ window.apiKeyInputs = {
     xai: null,
     anthropic: null,
     google: null,
-    mistral: null
+    mistral: null,
+    huggingface: null,
+    github: null
 };
 
 // Tool-specific API key inputs
@@ -39,7 +41,9 @@ window.initApiKeys = function() {
     window.apiKeyInputs.openai = document.getElementById('openai-api-key');
     window.apiKeyInputs.xai = document.getElementById('xai-api-key');    window.apiKeyInputs.anthropic = document.getElementById('anthropic-api-key');
     window.apiKeyInputs.google = document.getElementById('google-api-key');
-    window.apiKeyInputs.mistral = document.getElementById('mistral-api-key');      // Get DOM references for tool-specific API keys
+    window.apiKeyInputs.mistral = document.getElementById('mistral-api-key');
+    window.apiKeyInputs.huggingface = document.getElementById('huggingface-api-key');
+    window.apiKeyInputs.github = document.getElementById('github-api-key');      // Get DOM references for tool-specific API keys
     window.toolApiKeyInputs.rapidapi = document.getElementById('tool-rapidapi-key');
     // window.toolApiKeyInputs.alphavantage = document.getElementById('tool-alphavantage-key'); // Disabled
     window.toolApiKeyInputs.openweather = document.getElementById('tool-openweather-key');

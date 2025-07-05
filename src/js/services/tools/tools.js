@@ -208,7 +208,19 @@ window.handleFunctionCalling = async function(initialRequestBody, headers) {
   
   // Add tools to the request body
   requestBody.tools = window.toolDefinitions;
-  requestBody.tool_choice = "auto";
+  
+  // Handle different tool_choice requirements by service
+  const currentService = window.config.defaultService;
+  if (currentService === 'huggingface') {
+    // Hugging Face models don't support tool_choice parameter
+    // Omit it to allow the API to handle tool selection
+  } else if (currentService === 'github') {
+    // GitHub Models requires specific setup for auto tool choice
+    // Omit tool_choice to use default behavior
+  } else {
+    // Other services (OpenAI, Anthropic, etc.) use "auto"
+    requestBody.tool_choice = "auto";
+  }
   
   // Start the conversation loop
   let shouldContinue = true;
