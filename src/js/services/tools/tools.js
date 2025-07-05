@@ -214,6 +214,9 @@ window.handleFunctionCalling = async function(initialRequestBody, headers) {
   if (currentService === 'huggingface') {
     // Hugging Face models don't support tool_choice parameter
     // Omit it to allow the API to handle tool selection
+  } else if (currentService === 'github') {
+    // GitHub Models requires specific setup for auto tool choice
+    // Omit tool_choice to use default behavior
   } else {
     // Other services (OpenAI, Anthropic, etc.) use "auto"
     requestBody.tool_choice = "auto";

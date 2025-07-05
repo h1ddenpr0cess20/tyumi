@@ -130,7 +130,12 @@ window.config = {
         xai: {
             baseUrl: 'https://api.x.ai/v1',
             apiKey: '',
-            models: ['grok-3-mini-fast', 'grok-3-mini', 'grok-3-fast', 'grok-3'],
+            models: [
+                'grok-3-mini-fast',
+                'grok-3-mini',
+                'grok-3-fast',
+                'grok-3'
+            ],
             defaultModel: 'grok-3',
         },
         
@@ -138,7 +143,12 @@ window.config = {
         google: {
             baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
             apiKey: '',
-            models: ['gemini-2.0-flash', 'gemini-2.0-flash', 'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite-preview-06-17'],
+            models: [
+                'gemini-2.0-flash',
+                'gemini-2.5-pro',
+                'gemini-2.5-flash',
+                'gemini-2.5-flash-lite-preview-06-17'
+            ],
             defaultModel: 'gemini-2.5-flash',
         },
         
@@ -146,7 +156,14 @@ window.config = {
         anthropic: {
             baseUrl: 'https://api.anthropic.com/v1',
             apiKey: '',
-            models: ['claude-3-5-sonnet-latest', 'claude-3-7-sonnet-latest', 'claude-sonnet-4-0', 'claude-opus-4-0', 'claude-3-opus-latest', 'claude-3-5-haiku-latest'],
+            models: [
+                'claude-3-5-sonnet-latest',
+                'claude-3-7-sonnet-latest',
+                'claude-sonnet-4-0',
+                'claude-opus-4-0',
+                'claude-3-opus-latest',
+                'claude-3-5-haiku-latest'
+            ],
             defaultModel: 'claude-sonnet-4-0',
         },
         
@@ -154,7 +171,12 @@ window.config = {
         mistral: {
             baseUrl: 'https://api.mistral.ai/v1',
             apiKey: '',
-            models: ['mistral-large-latest', 'mistral-small-latest', 'mistral-medium-latest', 'codestral-latest'],
+            models: [
+                'mistral-large-latest',
+                'mistral-small-latest',
+                'mistral-medium-latest',
+                'codestral-latest'
+            ],
             defaultModel: 'mistral-small-latest',
         },
         
@@ -162,8 +184,89 @@ window.config = {
         huggingface: {
             baseUrl: 'https://router.huggingface.co/v1',
             apiKey: '',
-            models: ['deepseek-ai/DeepSeek-V3', 'deepseek-ai/DeepSeek-R1', 'meta-llama/Llama-4-Maverick-17B-128E-Instruct', 'meta-llama/Llama-4-Scout-17B-16E-Instruct', 'Qwen/QwQ-32B', 'Qwen/Qwen3-14B', 'Qwen/Qwen3-235B-A22B', 'Qwen/Qwen3-30B-A3B', 'Qwen/Qwen2.5-Coder-32B-Instruct'],
+            models: [
+                'deepseek-ai/DeepSeek-V3',
+                'deepseek-ai/DeepSeek-V3-0324',
+                'deepseek-ai/DeepSeek-R1',
+                'deepseek-ai/DeepSeek-R1-0528',
+                'deepseek-ai/DeepSeek-R1-Distill-Qwen-32B',
+                'meta-llama/Llama-4-Maverick-17B-128E-Instruct',
+                'meta-llama/Llama-4-Scout-17B-16E-Instruct',
+                'Qwen/QwQ-32B',
+                'Qwen/Qwen3-14B',
+                'Qwen/Qwen3-235B-A22B',
+                'Qwen/Qwen3-30B-A3B',
+                'Qwen/Qwen2.5-Coder-32B-Instruct',
+                'unsloth/Mistral-Small-3.2-24B-Instruct-2506',
+                'mistralai/Magistral-Small-2506',
+                'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                'microsoft/phi-4',
+                'meta-llama/Llama-3.3-70B-Instruct',
+                'baidu/ERNIE-4.5-21B-A3B-PT',
+                'baidu/ERNIE-4.5-VL-424B-A47B-Base-PT', 
+                'failspy/llama-3-70B-Instruct-abliterated',
+                'google/gemma-3-27b-it'
+            ],
             defaultModel: 'Qwen/Qwen3-30B-A3B',
+        },
+        
+        // GitHub Models
+        github: {
+            baseUrl: 'https://models.github.ai/inference',
+            apiKey: '',
+            models: [
+                'openai/gpt-4.1',
+                'openai/gpt-4.1-mini',
+                'openai/gpt-4.1-nano',
+                'openai/gpt-4o',
+                'openai/gpt-4o-mini',
+                'openai/o1',
+                'openai/o1-mini',
+                'openai/o1-preview',
+                'openai/o3',
+                'openai/o3-mini',
+                'openai/o4-mini',
+                'deepseek/deepseek-r1',
+                'deepseek/deepseek-r1-0528',
+                'deepseek/deepseek-v3-0324',
+                'meta/llama-3.2-11b-vision-instruct',
+                'meta/llama-3.2-90b-vision-instruct',
+                'meta/llama-3.3-70b-instruct',
+                'meta/llama-4-maverick-17b-128e-instruct-fp8',
+                'meta/llama-4-scout-17b-16e-instruct',
+                'meta/meta-llama-3.1-405b-instruct',
+                'meta/meta-llama-3.1-8b-instruct',
+                'mistral-ai/codestral-2501',
+                'mistral-ai/ministral-3b',
+                'mistral-ai/mistral-large-2411',
+                'mistral-ai/mistral-medium-2505',
+                'mistral-ai/mistral-nemo',
+                'mistral-ai/mistral-small-2503',
+                'xai/grok-3',
+                'xai/grok-3-mini',
+                'microsoft/mai-ds-r1',
+                'microsoft/phi-3.5-mini-instruct',
+                'microsoft/phi-3.5-moe-instruct',
+                'microsoft/phi-3.5-vision-instruct',
+                'microsoft/phi-3-medium-128k-instruct',
+                'microsoft/phi-3-medium-4k-instruct',
+                'microsoft/phi-3-mini-128k-instruct',
+                'microsoft/phi-3-mini-4k-instruct',
+                'microsoft/phi-3-small-128k-instruct',
+                'microsoft/phi-3-small-8k-instruct',
+                'microsoft/phi-4',
+                'microsoft/phi-4-mini-instruct',
+                'microsoft/phi-4-mini-reasoning',
+                'microsoft/phi-4-multimodal-instruct',
+                'microsoft/phi-4-reasoning',
+                'ai21-labs/ai21-jamba-1.5-large',
+                'ai21-labs/ai21-jamba-1.5-mini',
+                'cohere/cohere-command-a',
+                'cohere/cohere-command-r-08-2024',
+                'cohere/cohere-command-r-plus-08-2024',
+                'core42/jais-30b-chat'
+            ],
+            defaultModel: 'openai/gpt-4.1-mini',
         },
         
         // Ollama - Local AI models with OpenAI-compatible API
