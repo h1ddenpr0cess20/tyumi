@@ -302,8 +302,13 @@ window.config = {
     shouldUseDeveloperRole: function(modelName = null) {
         const model = modelName || this.getDefaultModel();
         
-        // For OpenAI models starting with 'o' (o3-mini, o4-mini, etc.), use 'developer' role
+        // For OpenAI models starting with 'o' (o1, o3, o4-mini, etc.), use 'developer' role
         if (this.defaultService === 'openai' && model && model.toLowerCase().startsWith('o')) {
+            return true;
+        }
+        
+        // For GitHub Models serving OpenAI o-series models, also use 'developer' role
+        if (this.defaultService === 'github' && model && model.toLowerCase().startsWith('openai/o')) {
             return true;
         }
         

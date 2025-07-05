@@ -347,7 +347,7 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
     requestBody.top_p = topP;
     
     // Only add frequency/presence penalties for fully OpenAI-compatible services (but not o-series models)
-    if (currentService === 'openai' || currentService === 'azure') {
+    if (currentService === 'openai' || currentService === 'github') {
       requestBody.frequency_penalty = frequencyPenalty;
       requestBody.presence_penalty = presencePenalty;
     }
