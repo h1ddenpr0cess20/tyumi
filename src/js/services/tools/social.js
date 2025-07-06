@@ -38,7 +38,7 @@ async function searchTweets(args) {
     if (!rapidApiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -123,7 +123,7 @@ async function getUserProfile(args) {
     if (!rapidApiKey) {
       return {
         username: username,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -213,7 +213,7 @@ async function getUserTweets(args) {
       if (!rapidApiKey) {
       return {
         username: username,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -295,7 +295,7 @@ async function getTrendingTopics(args) {
       if (!rapidApiKey) {
       return {
         woeid: woeid,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -378,7 +378,7 @@ async function getTweetDetails(args) {
     if (!rapidApiKey) {
       return {
         tweet_id: tweet_id,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -459,7 +459,7 @@ async function searchUsers(args) {
     if (!rapidApiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured. Please subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the The Old Bird API at https://rapidapi.com/datahungrybeast/api/twitter154 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }

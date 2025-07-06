@@ -53,7 +53,7 @@ async function grokImage(args) {
   
   if (!apiKey) {
     return {
-      notice: 'xAI (xAI) API key not configured. Please add your xAI API key in the API Keys settings.',
+      notice: 'xAI (xAI) API key not configured. Please add their xAI API key in the API Keys settings.',
       error: null
     };
   }
@@ -114,7 +114,7 @@ async function geminiImage(args) {
   
   if (!apiKey) {
     return {
-      notice: 'Google API key not configured. Please add your Google API key in the API Keys settings.',
+      notice: 'Google API key not configured. Please add their Google API key in the API Keys settings.',
       error: null
     };
   }
@@ -158,7 +158,7 @@ async function openaiImage(args) {
   
   if (!apiKey) {
     return {
-      notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+      notice: 'OpenAI API key not configured. Please add their OpenAI API key in the API Keys settings.',
       error: null
     };
   }
@@ -210,7 +210,7 @@ async function openaiImageEdit(args) {
   
   if (!apiKey) {
     return {
-      notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+      notice: 'OpenAI API key not configured. Please add their OpenAI API key in the API Keys settings.',
       error: null
     };
   }
@@ -427,7 +427,7 @@ async function geminiImageEdit(args) {
   
   if (!apiKey) {
     return {
-      notice: 'Google API key not configured. Please add your Google API key in the API Keys settings.',
+      notice: 'Google API key not configured. Please add their Google API key in the API Keys settings.',
       error: null
     };
   }

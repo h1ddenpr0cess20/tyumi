@@ -45,7 +45,7 @@ async function searchNews(args) {
     if (!rapidApiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -139,7 +139,7 @@ async function getHeadlines(args) {
     
     if (!rapidApiKey) {
       return {
-        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -220,7 +220,7 @@ async function openaiSearch(args) {
     if (!apiKey) {
       return {
         query: query,
-        notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
+        notice: 'OpenAI API key not configured. Please add their OpenAI API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -339,7 +339,7 @@ async function getLocalHeadlines(args) {
     if (!rapidApiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -427,7 +427,7 @@ async function getFullStoryCoverage(args) {
     if (!rapidApiKey) {
       return {
         story_id: story_id,
-        notice: 'RapidAPI key not configured. Please enable the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the free version of the Real-Time News Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-news-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -507,7 +507,7 @@ async function googleSearch(args) {
       if (!googleApiKey) {
       return {
         query: query,
-        notice: 'Google API key not configured. Please enable the Custom Search API in your Google Cloud Console at https://console.cloud.google.com/apis/library/customsearch.googleapis.com and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please inform the user that they need to enable the Custom Search API in their Google Cloud Console at https://console.cloud.google.com/apis/library/customsearch.googleapis.com and add their Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -611,7 +611,7 @@ async function youtubeSearch(args) {
     if (!googleApiKey) {
       return {
         query: query,
-        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please inform the user that they need to enable the YouTube Data API v3 in their Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add their Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -704,7 +704,7 @@ async function youtubeVideoDetails(args) {
       if (!googleApiKey) {
       return {
         videoId: videoId,
-        notice: 'Google API key not configured. Please enable the YouTube Data API v3 in your Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add your Google API key in the API Keys settings.',
+        notice: 'Google API key not configured. Please inform the user that they need to enable the YouTube Data API v3 in their Google Cloud Console at https://console.cloud.google.com/apis/library/youtube.googleapis.com and add their Google API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -818,7 +818,7 @@ async function localBusinessSearch(args) {
     if (!rapidApiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -923,7 +923,7 @@ async function getBusinessDetails(args) {
     if (!rapidApiKey) {
       return {
         business_id: businessId,
-        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -1026,7 +1026,7 @@ async function getBusinessReviews(args) {
     if (!rapidApiKey) {
       return {
         business_id: businessId,
-        notice: 'RapidAPI key not configured. Please enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to enable the Local Business Data API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/local-business-data and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }

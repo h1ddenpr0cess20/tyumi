@@ -24,7 +24,7 @@ async function searchRecipes(args) {
     if (!apiKey) {
       return {
         query: query,
-        notice: 'RapidAPI key not configured and/or service not set up. Please subscribe to the free plan at https://rapidapi.com/apidojo/api/tasty and/or add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured and/or service not set up. Please inform the user that they need to subscribe to the free plan at https://rapidapi.com/apidojo/api/tasty and/or add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }

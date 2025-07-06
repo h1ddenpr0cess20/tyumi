@@ -66,7 +66,7 @@ async function searchRentalProperties(args) {
     if (!rapidApiKey) {
       return {
         location: location,
-        notice: 'RapidAPI key not configured. Please subscribe to the Zillow API at https://rapidapi.com/Glavier/api/zillow-com4 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Zillow API at https://rapidapi.com/Glavier/api/zillow-com4 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -174,7 +174,7 @@ async function getPropertyDetails(args) {
     if (!rapidApiKey) {
       return {
         zpid: zpid,
-        notice: 'RapidAPI key not configured. Please subscribe to the Zillow API at https://rapidapi.com/Glavier/api/zillow-com4 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Zillow API at https://rapidapi.com/Glavier/api/zillow-com4 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }

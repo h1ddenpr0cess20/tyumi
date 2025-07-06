@@ -41,7 +41,7 @@ async function searchIMDB(args) {
     if (!rapidApiKey) {
       return {
         searchTerm: searchTerm,
-        notice: 'RapidAPI key not configured. Please subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -143,7 +143,7 @@ async function getTitleDetails(args) {
     if (!rapidApiKey) {
       return {
         titleId: titleId,
-        notice: 'RapidAPI key not configured. Please subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -244,7 +244,7 @@ async function getActorDetails(args) {
     if (!rapidApiKey) {
       return {
         personId: personId,
-        notice: 'RapidAPI key not configured. Please subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the IMDB8 API at https://rapidapi.com/apidojo/api/imdb8 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -327,7 +327,7 @@ async function steamSearchGames(args) {
       return {
         term: term,
         page: page,
-        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -413,7 +413,7 @@ async function steamGetAppDetails(args) {
     if (!rapidApiKey) {
       return {
         appId: appId,
-        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -503,7 +503,7 @@ async function steamGetAppReviews(args) {
       return {
         appId: appId,
         limit: limit,
-        notice: 'RapidAPI key not configured. Please subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Steam2 API at https://rapidapi.com/psimavel/api/steam2 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -609,7 +609,7 @@ async function searchSpotify(args) {
     if (!rapidApiKey) {
       return {
         query: q,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -701,7 +701,7 @@ async function getSpotifyAlbums(args) {
     if (!rapidApiKey) {
       return {
         ids: ids,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -784,7 +784,7 @@ async function getSpotifyArtists(args) {
     if (!rapidApiKey) {
       return {
         ids: ids,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -878,7 +878,7 @@ async function getSpotifyArtistOverview(args) {
     if (!rapidApiKey) {
       return {
         id: id,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -968,7 +968,7 @@ async function getSpotifyRelatedArtists(args) {
     if (!rapidApiKey) {
       return {
         id: id,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -1060,7 +1060,7 @@ async function getSpotifyArtistAlbums(args) {
     if (!rapidApiKey) {
       return {
         id: id,
-        notice: 'RapidAPI key not configured. Please subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the Spotify API at https://rapidapi.com/Glavier/api/spotify23 and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }

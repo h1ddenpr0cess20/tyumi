@@ -66,7 +66,7 @@ async function searchJobs(args) {
       return {
         query: query,
         page: page,
-        notice: 'RapidAPI key not configured. Please subscribe to the JSearch API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the JSearch API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
@@ -184,7 +184,7 @@ async function getJobDetails(args) {
     if (!rapidApiKey) {
       return {
         job_id: jobId,
-        notice: 'RapidAPI key not configured. Please subscribe to the JSearch API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch and add your RapidAPI key in the Tools settings.',
+        notice: 'RapidAPI key not configured. Please inform the user that they need to subscribe to the JSearch API at https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch and add their RapidAPI key in the Tools settings.',
         timestamp: new Date().toISOString()
       };
     }
