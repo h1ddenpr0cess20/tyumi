@@ -220,7 +220,7 @@ async function openaiSearch(args) {
     if (!apiKey) {
       return {
         query: query,
-        notice: 'OpenAI API key not configured. Please add their OpenAI API key in the API Keys settings.',
+        notice: 'OpenAI API key not configured. Please add your OpenAI API key in the API Keys settings.',
         timestamp: new Date().toISOString()
       };
     }
