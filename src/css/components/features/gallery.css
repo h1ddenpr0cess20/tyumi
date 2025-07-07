@@ -1,5 +1,5 @@
 /**
- * Gallery CSS styling - Performance Optimized
+ * Gallery CSS styling
  */
 
 /* Gallery panel styling */
@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   transform: translateX(100%); /* Hide by default using transform */
-  /* Performance optimization: Use hardware acceleration */
   will-change: transform;
 }
 
@@ -133,7 +132,7 @@
   flex-shrink: 0;
 }
 
-/* Gallery grid - Performance optimized */
+/* Gallery grid */
 #gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -143,7 +142,6 @@
   flex: 1; /* Fill remaining space in the flex container */
   scrollbar-gutter: stable;
   padding-right: 15px; /* Consistent padding */
-  /* Performance optimization: Force hardware acceleration and optimize scrolling */
   transform: translateZ(0);
   -webkit-overflow-scrolling: touch;
 }
@@ -164,7 +162,6 @@
   display: flex;
   flex-direction: column;
   overflow: visible;
-  /* Performance optimization: Use hardware acceleration for transforms */
   will-change: transform;
 }
 
@@ -184,14 +181,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: filter 0.2s ease; /* Reduced from 0.3s for better responsiveness */
-  /* Performance optimization: Optimize image rendering */
+  transition: filter 0.2s ease;
   image-rendering: optimizeQuality;
   backface-visibility: hidden;
 }
 
 .gallery-item:hover img {
-  filter: brightness(0.9); /* Slightly reduced effect for better performance */
+  filter: brightness(0.9);
 }
 
 /* Gallery item selection bar */
@@ -363,22 +359,21 @@
   color: var(--error-text);
 }
 
-/* Gallery slideshow - Performance optimized */
+/* Gallery slideshow */
 .gallery-slideshow {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(var(--bg-primary-rgb, 26, 26, 26), 0.95); /* Increased opacity, removed backdrop-filter */
+  background-color: rgba(var(--bg-primary-rgb, 26, 26, 26), 0.95);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  touch-action: none; /* Prevents browser touch actions to enable custom handling */
-  animation: slideshow-fade-in 0.2s ease-out; /* Reduced duration for better performance */
-  /* Performance optimization: Force hardware acceleration */
+  touch-action: none;
+  animation: slideshow-fade-in 0.2s ease-out;
   will-change: opacity;
   transform: translateZ(0);
 }
@@ -396,13 +391,13 @@
   position: relative;
   width: 90%;
   max-width: 1200px;
-  height: calc(100% - 150px); /* Adjusted for better spacing */
+  height: calc(100% - 150px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Slideshow image styling - Performance optimized */
+/* Slideshow image styling */
 .gallery-slideshow-image {
   max-width: 100%;
   max-height: 100%;
@@ -411,7 +406,6 @@
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  /* Performance optimization: Optimize image rendering */
   image-rendering: optimizeQuality;
   backface-visibility: hidden;
   will-change: transform;
@@ -427,22 +421,21 @@
   z-index: 1010;
 }
 
-/* Style for the icon buttons - Performance optimized */
+/* Style for the icon buttons */
 .slideshow-icon-btn {
-  background-color: var(--bg-secondary); /* Solid background for better visibility */
+  background-color: var(--bg-secondary);
   border: 2px solid var(--border-color);
   border-radius: 50%;
-  width: 44px; /* Slightly larger for touch targets */
-  height: 44px; /* Slightly larger for touch targets */
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--text-primary);
   padding: 8px;
-  transition: all 0.15s ease; /* Faster transition */
+  transition: all 0.15s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  /* Performance optimization: Hardware acceleration */
   will-change: transform, background-color;
   backface-visibility: hidden;
 }
@@ -460,15 +453,15 @@
   background-color: var(--accent-color);
 }
 
-/* Navigation controls - Performance optimized */
+/* Navigation controls */
 .gallery-slideshow-nav {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  width: 54px; /* Larger for touch devices */
-  height: 54px; /* Larger for touch devices */
+  width: 54px;
+  height: 54px;
   font-size: 24px;
-  background-color: var(--bg-secondary); /* Solid background for better visibility */
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
   border: 2px solid var(--border-color);
   border-radius: 50%;
@@ -476,10 +469,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.15s ease; /* Faster transition */
+  transition: all 0.15s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   z-index: 1010;
-  /* Performance optimization: Hardware acceleration */
   will-change: transform, background-color;
   backface-visibility: hidden;
 }
@@ -509,22 +501,22 @@
 .gallery-slideshow-info {
   margin-top: 15px;
   padding: 20px;
-  background-color: var(--bg-secondary); /* Solid background for better visibility */
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  width: 60vw; /* Increased from 50vw for better readability at 100% zoom */
-  min-width: 400px; /* Ensure minimum readable width */
-  max-width: 800px; /* Increased from 600px for longer content */
-  overflow-y: auto; /* Changed from clip to auto to allow scrolling */
-  max-height: 35vh; /* Slightly increased from 30vh */
-  position: relative; /* Ensure proper positioning */
-  z-index: 1010; /* Keep above other elements */
+  width: 60vw;
+  min-width: 400px;
+  max-width: 800px;
+  overflow-y: auto;
+  max-height: 35vh;
+  position: relative;
+  z-index: 1010;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  word-wrap: break-word; /* Allow long words to break */
-  word-break: break-word; /* Ensure long words break properly */
-  hyphens: auto; /* Enable automatic hyphenation */
-  line-height: 1.5; /* Improved line spacing for readability */
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.5;
 }
 
 .gallery-slideshow-info h3 {
@@ -553,10 +545,10 @@
 
 .gallery-slideshow-info p {
   margin: 8px 0;
-  line-height: 1.5; /* Improved line spacing */
-  word-wrap: break-word; /* Allow long words to wrap */
-  overflow-wrap: break-word; /* Modern property for word wrapping */
-  max-width: 100%; /* Ensure text doesn't overflow container */
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .gallery-slideshow-info strong {
@@ -568,9 +560,9 @@
 .gallery-slideshow-info .prompt-text {
   display: block;
   margin-top: 4px;
-  white-space: pre-wrap; /* Preserve line breaks and wrap text */
-  word-break: break-word; /* Break long words */
-  overflow-wrap: break-word; /* Modern word breaking */
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-style: italic;
   opacity: 0.95;
   line-height: 1.4;
@@ -597,15 +589,14 @@
   border: 1px solid var(--border-color);
 }
 
-/* Gallery placeholder animations - Performance optimized */
+/* Gallery placeholder animations */
 .gallery-placeholder .placeholder-pulse {
   background: linear-gradient(90deg, 
     var(--bg-secondary) 0%, 
     var(--bg-primary) 50%, 
     var(--bg-secondary) 100%);
   background-size: 200% 100%;
-  animation: placeholder-pulse 2s ease-in-out infinite; /* Slower, smoother animation */
-  /* Performance optimization: Hardware acceleration */
+  animation: placeholder-pulse 2s ease-in-out infinite;
   will-change: background-position;
 }
 
