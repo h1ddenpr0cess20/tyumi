@@ -1,5 +1,18 @@
 /* History panel styles */
 
+/**
+ * History Panel Layout Fixes:
+ * 
+ * Key improvements made:
+ * 1. Removed panel-level padding and moved it to content area for better scrolling
+ * 2. Fixed flex layout to ensure table container fills available space
+ * 3. Added proper overflow handling for table content
+ * 4. Improved mobile responsiveness with better column sizing and touch targets
+ * 5. Added consistent scrollbar styling
+ * 6. Enhanced table cell overflow with ellipsis and proper text wrapping
+ * 7. Updated empty state styling for better UX
+ */
+
 /* History panel */
 #history-panel {
   position: absolute;
@@ -10,9 +23,9 @@
   background-color: var(--bg-primary);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000; 
-  overflow-y: auto;
+  overflow: hidden; /* Changed from overflow-y: auto to prevent double scrollbars */
   transition: transform 0.25s ease;
-  padding: 20px;
+  padding: 0; /* Remove padding to let header and content manage their own spacing */
   display: flex;
   flex-direction: column;
   transform: translateX(100%); 
@@ -30,7 +43,7 @@
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   flex-shrink: 0;
-  margin: -20px -20px 16px -20px; /* Offset the panel padding */
+  margin: 0; /* Remove negative margins since panel padding is now 0 */
 }
 
 /* History button hover state only - other styles are in controls.css */
@@ -67,7 +80,7 @@
   padding: 12px;
   background-color: var(--bg-secondary);
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 0; /* Remove margin since we now use gap in parent */
   border: 1px solid var(--border-color);
 }
 
@@ -182,12 +195,15 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--bg-secondary);
+  min-height: 0; /* Allow flex item to shrink below content size */
+  max-height: calc(100vh - 200px); /* Prevent container from growing too large */
 }
 
 .history-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+  table-layout: fixed; /* Use fixed layout for better column control */
 }
 
 .history-table thead {
@@ -264,10 +280,26 @@
   padding: 12px 8px;
   border-right: 1px solid var(--border-color);
   vertical-align: middle;
+  overflow: hidden; /* Prevent content from overflowing cells */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text wrapping by default */
 }
 
 .history-row td:last-child {
   border-right: none;
+}
+
+/* Allow wrapping for title column since it's the most important */
+.history-row .col-title {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Keep specific content compact */
+.history-row .col-stats,
+.history-row .col-date {
+  white-space: nowrap;
 }
 
 .history-title {
@@ -343,15 +375,63 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
+  min-height: 0; /* Allow flex item to shrink below content size */
+  padding: 20px; /* Add padding to the content area */
+  gap: 16px; /* Add consistent spacing between elements */
 }
 
-/* More history styling */
+/* Scrollbar styling for history list */
+#history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#history-list::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+#history-list::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+#history-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Firefox scrollbar styling */
+#history-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-secondary);
+}
+
+/* Empty state styling */
 .history-empty {
   color: var(--text-secondary);
   font-style: italic;
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 200px;
+}
+
+.history-empty svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.history-empty p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 
