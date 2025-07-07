@@ -1,0 +1,17 @@
+@media screen and (max-width: 375px) {
+  .message-content pre {
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .message-content pre code {
+    font-size: 0.55rem;
+    letter-spacing: -0.01em;
+  }
+}
+@media screen and (max-width: 375px) {
+  .message-content pre {
+    padding: 8px;
+    border-radius: 5px;
+  }
+}

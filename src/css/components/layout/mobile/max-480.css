@@ -1,0 +1,183 @@
+@media screen and (max-width: 480px) {
+  .message-copy-btn {
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+  }
+  
+  /* Position closer to bubble on very small screens */
+  .message.assistant .message-copy-btn {
+    right: -28px;
+  }
+  
+  .message.user .message-copy-btn {
+    left: -28px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .message-content pre {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  
+  .gallery-slideshow-container {
+    height: calc(100% - 100px);
+  }
+  
+  .gallery-slideshow-info {
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .gallery-slideshow-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .gallery-slideshow-counter {
+    font-size: 12px;
+@media screen and (max-width: 480px) {
+  #settings-button,
+  #history-button,
+  #gallery-button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    top: 15px;
+  }
+  
+  #settings-button {
+    right: 10px;
+  }
+
+  #history-button {
+    right: 50px;
+  }
+  #gallery-button {
+    right: 90px;
+  }
+  
+  #send-button {
+    padding: 0;
+    min-width: 48px;
+    width: 48px;
+    height: 48px;
+    right: 16px;
+  }
+  
+  #stop-button {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+  
+  .input-container {
+    padding: 10px;
+  }
+    #user-input {
+    padding: 12px 64px 12px 12px;
+  }
+  
+  .settings-group h3 {
+    font-size: 0.9rem;
+  }
+    #header h1 {
+    font-size: 1.1rem;
+  }
+  #tyumi-logo {
+    width: 48px;
+    height: 48px;
+  }
+  
+  #header-title {
+    font-size: 1.0rem;
+  }
+  
+  #model-info {
+    max-width: 60%;
+    font-size: 0.65rem !important;
+  }
+  
+  /* Smaller tap indicator on smaller screens */
+  #model-info::after {
+    font-size: 0.55rem;
+    bottom: -16px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description,
+  code {
+    font-size: 0.95rem;
+  }
+  
+  pre code {
+    font-size: 0.6rem;
+  }
+  
+  .message-content pre code {
+    font-size: 0.6rem;
+    letter-spacing: normal;
+    line-height: 1.4;
+  }
+  
+  .theme-teletext .message-content,
+  .theme-teletext p,
+  .theme-teletext div:not(#header-title):not(.settings-group h3),
+  .theme-teletext span:not(.tab-button),
+  .theme-teletext button:not(#send-button),
+  .theme-teletext input,
+  .theme-teletext select,
+  .theme-teletext option,
+  .theme-teletext code {
+    font-size: 0.75rem !important;
+  }
+  
+  .theme-terminal .message-content,
+  .theme-terminal p,
+  .theme-terminal div:not(#header-title):not(.settings-group h3),
+  .theme-terminal span:not(.tab-button),
+  .theme-terminal button:not(#send-button),
+  .theme-terminal input,
+  .theme-terminal select,
+  .theme-terminal option,
+  .theme-terminal code {
+    font-size: 0.8rem !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .message-content pre {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .history-table .col-stats,
+  .history-table .col-date {
+    display: none;
+  }
+  
+  .history-table .col-title {
+    width: 50%;
+  }
+  
+  .history-table .col-prompt {
+    width: 25%;
+  }
+  
+  .history-table .col-model {
+    width: 25%;
+  }
+}

@@ -1,0 +1,55 @@
+@media screen and (max-width: 360px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description {
+    font-size: 0.9rem;
+  }
+  
+  pre code,
+  .message-content pre code {
+    font-size: 0.55rem;
+    letter-spacing: -0.01em;
+  }
+  
+  .settings-group h3,
+  label,
+  .radio-text {
+    font-size: 0.85rem;
+  }
+  
+  #model-info {
+    font-size: 0.6rem !important;
+  }
+  
+  /* Even smaller tap indicator on very small screens */
+  #model-info::after {
+    font-size: 0.5rem;
+    bottom: -14px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .message-content,
+  p,
+  div:not(#header-title):not(.settings-group h3),
+  span:not(.tab-button),
+  button:not(#send-button),
+  input:not([type="range"]),
+  select,
+  option,
+  .setting-item,
+  .setting-description {
+    font-size: 0.9rem;
+  }
+  
+  pre code,
+  .message-content pre code {
+    font-size: 0.6rem;
+    letter-spacing: -0.01em;
+  }
