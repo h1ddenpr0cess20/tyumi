@@ -337,8 +337,8 @@
 
 /* Create a Teletext-style header row */
 .theme-teletext #header {
-  background-color: #0000ff !important; /* Blue background */
-  color: #ffff00 !important; /* Yellow text */
+  background-color: #0000ff !important;
+  color: #ffff00 !important;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -347,19 +347,19 @@
 }
 
 .theme-teletext #header h1 {
-  color: #ffff00 !important; /* Yellow text */
+  color: #ffff00 !important;
 }
 
 .theme-teletext #model-info {
-  color: #00ffff !important; /* Cyan text */
+  color: #00ffff !important;
 }
 
 .theme-teletext #logo-container svg,
 .theme-teletext #logo-container svg *,
 .theme-teletext #header .logo svg,
 .theme-teletext #header .logo svg * {
-  stroke: #ff0000 !important; /* Red lines for SVG paths */
-  fill: transparent !important; /* Transparent fill to see only lines */
+  stroke: #ff0000 !important;
+  fill: transparent !important;
 }
 
 .theme-teletext #logo-container path,
@@ -370,30 +370,30 @@
 .theme-teletext #header .logo polygon,
 .theme-teletext #header .logo circle,
 .theme-teletext #header .logo rect {
-  stroke: #ff0000 !important; /* Red strokes for all SVG shapes */
-  stroke-width: 1px !important; /* Ensure the lines are visible */
-  fill: transparent !important; /* Make fills transparent to see only lines */
+  stroke: #ff0000 !important;
+  stroke-width: 1px !important;
+  fill: transparent !important;
 }
 
 /* For image-based logos */
 .theme-teletext #logo-container img,
 .theme-teletext #header .logo img {
-  filter: brightness(0) saturate(100%) invert(15%) sepia(100%) saturate(6932%) hue-rotate(0deg) brightness(124%) contrast(126%) !important; /* Creates red lines effect on images */
+  filter: brightness(0) saturate(100%) invert(15%) sepia(100%) saturate(6932%) hue-rotate(0deg) brightness(124%) contrast(126%) !important;
 }
 
 /* Additional style for input container to look like Teletext */
 .theme-teletext .input-container {
-  border-top: 2px solid #00ffff; /* Cyan border */
+  border-top: 2px solid #00ffff;
 }
 
 /* Improve contrast for text on cyan backgrounds */
 .theme-teletext button[style*="var(--accent-color)"] {
-  color: #000000 !important; /* Black text on cyan buttons for better contrast */
+  color: #000000 !important;
 }
 
 .theme-teletext .radio-text,
 .theme-teletext .setting-item label {
-  color: #ffff00 !important; /* Yellow for better visibility */
+  color: #ffff00 !important;
 }
 
 /* Ensure tabs and settings have proper Teletext styling */
@@ -408,12 +408,12 @@
 
 /* Fix any contrast issues in the settings panel */
 .theme-teletext p[style*="var(--text-secondary)"] {
-  color: #00ffff !important; /* Cyan for secondary text */
+  color: #00ffff !important;
 }
 
 /* Make sure settings titles stand out */
 .theme-teletext .settings-group h3 {
-  color: #ffff00 !important; /* Yellow for headings */
+  color: #ffff00 !important;
 }
 
 /* Terminal theme font styles */

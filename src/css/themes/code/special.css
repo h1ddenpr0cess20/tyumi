@@ -2,12 +2,12 @@
 
 /* Teletext Theme Code Blocks */
 .theme-teletext pre {
-  background-color: #000000 !important; /* Pure black background */
-  border: 1px solid #0000ff !important; /* Blue border */
+  background-color: #000000 !important;
+  border: 1px solid #0000ff !important;
 }
 
 .theme-teletext pre code {
-  color: #ffffff !important; /* White text */
+  color: #ffffff !important;
 }
 
 .theme-teletext .hljs-keyword,
@@ -16,12 +16,12 @@
 .theme-teletext .hljs-title,
 .theme-teletext .hljs-title.function_,
 .theme-teletext .hljs-type {
-  color: #ffff00 !important; /* Yellow for keywords */
+  color: #ffff00 !important;
 }
 
 .theme-teletext .hljs-attribute, 
 .theme-teletext .hljs-built_in {
-  color: #00ffff !important; /* Cyan for attributes */
+  color: #00ffff !important;
 }
 
 .theme-teletext .hljs-string,
@@ -30,19 +30,19 @@
 .theme-teletext .hljs-doctag,
 .theme-teletext .hljs-regexp,
 .theme-teletext .hljs-symbol {
-  color: #00ff00 !important; /* Green for strings */
+  color: #00ff00 !important;
 }
 
 .theme-teletext .hljs-comment,
 .theme-teletext .hljs-quote {
-  color: #ff00ff !important; /* Magenta for comments */
+  color: #ff00ff !important;
   font-style: italic;
 }
 
 .theme-teletext .hljs-literal,
 .theme-teletext .hljs-number,
 .theme-teletext .hljs-bullet {
-  color: #ff0000 !important; /* Red for numbers */
+  color: #ff0000 !important;
 }
 
 .theme-teletext .hljs-variable,
@@ -50,14 +50,14 @@
 .theme-teletext .hljs-name,
 .theme-teletext .hljs-template-variable,
 .theme-teletext .hljs-deletion {
-  color: #00ffff !important; /* Cyan for variables */
+  color: #00ffff !important;
 }
 
 .theme-teletext .hljs-property,
 .theme-teletext .hljs-subst,
 .theme-teletext .hljs-params,
 .theme-teletext .hljs-meta-string {
-  color: #ffff00 !important; /* Yellow for properties */
+  color: #ffff00 !important;
 }
 
 /* Terminal Theme Code Blocks */
