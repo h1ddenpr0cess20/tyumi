@@ -703,19 +703,124 @@
     max-width: 100vw !important;
     transform: translateX(100%);
   }
-  
-  .history-item {
-    width: 100%;
-    float: none;
+}
+
+/* Mobile responsive styles for history panel */
+@media screen and (max-width: 768px) {
+  .history-toolbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
   }
   
-  .history-item:nth-child(odd) {
-    margin-right: 0;
+  .history-toolbar-left,
+  .history-toolbar-right {
+    justify-content: center;
+    flex-wrap: wrap;
   }
   
-  .history-actions button {
+  .history-table-container {
+    max-height: calc(100vh - 250px); /* Adjust for mobile header space */
+  }
+  
+  .history-table {
+    font-size: 0.8rem;
+  }
+  
+  .history-table th,
+  .history-table td {
+    padding: 8px 4px;
+  }
+  
+  /* Adjust column widths for mobile */
+  .history-table .col-title {
+    width: 40%;
+  }
+  
+  .history-table .col-prompt {
+    width: 25%;
+  }
+  
+  .history-table .col-model {
+    width: 20%;
+  }
+  
+  .history-table .col-stats {
+    width: 10%;
+  }
+  
+  .history-table .col-date {
+    width: 5%;
+  }
+  
+  /* Make text smaller and more compact on mobile */
+  .history-title {
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+  
+  .prompt-type {
+    font-size: 0.65rem;
+    padding: 1px 4px;
+  }
+  
+  .model-name {
+    font-size: 0.75rem;
+  }
+  
+  .service-name {
+    font-size: 0.65rem;
+  }
+  
+  .message-count,
+  .image-count {
+    font-size: 0.65rem;
+  }
+  
+  .date-info {
+    font-size: 0.65rem;
+  }
+  
+  /* Improve button sizing for touch devices */
+  .history-load-btn,
+  .history-rename-btn,
+  .history-delete-btn,
+  .history-select-all-btn,
+  .history-clear-selection-btn {
+    padding: 8px 16px;
+    min-height: 44px; /* Minimum touch target size */
+    font-size: 0.9rem;
+  }
+  
+  .history-new-button {
+    padding: 10px 16px;
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+  
+  .selection-mode-toggle {
     padding: 8px 12px;
     min-height: 44px;
+  }
+}
+
+/* Hide less important columns on very small screens */
+@media screen and (max-width: 480px) {
+  .history-table .col-stats,
+  .history-table .col-date {
+    display: none;
+  }
+  
+  .history-table .col-title {
+    width: 50%;
+  }
+  
+  .history-table .col-prompt {
+    width: 25%;
+  }
+  
+  .history-table .col-model {
+    width: 25%;
   }
 }
 
