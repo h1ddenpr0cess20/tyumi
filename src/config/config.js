@@ -53,6 +53,10 @@ window.DEFAULT_SETTINGS = {
   maxContextMessages: 10
 };
 
+// Logo configuration
+// Set to 'original' for K9 graph logo, 'concentric' for 9 concentric nonagons
+window.LOGO_STYLE = 'original';
+
 // Set up console logging wrapper for better debugging
 // Store original console methods globally so they can be accessed by debug toggle
 window.originalConsole = {
