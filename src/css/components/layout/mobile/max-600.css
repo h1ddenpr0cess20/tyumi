@@ -1,5 +1,0 @@
-@media (max-width: 600px) {
-  .message.user, .message.assistant {
-    max-width: 92vw;
-  }
-}
