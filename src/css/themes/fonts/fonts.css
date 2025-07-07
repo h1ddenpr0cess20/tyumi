@@ -108,8 +108,8 @@
 
 /* Create a Teletext-style header row */
 .theme-teletext #header {
-  background-color: #0000ff !important; /* Blue background */
-  color: #ffff00 !important; /* Yellow text */
+  background-color: #0000ff !important;
+  color: #ffff00 !important;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -120,26 +120,26 @@
 /* Red block removed */
 
 .theme-teletext #header h1 {
-  color: #ffff00 !important; /* Yellow text */
+  color: #ffff00 !important;
 }
 
 .theme-teletext #model-info {
-  color: #00ffff !important; /* Cyan text */
+  color: #00ffff !important;
 }
 
 /* Additional style for input container to look like Teletext */
 .theme-teletext .input-container {
-  border-top: 2px solid #00ffff; /* Cyan border */
+  border-top: 2px solid #00ffff;
 }
 
 /* Improve contrast for text on cyan backgrounds */
 .theme-teletext button[style*="var(--accent-color)"] {
-  color: #000000 !important; /* Black text on cyan buttons for better contrast */
+  color: #000000 !important;
 }
 
 .theme-teletext .radio-text,
 .theme-teletext .setting-item label {
-  color: #ffff00 !important; /* Yellow for better visibility */
+  color: #ffff00 !important;
 }
 
 /* Ensure tabs and settings have proper Teletext styling */
@@ -154,12 +154,12 @@
 
 /* Fix any contrast issues in the settings panel */
 .theme-teletext p[style*="var(--text-secondary)"] {
-  color: #00ffff !important; /* Cyan for secondary text */
+  color: #00ffff !important;
 }
 
 /* Make sure settings titles stand out */
 .theme-teletext .settings-group h3 {
-  color: #ffff00 !important; /* Yellow for headings */
+  color: #ffff00 !important;
 }
 
 /* Terminal theme font styles */
