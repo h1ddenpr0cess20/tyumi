@@ -529,26 +529,11 @@ window.createImageSlideshow = function(images, startIndex, isGalleryMode = false
     
     // Update info panel with all available metadata
     infoPanel.innerHTML = `
-      <h3>Image Details</h3>
+      <h3>Image Details <span class="gallery-slideshow-counter">${currentIndex + 1} / ${images.length}</span></h3>
       <p><strong>${isUploaded ? 'Type:' : 'Prompt:'}</strong><br><span class="prompt-text ${isUploaded ? 'uploaded-info' : ''}">${formattedPrompt}</span></p>
       <p><strong>Date:</strong> ${date}</p>
       <p><strong>Filename:</strong> ${filename}</p>
     `;
-    
-    // Update counter if there's more than one image
-    if (images.length > 1) {
-      // Remove any existing counter to prevent duplicates
-      const existingCounter = slideshowContainer.querySelector('.gallery-slideshow-counter');
-      if (existingCounter) {
-        existingCounter.remove();
-      }
-      
-      // Create a new counter with proper positioning
-      const counter = document.createElement('div');
-      counter.className = 'gallery-slideshow-counter';
-      counter.textContent = `${currentIndex + 1} / ${images.length}`;
-      slideshowContainer.appendChild(counter);
-    }
   };
   
   // Initialize with the starting image

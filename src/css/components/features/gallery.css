@@ -10,7 +10,7 @@
   width: 700px;
   height: 100%; /* Keeps panel height equal to chat area */
   background-color: var(--bg-primary);
-  color: var(--text-color);
+  color: var(--text-primary);
   z-index: 200;
   border-left: 0px solid var(--border-color);
   overflow-y: auto;
@@ -20,6 +20,7 @@
   display: flex;
   flex-direction: column;
   transform: translateX(100%); /* Hide by default using transform */
+  will-change: transform;
 }
 
 #gallery-panel[aria-hidden="false"] {
@@ -70,13 +71,13 @@
   padding: 10px 15px;
   gap: 10px;
   border-bottom: 1px solid var(--border-color);
-  background-color: var(--hover-color);
+  background-color: var(--bg-secondary);
   flex-shrink: 0; /* Prevent shrinking */
 }
 
 .gallery-tools button {
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
@@ -89,7 +90,7 @@
 }
 
 .gallery-tools button:hover {
-  background-color: var(--button-hover-bg);
+  background-color: var(--accent-color);
 }
 
 /* Gallery tabs */
@@ -117,7 +118,7 @@
 }
 
 .gallery-tab:hover {
-  background-color: var(--hover-color);
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
 
@@ -141,6 +142,8 @@
   flex: 1; /* Fill remaining space in the flex container */
   scrollbar-gutter: stable;
   padding-right: 15px; /* Consistent padding */
+  transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Gallery grid with relative positioning for the bulk delete indicator */
@@ -155,10 +158,11 @@
   background-color: var(--bg-secondary);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
   display: flex;
   flex-direction: column;
   overflow: visible;
+  will-change: transform;
 }
 
 .gallery-item:hover {
@@ -177,11 +181,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: filter 0.3s;
+  transition: filter 0.2s ease;
+  image-rendering: optimizeQuality;
+  backface-visibility: hidden;
 }
 
 .gallery-item:hover img {
-  filter: brightness(0.85);
+  filter: brightness(0.9);
 }
 
 /* Gallery item selection bar */
@@ -191,7 +197,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(var(--bg-primary-rgb), 0.8);
   padding: 5px;
   z-index: 2;
 }
@@ -202,7 +208,7 @@
   gap: 4px;
   cursor: pointer;
   font-size: 0.8rem;
-  color: white;
+  color: var(--text-primary);
 }
 
 .gallery-select-checkbox {
@@ -217,8 +223,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
+  background: rgba(var(--bg-primary-rgb), 0.8);
+  color: var(--text-primary);
   padding: 8px;
   z-index: 1;
 }
@@ -256,7 +262,7 @@
 }
 
 .gallery-actions button:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--accent-color);
 }
 
 .gallery-prompt {
@@ -281,7 +287,7 @@
 .gallery-actions button {
   background: none;
   border: none;
-  color: white;
+  color: var(--text-primary);
   cursor: pointer;
   font-size: 1rem;
   padding: 2px 5px;
@@ -290,7 +296,7 @@
 }
 
 .gallery-actions button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--accent-color);
 }
 
 .gallery-select-container {
@@ -331,8 +337,8 @@
   grid-column: 1 / -1;
   padding: 40px;
   text-align: center;
-  color: var(--secondary-text-color);
-  background-color: var(--hover-color);
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
   border-radius: 8px;
   font-style: italic;
 }
@@ -345,12 +351,12 @@
 }
 
 .gallery-loading {
-  background-color: var(--panel-bg-color);
+  background-color: var(--bg-primary);
 }
 
 .gallery-error {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: #ff5555;
+  background-color: var(--error-bg);
+  color: var(--error-text);
 }
 
 /* Gallery slideshow */
@@ -360,25 +366,24 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(var(--bg-primary-rgb, 26, 26, 26), 0.92);
-  backdrop-filter: blur(8px);
+  background-color: rgba(var(--bg-primary-rgb, 26, 26, 26), 0.95);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  touch-action: none; /* Prevents browser touch actions to enable custom handling */
-  animation: slideshow-fade-in 0.3s ease-out;
+  touch-action: none;
+  animation: slideshow-fade-in 0.2s ease-out;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 @keyframes slideshow-fade-in {
   from {
     opacity: 0;
-    backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(8px);
   }
 }
 
@@ -386,13 +391,13 @@
   position: relative;
   width: 90%;
   max-width: 1200px;
-  height: calc(100% - 150px); /* Adjusted for better spacing */
+  height: calc(100% - 150px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Slideshow image styling to ensure proper fitting */
+/* Slideshow image styling */
 .gallery-slideshow-image {
   max-width: 100%;
   max-height: 100%;
@@ -401,6 +406,9 @@
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  image-rendering: optimizeQuality;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Position the icon buttons in the absolute upper right corner of the screen */
@@ -415,66 +423,70 @@
 
 /* Style for the icon buttons */
 .slideshow-icon-btn {
-  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
-  border: none;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 50%;
-  width: 44px; /* Slightly larger for touch targets */
-  height: 44px; /* Slightly larger for touch targets */
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--button-text-color);
+  color: var(--text-primary);
   padding: 8px;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  will-change: transform, background-color;
+  backface-visibility: hidden;
 }
 
 .slideshow-icon-btn:hover {
-  background-color: var(--accent-hover);
-  border-color: var(--button-text-color);
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .slideshow-icon-btn:focus {
-  outline: 2px solid var(--button-text-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
-  background-color: var(--accent-hover);
+  background-color: var(--accent-color);
 }
 
-/* Navigation controls at middle sides */
+/* Navigation controls */
 .gallery-slideshow-nav {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  width: 54px; /* Larger for touch devices */
-  height: 54px; /* Larger for touch devices */
+  width: 54px;
+  height: 54px;
   font-size: 24px;
-  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
-  color: var(--button-text-color);
-  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   z-index: 1010;
+  will-change: transform, background-color;
+  backface-visibility: hidden;
 }
 
 .gallery-slideshow-nav:hover {
-  background-color: var(--accent-hover);
-  border-color: var(--button-text-color);
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .gallery-slideshow-nav:focus {
-  outline: 2px solid var(--button-text-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
-  background-color: var(--accent-hover);
+  background-color: var(--accent-color);
 }
 
 .gallery-slideshow-prev {
@@ -489,44 +501,58 @@
 .gallery-slideshow-info {
   margin-top: 15px;
   padding: 20px;
-  background-color: var(--accent-color);
-  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
-  color: var(--button-text-color);
-  border: 0px solid var(--accent-hover);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  width: 60vw; /* Increased from 50vw for better readability at 100% zoom */
-  min-width: 400px; /* Ensure minimum readable width */
-  max-width: 800px; /* Increased from 600px for longer content */
-  overflow-y: auto; /* Changed from clip to auto to allow scrolling */
-  max-height: 35vh; /* Slightly increased from 30vh */
-  position: relative; /* Ensure proper positioning */
-  z-index: 1010; /* Keep above other elements */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  word-wrap: break-word; /* Allow long words to break */
-  word-break: break-word; /* Ensure long words break properly */
-  hyphens: auto; /* Enable automatic hyphenation */
-  line-height: 1.5; /* Improved line spacing for readability */
+  width: 60vw;
+  min-width: 400px;
+  max-width: 800px;
+  overflow-y: auto;
+  max-height: 35vh;
+  position: relative;
+  z-index: 1010;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.5;
 }
 
 .gallery-slideshow-info h3 {
   margin-top: 0;
   margin-bottom: 12px;
-  color: var(--button-text-color);
-  border-bottom: 1px solid var(--button-text-color);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--text-primary);
   padding-bottom: 8px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Counter styling when inside h3 as a span */
+.gallery-slideshow-info h3 .gallery-slideshow-counter {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 2px 6px;
+  background-color: var(--bg-primary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .gallery-slideshow-info p {
   margin: 8px 0;
-  line-height: 1.5; /* Improved line spacing */
-  word-wrap: break-word; /* Allow long words to wrap */
-  overflow-wrap: break-word; /* Modern property for word wrapping */
-  max-width: 100%; /* Ensure text doesn't overflow container */
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .gallery-slideshow-info strong {
-  color: var(--button-text-color);
+  color: var(--text-primary);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -534,9 +560,9 @@
 .gallery-slideshow-info .prompt-text {
   display: block;
   margin-top: 4px;
-  white-space: pre-wrap; /* Preserve line breaks and wrap text */
-  word-break: break-word; /* Break long words */
-  overflow-wrap: break-word; /* Modern word breaking */
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
   font-style: italic;
   opacity: 0.95;
   line-height: 1.4;
@@ -554,46 +580,31 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
+  background-color: rgba(var(--bg-primary-rgb), 0.9);
+  color: var(--text-primary);
   padding: 20px;
   border-radius: 10px;
   z-index: 100;
   text-align: center;
-}
-
-/* Counter for slideshow (x/y) */
-.gallery-slideshow-counter {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.3);
-  color: var(--button-text-color);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  z-index: 1011;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
 }
 
 /* Gallery placeholder animations */
 .gallery-placeholder .placeholder-pulse {
   background: linear-gradient(90deg, 
     var(--bg-secondary) 0%, 
-    var(--hover-color, rgba(255,255,255,0.1)) 50%, 
+    var(--bg-primary) 50%, 
     var(--bg-secondary) 100%);
   background-size: 200% 100%;
-  animation: placeholder-pulse 1.5s infinite;
+  animation: placeholder-pulse 2s ease-in-out infinite;
+  will-change: background-position;
 }
 
 @keyframes placeholder-pulse {
-  0% {
+  0%, 100% {
     background-position: 200% 0;
   }
-  100% {
+  50% {
     background-position: -200% 0;
   }
 }
@@ -604,18 +615,18 @@
 }
 
 .gallery-slideshow-info::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--text-primary-rgb), 0.1);
   border-radius: 4px;
 }
 
 .gallery-slideshow-info::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(var(--text-primary-rgb), 0.3);
   border-radius: 4px;
   transition: background 0.2s ease;
 }
 
 .gallery-slideshow-info::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(var(--text-primary-rgb), 0.5);
 }
 
 /* Responsive adjustments for gallery slideshow info */
