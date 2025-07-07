@@ -1,9 +1,8 @@
-/* Settings panel */
 #settings-panel {
   position: absolute;
   top: 0;
   right: 0;
-  width: 700px;  /* Increased from 350px to match gallery width */
+  width: 700px;
   height: 100%;
   background-color: var(--bg-primary);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
@@ -63,7 +62,6 @@
   border-color: var(--accent-color);
 }
 
-/* Tabs Navigation */
 .settings-tabs {
   display: flex;
   border-bottom: 1px solid var(--border-color);
@@ -75,14 +73,11 @@
   background-color: var(--bg-primary);
   scrollbar-width: thin; 
   scrollbar-color: var(--accent-color) var(--bg-secondary);
-  
-  
 } 
 
 .settings-tabs::-webkit-scrollbar {
   height: 8px;
   background: var(--bg-secondary);
-  
 }
 .settings-tabs::-webkit-scrollbar-thumb {
   background: var(--accent-color);
@@ -120,7 +115,6 @@
   border-bottom: 2px solid var(--accent-color);
 }
 
-/* Tab Content */
 .tab-content {
   display: none;
   animation: fadeIn 0.3s ease-out;
@@ -134,7 +128,6 @@
   overflow-y: visible;
 }
 
-/* Tab Content Container */
 .tab-content-container {
   flex: 1;
   overflow-y: auto;
@@ -144,7 +137,6 @@
   flex-direction: column;
 }
 
-/* Multi-column layout for wider settings panel */
 .tab-content.active {
   display: block;
   flex: 1 1 auto;
@@ -152,12 +144,10 @@
   overflow-y: visible;
 }
 
-/* Make some sections side by side in the wider panel */
 .settings-group {
   margin-bottom: 22px;
 }
 
-/* Create two-column layout for settings tab */
 .settings-tab-columns {
   display: flex;
   flex-wrap: wrap;
@@ -169,7 +159,6 @@
   min-width: 300px;
 }
 
-/* Apply the column layout to specific tabs */
 #model-settings .tab-content,
 #tts-settings .tab-content {
   display: flex;
@@ -194,7 +183,6 @@
   text-align: center;
 }
 
-/* About tab styles */
 .about-content {
   display: flex;
   flex-direction: column;
@@ -218,7 +206,6 @@
   color: var(--accent-hover);
 }
 
-/* Footer information at the bottom of the About tab */
 .footer-info {
   margin-top: 30px;
   padding-top: 20px;
@@ -264,7 +251,6 @@
   margin: 0 0.25rem;
 }
 
-/* Donation section styles */
 .donation-section {
   margin-top: 30px;
   width: 100%;
@@ -386,7 +372,6 @@
 
 .range-container input[type="range"] {
   flex: 1;
-  /* Themed range input styling */
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
@@ -396,7 +381,6 @@
   outline: none;
 }
 
-/* WebKit (Chrome, Safari, Edge) track styling */
 .range-container input[type="range"]::-webkit-slider-track {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -406,7 +390,6 @@
   transition: all 0.2s ease;
 }
 
-/* WebKit thumb styling */
 .range-container input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -418,17 +401,15 @@
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
-  margin-top: -6px; /* Use margin-top instead of position top for better centering */
+  margin-top: -6px;
 }
 
-/* WebKit thumb hover state */
 .range-container input[type="range"]::-webkit-slider-thumb:hover {
   background: var(--accent-hover);
   transform: scale(1.1);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* WebKit focus styles */
 .range-container input[type="range"]:focus::-webkit-slider-track {
   border-color: var(--accent-color);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 
@@ -442,7 +423,6 @@
               0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Firefox track styling */
 .range-container input[type="range"]::-moz-range-track {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -452,7 +432,6 @@
   transition: all 0.2s ease;
 }
 
-/* Firefox thumb styling */
 .range-container input[type="range"]::-moz-range-thumb {
   background: var(--accent-color);
   border: none;
@@ -464,14 +443,12 @@
   transition: all 0.2s ease;
 }
 
-/* Firefox thumb hover state */
 .range-container input[type="range"]::-moz-range-thumb:hover {
   background: var(--accent-hover);
   transform: scale(1.1);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* Firefox focus styles */
 .range-container input[type="range"]:focus::-moz-range-track {
   border-color: var(--accent-color);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 
@@ -485,7 +462,6 @@
               0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Active/pressed state for both browsers */
 .range-container input[type="range"]:active::-webkit-slider-thumb {
   transform: scale(0.95);
   background: var(--accent-color);
@@ -496,12 +472,10 @@
   background: var(--accent-color);
 }
 
-/* Enhanced accessibility and keyboard navigation */
 .range-container input[type="range"]:focus {
-  outline: none; /* We provide custom focus styling above */
+  outline: none;
 }
 
-/* High contrast focus indicators for accessibility */
 @media (prefers-contrast: high) {
   .range-container input[type="range"]:focus::-webkit-slider-thumb {
     border: 3px solid var(--accent-color);
@@ -516,7 +490,6 @@
   }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .range-container input[type="range"],
   .range-container input[type="range"]::-webkit-slider-thumb,
@@ -532,7 +505,6 @@
   }
 }
 
-/* Enhanced styling for special themes */
 .theme-neon-blue .range-container input[type="range"]::-webkit-slider-thumb,
 .theme-neon-green .range-container input[type="range"]::-webkit-slider-thumb,
 .theme-neon-purple .range-container input[type="range"]::-webkit-slider-thumb,
@@ -547,7 +519,6 @@
   box-shadow: 0 0 10px var(--accent-color), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Metal theme enhancements */
 .theme-metal-blue .range-container input[type="range"]::-webkit-slider-thumb,
 .theme-metal-green .range-container input[type="range"]::-webkit-slider-thumb,
 .theme-metal-red .range-container input[type="range"]::-webkit-slider-thumb,
@@ -564,7 +535,6 @@
   border: none;
 }
 
-/* Teletext theme - remove border radius to match block style */
 .theme-teletext .range-container input[type="range"]::-webkit-slider-track {
   border-radius: 0 !important;
 }
@@ -573,7 +543,7 @@
   border-radius: 0 !important;
   width: 16px;
   height: 16px;
-  margin-top: -4px; /* Adjusted for smaller square thumb */
+  margin-top: -4px;
 }
 
 .theme-teletext .range-container input[type="range"]::-moz-range-track {
@@ -586,7 +556,6 @@
   height: 16px;
 }
 
-/* Radio buttons */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -594,7 +563,6 @@
   margin-bottom: 16px;
 }
 
-/* Radio button styling */
 .radio-label {
   display: inline-flex;
   align-items: center;
@@ -642,7 +610,6 @@
   font-weight: 600;
 }
 
-/* Personality presets section */
 .personality-presets {
   margin: 16px 0;
   padding: 16px;
@@ -682,7 +649,6 @@
   transform: translateY(-1px);
 }
 
-/* Mobile responsiveness for preset buttons */
 @media screen and (max-width: 768px) {
   .preset-buttons {
     grid-template-columns: repeat(3, 1fr);
@@ -705,7 +671,6 @@
   }
 }
 
-/* Reset button */
 .reset-button {
   background-color: transparent;
   color: var(--button-text-color);
@@ -732,7 +697,6 @@
   margin-bottom: 6px;
 }
 
-/* Custom prompt specific styling */
 #system-prompt-custom {
   min-height: 150px;
   background-color: var(--bg-secondary);
@@ -742,7 +706,6 @@
 
 
 
-/* Button styles */
 .settings-button, 
 #set-personality, 
 #reset-personality,
@@ -790,21 +753,18 @@
   flex: 1;
 }
 
-/* Text styles */
 .info-text {
   margin-top: 5px;
   font-size: 12px;
   color: var(--text-secondary);
 }
 
-/* Input styles */
 #personality-input {
   width: 100%;
   box-sizing: border-box;
   padding: 8px;
 }
 
-/* Theme preview styles */
 .theme-preview {
   display: flex;
   align-items: center;
@@ -842,7 +802,6 @@
   background-color: var(--user-bg);
 }
 
-/* Model selector with refresh button */
 .model-selector-container {
   display: flex;
   gap: 8px;
@@ -889,14 +848,12 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Service compatibility notice for different AI models */
 .service-compatibility-notice {
   color: var(--text-secondary);
   font-size: 12px;
   padding: 10px 0;
 }
 
-/* Location status styles */
 .location-status {
   padding: 8px 12px;
   border-radius: 4px;
@@ -924,7 +881,6 @@
   border: 1px solid var(--border-color);
 }
 
-/* Location tab specific styles */
 .privacy-info ul,
 .location-benefits ul {
   list-style: none;
@@ -957,7 +913,6 @@
   color: var(--accent-color);
 }
 
-/* Location status styling */
 .location-status {
   padding: 12px 16px;
   border-radius: 6px;
@@ -984,18 +939,16 @@
   color: #ffc107;
 }
 
-/* Mobile-friendly range input enhancements */
 @media (max-width: 768px) {
   .range-container input[type="range"] {
-    height: 32px; /* Larger touch target on mobile */
+    height: 32px; 
     margin: 12px 0;
   }
-  
-  /* Larger thumbs for better touch interaction */
+
   .range-container input[type="range"]::-webkit-slider-thumb {
     height: 28px;
     width: 28px;
-    margin-top: -8px; /* Adjusted for larger thumb */
+    margin-top: -8px;
   }
   
   .range-container input[type="range"]::-moz-range-thumb {
@@ -1003,7 +956,6 @@
     width: 28px;
   }
   
-  /* Larger track for easier touch interaction */
   .range-container input[type="range"]::-webkit-slider-track {
     height: 12px;
   }
@@ -1012,11 +964,10 @@
     height: 12px;
   }
   
-  /* Special handling for teletext theme on mobile */
   .theme-teletext .range-container input[type="range"]::-webkit-slider-thumb {
     width: 24px;
     height: 24px;
-    margin-top: -6px; /* Adjusted for teletext square thumb */
+    margin-top: -6px;
   }
   
   .theme-teletext .range-container input[type="range"]::-moz-range-thumb {
@@ -1025,10 +976,8 @@
   }
 }
 
-/* Touch device specific enhancements */
 @media (hover: none) and (pointer: coarse) {
   .range-container input[type="range"]::-webkit-slider-thumb {
-    /* Ensure good touch target size */
     min-height: 28px;
     min-width: 28px;
   }
@@ -1038,7 +987,6 @@
     min-width: 28px;
   }
   
-  /* Remove hover effects on touch devices */
   .range-container input[type="range"]::-webkit-slider-thumb:hover {
     transform: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -1050,7 +998,6 @@
   }
 }
 
-/* Range value label styling */
 .range-value {
   min-width: 40px;
   text-align: center;
@@ -1060,6 +1007,6 @@
   background-color: transparent;
   padding: 4px 8px;
   font-weight: 600;
-  font-family: inherit; /* Use the theme's font family */
+  font-family: inherit;
   letter-spacing: 0.5px;
 }

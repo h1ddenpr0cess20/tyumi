@@ -1,31 +1,18 @@
 /* History panel styles */
 
-/**
- * History Panel Layout Fixes:
- * 
- * Key improvements made:
- * 1. Removed panel-level padding and moved it to content area for better scrolling
- * 2. Fixed flex layout to ensure table container fills available space
- * 3. Added proper overflow handling for table content
- * 4. Improved mobile responsiveness with better column sizing and touch targets
- * 5. Added consistent scrollbar styling
- * 6. Enhanced table cell overflow with ellipsis and proper text wrapping
- * 7. Updated empty state styling for better UX
- */
-
 /* History panel */
 #history-panel {
   position: absolute;
   top: 0;
   right: 0;
   width: 700px;
-  height: 100%; 
+  height: 100%;
   background-color: var(--bg-primary);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000; 
-  overflow: hidden; /* Changed from overflow-y: auto to prevent double scrollbars */
+  z-index: 1000;
+  overflow: hidden;
   transition: transform 0.25s ease;
-  padding: 0; /* Remove padding to let header and content manage their own spacing */
+  padding: 0;
   display: flex;
   flex-direction: column;
   transform: translateX(100%); 
@@ -43,15 +30,12 @@
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   flex-shrink: 0;
-  margin: 0; /* Remove negative margins since panel padding is now 0 */
+  margin: 0;
 }
 
-/* History button hover state only - other styles are in controls.css */
 #history-button:hover {
   border-color: var(--accent-color);
 }
-
-/* Active state now controlled by aria-hidden attribute */
 
 .close-history {
   width: 28px;
@@ -80,7 +64,7 @@
   padding: 12px;
   background-color: var(--bg-secondary);
   border-radius: 8px;
-  margin-bottom: 0; /* Remove margin since we now use gap in parent */
+  margin-bottom: 0;
   border: 1px solid var(--border-color);
 }
 
@@ -195,15 +179,15 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--bg-secondary);
-  min-height: 0; /* Allow flex item to shrink below content size */
-  max-height: calc(100vh - 200px); /* Prevent container from growing too large */
+  min-height: 0;
+  max-height: calc(100vh - 200px);
 }
 
 .history-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
-  table-layout: fixed; /* Use fixed layout for better column control */
+  table-layout: fixed;
 }
 
 .history-table thead {
@@ -280,23 +264,20 @@
   padding: 12px 8px;
   border-right: 1px solid var(--border-color);
   vertical-align: middle;
-  overflow: hidden; /* Prevent content from overflowing cells */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-  white-space: nowrap; /* Prevent text wrapping by default */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .history-row td:last-child {
   border-right: none;
 }
 
-/* Allow wrapping for title column since it's the most important */
 .history-row .col-title {
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
-
-/* Keep specific content compact */
 .history-row .col-stats,
 .history-row .col-date {
   white-space: nowrap;
@@ -376,9 +357,9 @@
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  min-height: 0; /* Allow flex item to shrink below content size */
-  padding: 20px; /* Add padding to the content area */
-  gap: 16px; /* Add consistent spacing between elements */
+  min-height: 0;
+  padding: 20px;
+  gap: 16px;
 }
 
 /* Scrollbar styling for history list */
@@ -401,7 +382,6 @@
   background-color: var(--accent-hover);
 }
 
-/* Firefox scrollbar styling */
 #history-list {
   scrollbar-width: thin;
   scrollbar-color: var(--accent-color) var(--bg-secondary);

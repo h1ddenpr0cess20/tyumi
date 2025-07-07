@@ -4,14 +4,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  /* Help prevent click events from propagating to parent elements */
   isolation: isolate;
 }
 
 .api-key-input-container input {
   flex: 1;
   padding-right: 42px;
-  /* Ensure input captures clicks */
   position: relative;
   z-index: 1;
 }
@@ -28,7 +26,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  /* Ensure button is above input and captures clicks */
   z-index: 2;
 }
 
@@ -41,11 +38,10 @@
   display: flex;
   justify-content: center;
   margin-top: 24px;
-  position: relative;  /* Establish stacking context */
-  z-index: 1;          /* Ensure buttons are clickable */
+  position: relative;
+  z-index: 1;
 }
 
-/* Ensure all input containers properly handle clicks */
 #content-apikeys .setting-item {
   position: relative;
   z-index: 1;

@@ -5,23 +5,21 @@
   background-color: var(--bg-primary);
   border-top: 1px solid var(--border-color);
   position: relative;
-  z-index: 10; /* Ensure input stays above other elements */
+  z-index: 10;
 }
 
-/* Input wrapper for positioning button inside */
 .input-wrapper {
   position: relative;
   flex: 1;
 }
 
-/* User input */
 #user-input {
   width: 100%;
   border: 1px solid var(--border-color);
   background-color: var(--bg-secondary);
   color: var(--text-primary);
   border-radius: 8px;
-  padding: 16px 60px 16px 16px; /* Add right padding for button */
+  padding: 16px 60px 16px 16px;
   resize: none;
   height: 56px;
   font-family: inherit;
@@ -35,7 +33,6 @@
   border-color: var(--accent-color);
 }
 
-/* Send button - positioned inside textarea */
 #send-button {
   position: absolute;
   right: 5px;
@@ -56,7 +53,6 @@
   padding: 0;
 }
 
-/* Send button icons */
 #send-button .send-icon,
 #send-button .stop-icon {
   transition: all 0.2s ease;
@@ -64,7 +60,6 @@
   stroke: none;
 }
 
-/* Hover effect removed */
 
 #send-button .stopping-spinner {
   position: absolute;
@@ -84,7 +79,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Stop mode styles */
 #send-button.stop-mode {
   color: var(--error-bg);
 }
@@ -97,7 +91,6 @@
   display: block !important;
 }
 
-/* Stopping state styles */
 #send-button.stopping {
   color: var(--error-bg);
   opacity: 0.7;
@@ -113,13 +106,10 @@
   display: block !important;
 }
 
-/* Hover effects removed */
-
 #send-button:active {
   transform: scale(0.95);
 }
 
-/* Settings button */
 #settings-button,
 #history-button,
 #gallery-button {
@@ -138,7 +128,7 @@
   cursor: pointer;
   transition: all 0.2s;
   z-index: 100;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better visibility */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #settings-button {
@@ -150,7 +140,7 @@
 }
 
 #gallery-button {
-  right: 118px;  /* Adjusted from 116px to 118px for consistent 50px spacing */
+  right: 118px;
 }
 
 #settings-button:hover,
@@ -161,8 +151,6 @@
 }
 
 
-
-/* Stop button */
 #stop-button {
   background-color: var(--error-bg);
   color: var(--button-text-color);
@@ -176,7 +164,6 @@
   transform: scale(0.95);
 }
 
-/* Toggle Switch for TTS */
 .toggle-container {
   position: relative;
   display: inline-block;
@@ -297,7 +284,6 @@ input:focus + .toggle-switch {
   to { transform: rotate(360deg); }
 }
 
-/* Upload button */
 #upload-button {
   position: absolute;
   right: 55px;
@@ -367,7 +353,6 @@ input:focus + .toggle-switch {
   transform: scale(1.1);
 }
 
-/* Drag and drop styles */
 .input-wrapper.drag-over {
   background-color: rgba(var(--accent-color-rgb), 0.1);
   border-radius: 8px;

@@ -34,7 +34,6 @@
     #send-button {
     width: 60px;
     height: 60px;
-    
   }
   
   .message-content,
@@ -117,7 +116,7 @@
     #chat-box {
     flex: 1;
     overflow-y: auto;
-    padding: 0 36px 80px 36px; /* Add horizontal padding for external copy buttons */
+    padding: 0 36px 80px 36px;
   }
   
   #tyumi-logo {
@@ -657,7 +656,7 @@
 
 @media (max-width: 800px) {
   #settings-panel {
-    width: 100% !important; /* Override any set width with !important */
+    width: 100% !important;
     max-width: 100vw !important;
     transform: translateX(100%);
   }
@@ -677,7 +676,7 @@
 
 @media (max-width: 800px) {
   #gallery-panel {
-    width: 100% !important; /* Override any set width with !important */
+    width: 100% !important;
     max-width: 100vw !important;
     transform: translateX(100%);
   }
@@ -699,7 +698,7 @@
 
 @media (max-width: 800px) {
   #history-panel {
-    width: 100% !important; /* Override any set width with !important */
+    width: 100% !important;
     max-width: 100vw !important;
     transform: translateX(100%);
   }
@@ -720,7 +719,7 @@
   }
   
   .history-table-container {
-    max-height: calc(100vh - 250px); /* Adjust for mobile header space */
+    max-height: calc(100vh - 250px);
   }
   
   .history-table {
@@ -731,7 +730,7 @@
   .history-table td {
     padding: 8px 4px;
   }
-  
+
   /* Adjust column widths for mobile */
   .history-table .col-title {
     width: 40%;
@@ -752,8 +751,7 @@
   .history-table .col-date {
     width: 5%;
   }
-  
-  /* Make text smaller and more compact on mobile */
+
   .history-title {
     font-size: 0.85rem;
     line-height: 1.2;
@@ -780,7 +778,7 @@
   .date-info {
     font-size: 0.65rem;
   }
-  
+
   /* Improve button sizing for touch devices */
   .history-load-btn,
   .history-rename-btn,
@@ -788,7 +786,7 @@
   .history-select-all-btn,
   .history-clear-selection-btn {
     padding: 8px 16px;
-    min-height: 44px; /* Minimum touch target size */
+    min-height: 44px;
     font-size: 0.9rem;
   }
   

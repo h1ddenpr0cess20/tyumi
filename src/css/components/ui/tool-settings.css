@@ -1,14 +1,11 @@
-/* Tool Settings Styles */
 #content-tools .settings-group {
   margin-bottom: 20px;
 }
-
-/* Tool category styling */
 .tool-category {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 12px; /* Increased spacing between categories */
+  margin-bottom: 12px;
 }
 
 .tool-category-header {
@@ -52,7 +49,6 @@
   font-weight: 600;
 }
 
-/* Collapsed state for categories */
 .tool-category.collapsed .tool-category-grid {
   display: none;
   max-height: 0;
@@ -63,7 +59,6 @@
   transform: rotate(0deg);
 }
 
-/* Smooth transition for grid collapse/expand */
 .tool-category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -72,40 +67,36 @@
   overflow: hidden;
 }
 
-
-
-/* Smaller tool toggle items */
 .tool-toggle-item {
   margin-bottom: 0;
-  padding: 8px 12px; /* Reduced padding */
+  padding: 8px 12px;
   border: 1px solid var(--border-color);
-  border-radius: 6px; /* Slightly smaller border radius */
+  border-radius: 6px;
   background-color: var(--bg-secondary);
   transition: border-color 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  min-height: auto; /* Remove any minimum height */
+  min-height: auto;
 }
 
 .tool-toggle-item:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Smaller shadow */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tool-toggle-item label {
   font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
-  font-size: 0.9rem; /* Slightly smaller font */
-  margin-bottom: 0; /* Remove any margin */
+  font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
-/* Help icon styling overrides for smaller tool boxes */
 .tool-help-icon {
-  top: 6px; /* Adjusted for smaller padding */
-  right: 6px; /* Adjusted for smaller padding */
-  width: 14px; /* Slightly smaller */
-  height: 14px; /* Slightly smaller */
-  font-size: 9px; /* Smaller font */
+  top: 6px;
+  right: 6px;
+  width: 14px;
+  height: 14px;
+  font-size: 9px;
 }
 
 #individual-tools-container {
@@ -114,7 +105,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Reduced gap between categories */
+  gap: 16px;
 }
 
 #individual-tools-container::-webkit-scrollbar {
@@ -136,13 +127,11 @@
   background-color: var(--accent-hover);
 }
 
-/* Disabled tool styling */
 .tool-toggle-item input[type="checkbox"]:disabled + .toggle-switch {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Button to enable all tools at once */
 .tools-bulk-actions {
   display: flex;
   justify-content: flex-end;
@@ -166,15 +155,14 @@
   background-color: var(--accent-hover);
 }
 
-/* Responsive styles for tool toggles */
 @media screen and (max-width: 768px) {
   .tool-category-grid {
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: 6px;
   }
   
   .tool-toggle-item {
-    padding: 6px 10px; /* Even smaller on mobile */
+    padding: 6px 10px;
   }
   
   .tool-toggle-item label {
@@ -182,14 +170,12 @@
   }
 }
 
-/* For very narrow settings panels, also use single column */
 @media screen and (max-width: 600px) {
   .tool-category-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Tool API Keys section styling */
 .tools-api-keys-actions {
   display: flex;
   justify-content: center;
@@ -212,7 +198,6 @@
   background-color: var(--accent-hover);
 }
 
-/* Status messages for tool API keys */
 .tools-api-keys-status {
   margin-top: 16px;
   padding: 10px;

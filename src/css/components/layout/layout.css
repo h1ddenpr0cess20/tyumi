@@ -36,10 +36,10 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  height: 3rem; 
+  height: 3rem;
   min-height: 3rem;
   overflow: hidden;
-  width: 100%; 
+  width: 100%;
   line-height: 1.5rem;
 }
 
@@ -50,7 +50,7 @@
   overflow: hidden;
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
-  line-clamp: 2; 
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.5rem;
 }
@@ -59,7 +59,7 @@
 #chat-box {
   flex: 1;
   overflow-y: auto;
-  padding: 32px 44px 32px 44px; /* Add horizontal padding for external copy buttons */
+  padding: 32px 44px 32px 44px;
   display: flex;
   flex-direction: column;
 }

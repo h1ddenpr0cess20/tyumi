@@ -1,4 +1,4 @@
-/* Message styles with side icons */
+/* Message styles */
 .message {
   display: flex;
   align-items: flex-start;
@@ -6,7 +6,7 @@
   width: 100%;
   gap: 12px;
   animation: fadeIn 0.3s ease-out;
-  position: relative; /* For copy button positioning */
+  position: relative;
 }
 
 .message-content {
@@ -15,8 +15,8 @@
   color: var(--text-primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   flex: 1;
-  min-width: 0; /* Allows content to shrink */
-  position: relative; /* For copy button positioning */
+  min-width: 0;
+  position: relative;
 }
 
 .user .message-content {
@@ -56,7 +56,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-top: 4px; /* Slight offset to align with first line of text */
+  margin-top: 4px;
 }
 
 .sender-icon {
@@ -76,9 +76,6 @@
   color: var(--accent-hover);
 }
 
-/* Remove sender-text since we're not using it anymore */
-
-/* Base message content styles */
 .message-content {
   font-size: 1.1rem;
   line-height: 1;
@@ -87,14 +84,12 @@
   word-break: break-word;
 }
 
-/* Paragraph styling */
 .message-content p {
   margin: 0;
-  /* line-height is inherited from .message-content */
 }
 
 .message-content p:last-child {
-  margin-bottom: 0; /* No margin on the last paragraph */
+  margin-bottom: 0;
 }
 
 /* Heading margins */
@@ -130,7 +125,7 @@
 
 .message-content ul ul {
   list-style-type: circle;
-  margin-bottom: 0; /* No bottom margin for nested lists */
+  margin-bottom: 0;
 }
 
 .message-content ul ul ul {
@@ -143,7 +138,7 @@
 
 .message-content ol ol {
   list-style-type: lower-alpha;
-  margin-bottom: 0; /* No bottom margin for nested lists */
+  margin-bottom: 0;
 }
 
 .message-content ol ol ol {
@@ -157,7 +152,7 @@
 }
 
 .message-content li:last-child {
-  margin-bottom: 0; /* No margin on the last list item */
+  margin-bottom: 0;
 }
 
 /* Code block styling */
@@ -175,26 +170,22 @@
   white-space: pre;
   display: block;
   padding: 0;
-  line-height: 1.0; /* Slightly larger line-height for code readability */
+  line-height: 1.0;
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 0.9rem;
   color: var(--text-primary);
 }
 
-
-
-/* Image styling */
 .message-content img {
-  max-width: 256px;  /* Thumbnail size */
+  max-width: 256px;
   height: auto;
   border-radius: 8px;
-  margin: 12px 8px;  /* Added horizontal margin to separate images */
+  margin: 12px 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
   cursor: pointer;
 }
 
-/* Enhanced styling for expandable embedded images */
 .message-content img.expandable-image {
   border: 2px solid transparent;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -205,7 +196,6 @@
   box-shadow: 0 4px 20px rgba(var(--accent-color-rgb, 102, 102, 102), 0.3);
 }
 
-/* Image container for hover effects */
 .message-content .image-container {
   position: relative;
   display: inline-block;
@@ -216,10 +206,9 @@
   margin: 0;
 }
 
-/* Image hover download button */
 .image-download-btn {
   position: absolute;
-  top: 5px;  /* Position in top-right corner */
+  top: 5px;
   right: 5px;
   background-color: transparent;
   color: var(--accent-color);
@@ -241,8 +230,6 @@
   opacity: 1;
 }
 
-
-
 .image-download-btn svg {
   width: 22px;
   height: 22px;
@@ -250,54 +237,23 @@
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
 }
 
-/* Slideshow download button */
-.slideshow-download {
-  position: absolute;
-  top: 20px;
-  right: 70px; /* Moving back to original position */
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;  /* Keep the larger size */
-  height: 50px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.slideshow-download:hover,
-.slideshow-close:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.7);
-}
 
-.slideshow-download svg {
-  width: 26px;  /* Made icon bigger */
-  height: 26px;
-  fill: currentColor;
-}
-
-/* Container for generated images */
 .generated-images {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;  /* Reduced from 12px to 8px */
-  margin-bottom: 16px;  /* Space before text content */
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .generated-images img {
-  margin: 0;  /* Remove default margins since we're using gap */
+  margin: 0;
 }
 
 .message-content img:hover {
   transform: scale(1.02);
 }
 
-/* Full-screen image view */
 .fullscreen-image {
   position: fixed;
   top: 0;
@@ -319,12 +275,11 @@
   height: auto;
   object-fit: contain;
   border-radius: 8px;
-  cursor: default; /* Changed from zoom-out */
+  cursor: default;
   margin: 0;
   box-shadow: none;
 }
 
-/* Use the same styling as gallery slideshow */
 .fullscreen-image-container {
   position: relative;
   width: 90%;
@@ -356,7 +311,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Position the icon buttons in the absolute upper right corner of the screen */
 .fullscreen-top-controls {
   position: fixed;
   top: 20px;
@@ -366,38 +320,6 @@
   z-index: 1010;
 }
 
-/* Navigation controls at middle sides */
-.fullscreen-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s;
-}
-
-.fullscreen-nav:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.fullscreen-prev {
-  left: 20px;
-}
-
-.fullscreen-next {
-  right: 20px;
-}
-
-/* Navigation controls at middle sides */
 .fullscreen-nav {
   position: absolute;
   top: 50%;
@@ -440,96 +362,8 @@
   font-size: 0.9rem;
 }
 
-/* Slideshow styles */
-.slideshow-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
 
-.slideshow-image {
-  max-width: 90vw;
-  max-height: 85vh;
-  cursor: pointer; /* Click to advance */
-  object-fit: contain;
-}
 
-.slideshow-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.slideshow-nav:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.slideshow-nav.prev {
-  left: 20px;
-}
-
-.slideshow-nav.next {
-  right: 20px;
-}
-
-.slideshow-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;  /* Made button bigger */
-  height: 50px;  /* Made button bigger */
-  font-size: 32px;  /* Made X bigger */
-  line-height: 50px;  /* Adjusted line height */
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.slideshow-close:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.slideshow-counter {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-/* Copy button for code blocks */
 .copy-btn {
   position: absolute;
   top: 5px;
@@ -555,7 +389,6 @@
   color: var(--accent-color);
 }
 
-/* Copy button for entire messages - positioned outside the bubble */
 .message-copy-btn {
   position: absolute;
   bottom: 8px;
@@ -584,17 +417,14 @@
   transform: scale(1.05);
 }
 
-/* Position copy button outside bubble on right for assistant messages */
 .message.assistant .message-copy-btn {
   right: -38px;
 }
 
-/* Position copy button outside bubble on left for user messages */
 .message.user .message-copy-btn {
   left: -38px;
 }
 
-/* Streaming cursor animation */
 @keyframes blinkCursor {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -619,12 +449,11 @@
   animation: fadeOutCursor 0.3s forwards;
 }
 
-/* Thinking container styles */
 .thinking-container {
   background-color: var(--bg-secondary);
   border-radius: 6px;
   font-size: 0.9rem;
-  line-height: 1.0; /* Tight line-height for thinking */
+  line-height: 1.0;
   color: var(--text-secondary);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -634,7 +463,6 @@
   margin-bottom: 16px;
 }
 
-/* Thinking container title/toggle */
 .thinking-title {
   font-weight: 600;
   margin-bottom: 4px;
@@ -648,7 +476,7 @@
 }
 
 .thinking-title::before {
-  content: "▼"; /* Collapsed state indicator */
+  content: "▼";
   margin-right: 6px;
   font-size: 0.75rem;
   transition: transform 0.3s;
@@ -669,7 +497,6 @@
   content: "(click to collapse)";
 }
 
-/* Collapsed state styling */
 .thinking-container.collapsed {
   background-color: transparent;
   height: min-content;
@@ -681,31 +508,20 @@
 }
 
 .thinking-container.collapsed .thinking-title::before {
-  transform: rotate(-90deg); /* Indicator points right when collapsed */
+  transform: rotate(-90deg);
 }
 
 .thinking-container.collapsed .thinking-content {
   display: none;
 }
 
-/* Thinking content (scrollable area) */
 .thinking-content {
-  max-height: 250px; /* Limit height to enable scrolling */
-  overflow-y: auto; /* Enable vertical scroll */
-  padding-right: 5px; /* Space for scrollbar */
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
   display: block;
 }
 
-/* Generated image thumbnail styling */
-.generated-image-thumbnail {
-  max-width: 160px;
-  max-height: 160px;
-  border-radius: 8px;
-  margin: 8px 0;
-  cursor: pointer;
-}
-
-/* Image placeholder style */
 .image-placeholder {
   padding: 40px;
   background: var(--bg-secondary);
@@ -716,16 +532,14 @@
   color: var(--text-secondary);
 }
 
-/* Hidden inline image placeholder */
 .hidden-image-placeholder {
-  display: none; /* Hide the element completely */
-  visibility: hidden; /* Ensure it's not visible if display changes */
+  display: none;
+  visibility: hidden;
   height: 0;
   width: 0;
   overflow: hidden;
 }
 
-/* Generated image thumbnail styling */
 .generated-image-thumbnail {
   max-width: 160px;
   max-height: 160px;
@@ -734,14 +548,10 @@
   cursor: pointer;
 }
 
-
-
-/* Hidden elements (for download links) */
 .visually-hidden {
   display: none !important;
 }
 
-/* Image overlay for fullscreen viewing */
 .image-overlay {
   position: fixed;
   top: 0;
@@ -755,7 +565,6 @@
   align-items: center;
 }
 
-/* Enlarged image in overlay */
 .enlarged-image {
   max-width: 90%;
   max-height: 90%;
@@ -764,7 +573,6 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-/* Overlay button styles */
 .overlay-button {
   position: absolute;
   padding: 8px 16px;
@@ -785,7 +593,6 @@
   left: 20px;
 }
 
-/* User message right, assistant left (opposing sides) */
 #chat-box {
   display: flex;
   flex-direction: column;
@@ -815,7 +622,6 @@
   gap: 12px;
 }
 
-/* Enhanced icon colors for different message types */
 .message.user .user-icon {
   color: var(--accent-color);
 }

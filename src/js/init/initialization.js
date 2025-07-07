@@ -234,10 +234,10 @@ async function initialize() {
     
     // Check if API keys are missing and auto-open the API keys tab if needed
     if (typeof window.openApiKeysTabIfNeeded === 'function') {
-      // Add a small delay to ensure all UI components are fully rendered
+      // Add a delay so users can see the chat interface before the API key menu appears
       setTimeout(() => {
         window.openApiKeysTabIfNeeded();
-      }, 200);
+      }, 2000);
     }
     
     if (window.VERBOSE_LOGGING) console.info('Chatbot application initialization complete.');
