@@ -599,13 +599,13 @@
   width: 100%;
 }
 
-.radio-label:has(input[type="radio"]:checked) {
+.radio-label.checked {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
   color: var(--button-text-color);
 }
 
-.radio-label:has(input[type="radio"]:checked) .radio-text {
+.radio-label.checked .radio-text {
   color: var(--button-text-color);
   font-weight: 600;
 }

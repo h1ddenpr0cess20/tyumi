@@ -134,7 +134,7 @@
   color: #88ff88 !important;
 }
 
-.theme-terminal .radio-label:has(input[type="radio"]:checked) {
+.theme-terminal .radio-label.checked {
   background: transparent !important;
   border: none !important;
 }

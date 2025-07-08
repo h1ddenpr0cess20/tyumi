@@ -597,30 +597,28 @@ function setupSelectorEventListeners() {
  * Setup prompt radio button event listeners
  */
 function setupPromptRadioEventListeners() {
-  // Event listeners for prompt type radio buttons to update UI visibility
-  if (window.personalityPromptRadio) {
-    window.personalityPromptRadio.addEventListener('change', () => {
-      if (window.personalityPromptRadio.checked) {
+  const radios = document.querySelectorAll('input[name="prompt-type"]');
+
+  const updateLabelClasses = () => {
+    radios.forEach(radio => {
+      const label = radio.closest('.radio-label');
+      if (label) {
+        label.classList.toggle('checked', radio.checked);
+      }
+    });
+  };
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      updateLabelClasses();
+      if (radio.checked) {
         window.updatePromptVisibility();
       }
     });
-  }
-  
-  if (window.customPromptRadio) {
-    window.customPromptRadio.addEventListener('change', () => {
-      if (window.customPromptRadio.checked) {
-        window.updatePromptVisibility();
-      }
-    });
-  }
-  
-  if (window.noPromptRadio) {
-    window.noPromptRadio.addEventListener('change', () => {
-      if (window.noPromptRadio.checked) {
-        window.updatePromptVisibility();
-      }
-    });
-  }
+  });
+
+  // Set initial state
+  updateLabelClasses();
 }
 
 /**
