@@ -162,11 +162,13 @@ window.initTheme = async function() {
  * @param {string} themeName - The name/class of the theme to apply
  */
 window.applyTheme = function(themeName) {
-  // Remove all theme classes from body
+  // Remove any theme classes from both body and html elements
   document.body.classList.remove(...getThemeClasses());
-  
-  // Add the selected theme class
+  document.documentElement.classList.remove(...getThemeClasses());
+
+  // Add the selected theme class to body and html for early styling
   document.body.classList.add(themeName);
+  document.documentElement.classList.add(themeName);
   
   // Save the selected theme to localStorage
   localStorage.setItem('selectedTheme', themeName);
@@ -289,6 +291,8 @@ function updateCodeHighlighting(themeName) {
 window.initializeTheme = function() {
   const savedTheme = localStorage.getItem('selectedTheme') || 'theme-dark-gray';
   document.body.className = savedTheme;
+  document.documentElement.classList.remove(...getThemeClasses());
+  document.documentElement.classList.add(savedTheme);
   
   // Set the theme selector to the saved theme
   if (window.themeSelector) {
@@ -310,5 +314,4 @@ window.addEventListener('DOMContentLoaded', function() {
   // Wait a moment to ensure all resources are loaded
   setTimeout(function() {
     window.initTheme();
-  }, 100);
-}); 
+  }, 100);}); 
