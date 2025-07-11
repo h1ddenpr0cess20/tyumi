@@ -955,17 +955,8 @@ function renderConversationMessages(convo, imageCache) {
     }
   }
   
-  // Select the model if available
-  if (convo.model && window.modelSelector) {
-    const modelOption = Array.from(window.modelSelector.options).find(
-      option => option.value === convo.model
-    );
-    if (modelOption) {
-      window.modelSelector.value = convo.model;
-    }
-  }
-  
-  // Select the service if available
+  // Select the service first so that available models are populated correctly
+  let servicePromise = Promise.resolve();
   if (convo.service && window.serviceSelector && window.config) {
     const serviceOption = Array.from(window.serviceSelector.options).find(
       option => option.value === convo.service
@@ -974,27 +965,41 @@ function renderConversationMessages(convo, imageCache) {
       window.config.defaultService = convo.service;
       window.serviceSelector.value = convo.service;
 
-      if (convo.service === 'ollama' &&
-          window.config.services.ollama &&
-          typeof window.config.services.ollama.fetchAndUpdateModels === 'function') {
-        window.config.services.ollama.fetchAndUpdateModels()
-          .then(() => {
-            window.updateModelSelector();
-          })
+      if (
+        convo.service === 'ollama' &&
+        window.config.services.ollama &&
+        typeof window.config.services.ollama.fetchAndUpdateModels === 'function'
+      ) {
+        servicePromise = window.config.services.ollama
+          .fetchAndUpdateModels()
           .catch(err => {
             console.error('Failed to refresh Ollama models:', err);
+          })
+          .then(() => {
             window.updateModelSelector();
           });
       } else {
         window.updateModelSelector();
       }
     }
+  } else {
+    window.updateModelSelector();
   }
-  
-  // Update header info
-  if (window.updateHeaderInfo) {
-    window.updateHeaderInfo();
-  }
+
+  servicePromise.then(() => {
+    if (convo.model && window.modelSelector) {
+      const modelOption = Array.from(window.modelSelector.options).find(
+        option => option.value === convo.model
+      );
+      if (modelOption) {
+        window.modelSelector.value = convo.model;
+      }
+    }
+
+    if (window.updateHeaderInfo) {
+      window.updateHeaderInfo();
+    }
+  });
 
   // If a new conversation is started, ensure the system prompt is not from a loaded conversation
   if (!convo.id) {
