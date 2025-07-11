@@ -58,10 +58,13 @@ window.loadFromUrl = function() {
           const modelOption = Array.from(window.modelSelector.options).find(
             option => option.value === chatData.model
           );
-          
+
           if (modelOption) {
             window.modelSelector.value = chatData.model;
+            window.loadedModel = chatData.model;
             window.updateHeaderInfo();
+          } else {
+            window.loadedModel = null;
           }
         }
         
@@ -85,6 +88,7 @@ window.loadFromUrl = function() {
         // Set as current conversation
         window.currentConversationId = conversation.id;
         window.currentConversationName = conversation.name;
+        window.loadedService = conversation.service;
         
         // Save to IndexedDB
         window.saveConversationToDb(conversation)
@@ -226,6 +230,28 @@ window.saveCurrentConversation = function(meta = {}) {
     return markedMsg;
   });
   
+  // Determine current model and service for saving
+  let modelValue = 'Unknown';
+  if (window.modelSelector && window.modelSelector.value) {
+    const exists = Array.from(window.modelSelector.options).some(
+      opt => opt.value === window.modelSelector.value
+    );
+    if (exists) {
+      modelValue = window.modelSelector.value;
+    } else if (window.loadedModel) {
+      modelValue = window.loadedModel;
+    }
+  }
+
+  let serviceValue = 'Unknown';
+  if (window.serviceSelector && window.serviceSelector.value) {
+    serviceValue = window.serviceSelector.value;
+  } else if (window.loadedService) {
+    serviceValue = window.loadedService;
+  } else if (window.config && window.config.defaultService) {
+    serviceValue = window.config.defaultService;
+  }
+
   const conversation = {
     id: window.currentConversationId || ('' + now.getTime()),
     name: meta.name || window.currentConversationName || 'Conversation ' + now.toLocaleString(),
@@ -233,8 +259,8 @@ window.saveCurrentConversation = function(meta = {}) {
     updated: now.toISOString(),
     messages: markedMessages,
     images: processedImages,
-    model: window.modelSelector ? window.modelSelector.value : 'Unknown',
-    service: window.config ? window.config.defaultService : 'Unknown',
+    model: modelValue,
+    service: serviceValue,
     systemPrompt: {
       type: promptType,
       content: promptContent
@@ -312,6 +338,8 @@ window.startNewConversation = function(name = null) {
   window.currentConversationId = null;
   window.currentConversationName = name || null;
   window.loadedSystemPrompt = null; // Reset loaded system prompt
+  window.loadedModel = null;
+  window.loadedService = null;
   
   // Clear UI
   if (window.chatBox) {
@@ -955,17 +983,8 @@ function renderConversationMessages(convo, imageCache) {
     }
   }
   
-  // Select the model if available
-  if (convo.model && window.modelSelector) {
-    const modelOption = Array.from(window.modelSelector.options).find(
-      option => option.value === convo.model
-    );
-    if (modelOption) {
-      window.modelSelector.value = convo.model;
-    }
-  }
-  
-  // Select the service if available
+  // Select the service first so that available models are populated correctly
+  let servicePromise = Promise.resolve();
   if (convo.service && window.serviceSelector && window.config) {
     const serviceOption = Array.from(window.serviceSelector.options).find(
       option => option.value === convo.service
@@ -973,28 +992,49 @@ function renderConversationMessages(convo, imageCache) {
     if (serviceOption) {
       window.config.defaultService = convo.service;
       window.serviceSelector.value = convo.service;
+      window.loadedService = convo.service;
 
-      if (convo.service === 'ollama' &&
-          window.config.services.ollama &&
-          typeof window.config.services.ollama.fetchAndUpdateModels === 'function') {
-        window.config.services.ollama.fetchAndUpdateModels()
-          .then(() => {
-            window.updateModelSelector();
-          })
+      if (
+        convo.service === 'ollama' &&
+        window.config.services.ollama &&
+        typeof window.config.services.ollama.fetchAndUpdateModels === 'function'
+      ) {
+        servicePromise = window.config.services.ollama
+          .fetchAndUpdateModels()
           .catch(err => {
             console.error('Failed to refresh Ollama models:', err);
+          })
+          .then(() => {
             window.updateModelSelector();
           });
       } else {
         window.updateModelSelector();
       }
+    } else {
+      window.loadedService = null;
     }
+  } else {
+    window.updateModelSelector();
   }
-  
-  // Update header info
-  if (window.updateHeaderInfo) {
-    window.updateHeaderInfo();
-  }
+
+  servicePromise.then(() => {
+    if (convo.model && window.modelSelector) {
+      const modelOption = Array.from(window.modelSelector.options).find(
+        option => option.value === convo.model
+      );
+      if (modelOption) {
+        window.modelSelector.value = convo.model;
+        window.loadedModel = convo.model;
+      } else {
+        window.loadedModel = null;
+        console.warn(`Model ${convo.model} not found for service ${convo.service}`);
+      }
+    }
+
+    if (window.updateHeaderInfo) {
+      window.updateHeaderInfo();
+    }
+  });
 
   // If a new conversation is started, ensure the system prompt is not from a loaded conversation
   if (!convo.id) {

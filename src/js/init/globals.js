@@ -17,6 +17,8 @@ window.currentConversationName = null;
 window.generatedImages = [];
 window.currentGeneratedImageHtml = [];
 window.loadedSystemPrompt = null;
+window.loadedModel = null;
+window.loadedService = null;
 
 // Default settings are now pulled from config.js
 // window.DEFAULT_SYSTEM_PROMPT and window.DEFAULT_PERSONALITY are defined there
