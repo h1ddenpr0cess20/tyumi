@@ -211,7 +211,8 @@ window.config = {
                 'baidu/ERNIE-4.5-21B-A3B-PT',
                 'baidu/ERNIE-4.5-VL-424B-A47B-Base-PT', 
                 'failspy/llama-3-70B-Instruct-abliterated',
-                'google/gemma-3-27b-it'
+                'google/gemma-3-27b-it',
+                'moonshotai/Kimi-K2-Instruct'
             ],
             defaultModel: 'Qwen/Qwen3-30B-A3B',
         },

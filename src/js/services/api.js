@@ -381,7 +381,12 @@ window.prepareRequestData = function(message, uploads = [], shouldExcludeImages 
   // Add search_parameters for xAI Grok models
   if (currentService === 'xai' && model && model.toLowerCase().includes('grok')) {
     requestBody.search_parameters = {
-      mode: "auto"      
+      mode: "auto",
+      sources: [
+        {"type": "web", "safe_search": true},
+        {"type": "x"},
+        {"type": "news", "safe_search": true}
+      ],
     };
     if (window.VERBOSE_LOGGING) {
       console.info('Added search_parameters for Grok model');
