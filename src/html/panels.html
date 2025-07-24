@@ -346,6 +346,20 @@
         </div>
 
         <div class="setting-item">
+          <label for="meta-api-key">Meta AI API Key</label>
+          <div class="api-key-input-container">
+            <input type="password" id="meta-api-key" placeholder="Enter your Meta AI API key" aria-label="Meta AI API Key" />
+            <button class="toggle-password" data-for="meta-api-key" title="Show/Hide API Key">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <p class="info-text">Required for Llama models. <a href="https://ai.meta.com/llama/" target="_blank">Get API Key</a></p>
+        </div>
+
+        <div class="setting-item">
           <label for="github-api-key">GitHub Models API Key</label>
           <div class="api-key-input-container">
             <input type="password" id="github-api-key" placeholder="Enter your GitHub API key" aria-label="GitHub Models API Key" />
@@ -485,7 +499,7 @@
         <h3>About Tyumi</h3>
         <div class="about-content">
           <p>Version <span id="app-version"></span></p>
-          <p>Tyumi is an open source AI assistant platform that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, Hugging Face, GitHub Models, and local Ollama models. It offers advanced features like personality customization, tool calling (web search, image generation, etc.), text-to-speech, theme customization, and secure local storage of conversations and API keys.</p>
+          <p>Tyumi is an open source AI assistant platform that seamlessly integrates with multiple AI providers including OpenAI, Anthropic, Google, Mistral, xAI, Hugging Face, Meta AI, GitHub Models, and local Ollama models. It offers advanced features like personality customization, tool calling (web search, image generation, etc.), text-to-speech, theme customization, and secure local storage of conversations and API keys.</p>
           <p>All of your conversations and generated images are stored locally in your browser. You can easily manage your chat history and view your images in the image gallery. Make sure to download the images you want to keep, as they are not stored on any server and will be lost if you clear your browser data.</p>
           <p>For more information, visit the <a href="https://github.com/h1ddenpr0cess20/Tyumi" target="_blank" rel="noopener">GitHub Repository</a>.</p>
           

@@ -231,6 +231,9 @@ window.populateServiceSelector = function() {
       case 'huggingface':
         displayName = 'Hugging Face';
         break;
+      case 'meta':
+        displayName = 'Meta AI';
+        break;
       case 'github':
         displayName = 'GitHub Models';
         break;

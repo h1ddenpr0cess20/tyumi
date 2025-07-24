@@ -216,6 +216,22 @@ window.config = {
             ],
             defaultModel: 'Qwen/Qwen3-30B-A3B',
         },
+
+        // Meta AI API
+        meta: {
+            baseUrl: 'https://api.llama.com/v1',
+            apiKey: '',
+            models: [
+                'Llama-4-Maverick-17B-128E-Instruct-FP8',
+                'Llama-4-Scout-17B-16E-Instruct-FP8',
+                'Llama-3.3-70B-Instruct',
+                'Llama-3.3-8B-Instruct',
+                'Cerebras-Llama-4-Maverick-17B-128E-Instruct',
+                'Cerebras-Llama-4-Scout-17B-16E-Instruct',
+                'Groq-Llama-4-Maverick-17B-128E-Instruct'
+            ],
+            defaultModel: 'Llama-4-Maverick-17B-128E-Instruct-FP8',
+        },
         
         // GitHub Models
         github: {
